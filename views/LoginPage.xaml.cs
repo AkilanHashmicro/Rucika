@@ -167,10 +167,8 @@ namespace SalesApp.views
                         db_layout.IsVisible = true;
                       //  db_layout1.IsVisible = true;
                        // db_layout2.IsVisible = true;
-
                     }
-
-                   
+                                       
                     dbPicker.SelectedIndex = 0;
                     if (dbData.Length >=1)
                     {
@@ -210,8 +208,9 @@ namespace SalesApp.views
 
             // Settings.UserUrlName = "http://laborindo.equip-sapphire.com";
 
-              Settings.UserUrlName = "https://laborindo.hashmicro.com";
-                dbPicker.SelectedItem = "laborindo";
+                Settings.UserUrlName = "https://laborindo.hashmicro.com";
+              //  dbPicker.SelectedItem = "laborindo";
+                dbPicker.SelectedItem = "test25";
 
                   //Settings.UserUrlName = "http://beta-dev1.hashmicro.com";
                   //dbPicker.SelectedItem = "MBTurssco";

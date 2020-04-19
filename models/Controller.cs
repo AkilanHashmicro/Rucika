@@ -157,9 +157,11 @@ namespace SalesApp.models
 
                 App.user_location_string = res["location"].ToString();
 
-               
+                App.branchList = res["branch"].ToObject<List<branch>>();
+                App.warehousList = res["warehouse"].ToObject<List<warehouse>>();
+                App.analayticList = res["analytic_account"].ToObject<List<analytic>>();
 
-
+                App.cusList = res["Customers_List"].ToObject<List<Customers>>();
 
  // App User DB Starts Here ********************//
 
@@ -627,6 +629,8 @@ namespace SalesApp.models
 
                 App.cusdict = res["Customers"].ToObject<Dictionary<int, string>>();
 
+                App.cusList = res["Customers_List"].ToObject<List<Customers>>();
+
                 App.reasondict = res["lost_reason"].ToObject<Dictionary<int, string>>();
 
                 App.salesteam = res["sales_team"].ToObject<Dictionary<int, string>>();
@@ -643,6 +647,11 @@ namespace SalesApp.models
                 App.productList = res["Products"].ToObject<List<ProductsList>>();
 
                  App.locationsList = res["Location"].ToObject<List<LocationsList>>();
+
+                App.branchList = res["branch"].ToObject<List<branch>>();
+                App.warehousList = res["warehouse"].ToObject<List<warehouse>>();
+                App.analayticList = res["analytic_account"].ToObject<List<analytic>>();
+
                 return App.crmList;
             }
             catch (Exception ea)
@@ -862,6 +871,13 @@ namespace SalesApp.models
             string flag = odooConnector.odooUpdatecrmOppMeeting(modelName, methodName, vals);
             return flag;
         }
+
+        public float getsubtotal(string modelName, string methodName, float unit_price, float quantity, List<int> taxids, float disount)
+        {
+            float flag = odooConnector.odoogetSubtotal(modelName, methodName, unit_price,quantity,taxids,disount);
+            return flag;
+        }
+
 
         public bool UpdateSaleOrder(string modelName, string methodName, int sale_id, Dictionary<string, dynamic> vals)
         {

@@ -534,27 +534,27 @@
                             
                                 <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width=".35*"/>
-                                        <ColumnDefinition Width=".25*"/>
                                         <ColumnDefinition Width=".10*"/>
                                         <ColumnDefinition Width=".15*"/>
                                         <ColumnDefinition Width=".15*"/>
+                                        <ColumnDefinition Width=".25*"/>
                                     </Grid.ColumnDefinitions>
                             
                     <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="0"  HorizontalOptions="Start" BackgroundColor="White"/>
                     <Label Grid.Row="0" Grid.Column="0" Text="Product" Margin="5,0,0,0"  TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
                     <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="0"  HorizontalOptions="End" BackgroundColor="White"/>
 
-                    <Label Grid.Row="0" Grid.Column="1" Text="Price Subtotal" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                    <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="1"  HorizontalOptions="End" BackgroundColor="White"/>
+                    <Label Grid.Row="0" Grid.Column="4" Text="Subtotal" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                    <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="4"  HorizontalOptions="End" BackgroundColor="White"/>
                    
-                    <Label Grid.Row="0" Grid.Column="2" Text="Qty" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="Qty" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="1"  HorizontalOptions="End" BackgroundColor="White"/>
+
+                     <Label Grid.Row="0" Grid.Column="2" Text="Tax" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                     <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="2"  HorizontalOptions="End" BackgroundColor="White"/>
 
-                     <Label Grid.Row="0" Grid.Column="3" Text="Tax" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="3" Text="Dis %" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                     <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="3"  HorizontalOptions="End" BackgroundColor="White"/>
-
-                    <Label Grid.Row="0" Grid.Column="4" Text="Dis %" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="4"  HorizontalOptions="End" BackgroundColor="White"/>
                    
                      </Grid>
 
@@ -569,29 +569,29 @@
                                             
                                    <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width=".35*"/>
-                                        <ColumnDefinition Width=".25*"/>
                                         <ColumnDefinition Width=".10*"/>
                                         <ColumnDefinition Width=".15*"/>
                                         <ColumnDefinition Width=".15*"/>
+                                        <ColumnDefinition Width=".25*"/>
                                     </Grid.ColumnDefinitions>
                                      
                                         <StackLayout Grid.Column="0" VerticalOptions="FillAndExpand">                                           
-                                        <Label x:Name="SNo"  Text="{Binding product_name}" Margin="10,5,5,5" TextColor="#102b1e"  HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                        <Label x:Name="SNo"  Text="{Binding product_name}" Margin="10,5,5,5" TextColor="#102b1e"  HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                         </StackLayout>
-                                        <StackLayout Grid.Column="1">
-                                            <Label  x:Name="Brand"  Text="{Binding price_subtotal}" TextColor="#102b1e" Margin="5" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                        <StackLayout Grid.Column="4">
+                                            <Label  x:Name="Brand"  Text="{Binding price_subtotal}" TextColor="#102b1e" Margin="5" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
                                             
-                                           <StackLayout Grid.Column="2">
-                                            <Label   Text="{Binding product_uom_qty}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                           <StackLayout Grid.Column="1">
+                                            <Label   Text="{Binding product_uom_qty}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
 
-                                            <StackLayout Grid.Column="3">
-                                            <Label   Text="{Binding tax_names}" Margin="0,5,0,5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                            <StackLayout Grid.Column="2">
+                                            <Label   Text="{Binding tax_names}" Margin="0,5,0,5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
 
-                                             <StackLayout Grid.Column="4">
-                                            <Label   Text="{Binding discount}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                             <StackLayout Grid.Column="3">
+                                            <Label   Text="{Binding discount}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
                                             
                                                 </Grid>
@@ -864,18 +864,7 @@
                         
                   <BoxView Color="Transparent" HeightRequest="5"/>
 
-                       <Grid Padding="10,0,0,0"> 
-                            <StackLayout Grid.Row="0" >
-                            <Label Text="Location" TextColor="#102b1e"  FontAttributes="Bold" FontSize="Small" />
-                        </StackLayout>
-                            
-                        <StackLayout Grid.Row="1" Padding="5,5,0,0" >
-                            <Label x:Name="userlocation"  FontSize="Small" TextColor="#102b1e"  IsEnabled="False"/>
-                        </StackLayout>
-                        </Grid>
-
-                      
-                    
+              
                     <Grid Padding="10,0,0,0"> 
                         <StackLayout Grid.Row="0"  Padding="0,5,0,0">
                             <Label Text="Salesperson"  FontAttributes="Bold" TextColor="#102b1e" FontSize="Small" />
@@ -891,7 +880,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" x:Name="salesperson_picker" TextColor="Gray" />  
+                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" x:Name="salesperson_picker" TextColor="Black" />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
                                 </StackLayout>
@@ -929,7 +918,53 @@
                             
                     </Grid>
 
-                     
+          <Grid Padding="10,0,0,0">
+                        <StackLayout Grid.Row="0"  Padding="0,5,0,0">
+                            <Label Text="Branch" TextColor="#102b1e" FontAttributes="Bold"  FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="1"  x:Name="branch_noedit" Padding="5,5,0,0">
+                            <Label x:Name="branch_name"  FontSize="Small" TextColor="#102b1e"  IsEnabled="False"/>
+                        </StackLayout>
+
+                        <StackLayout  Grid.Row="1" x:Name="branch_edit" IsVisible="false">
+                           <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions> 
+                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" x:Name="branch_picker" TextColor="Black" />  
+                            <StackLayout Grid.Column="1" >
+                                <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
+                                </StackLayout>
+                          </Grid>                                              
+                        </StackLayout>  
+                            
+                         </Grid>
+
+                               <Grid Padding="10,0,0,0">
+                        <StackLayout Grid.Row="0"  Padding="0,5,0,0">
+                            <Label Text="Analytic Account" TextColor="#102b1e" FontAttributes="Bold"  FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="1"  x:Name="analytic_noedit" Padding="5,5,0,0">
+                            <Label x:Name="analytic_account"  FontSize="Small" TextColor="#102b1e"  IsEnabled="False"/>
+                        </StackLayout>
+
+                          <StackLayout   Grid.Row="1"  x:Name="analytic_edit" IsVisible="false">
+                           <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions> 
+                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" x:Name="analytic_picker" TextColor="Black" />  
+                            <StackLayout Grid.Column="1" >
+                                <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
+                                </StackLayout>
+                          </Grid>                                              
+                        </StackLayout>
+                            
+                     </Grid>
 
                      <Grid Padding="10,0,0,0">
                         <StackLayout Grid.Row="0"  Padding="0,5,0,0">
@@ -991,6 +1026,68 @@
                         </StackLayout>
      
                 </StackLayout>
+
+
+     
+      <StackLayout Padding="10" x:Name="OtherInfoStack3" IsVisible="false">
+
+                           <Label Text="Shipping Information" Margin="5,0,0,0" TextColor="#102b1e" FontAttributes="Bold" FontSize="Medium"/>
+
+            <StackLayout BackgroundColor="White" >
+                                                
+                                       <Grid Padding="10,0,0,0">
+                        <StackLayout Grid.Row="0"  Padding="0,5,0,0">
+                            <Label Text="Warehouse" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="1"  x:Name="wh_noedit" Padding="5,5,0,0">
+                            <Label x:Name="WH"  FontSize="Small" TextColor="#102b1e" IsEnabled="False"/>
+                        </StackLayout>
+
+                         <StackLayout Grid.Row="1"  x:Name="wh_edit" IsVisible="false">
+                           <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions> 
+                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" x:Name="warehouse_picker" TextColor="Black" />  
+                              <StackLayout Grid.Column="1" >
+                                <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
+                                </StackLayout>
+                          </Grid>                                     
+                             </StackLayout>
+                             
+                    </Grid>
+
+                     <Grid Padding="10,0,0,0">
+                        <StackLayout Grid.Row="0"  Padding="0,5,0,0">
+                            <Label Text="Shipping Policy" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="1" x:Name="sp_noedit" Padding="5,5,0,0">
+                            <Label x:Name="shipping_policy"  FontSize="Small" TextColor="#102b1e"  IsEnabled="False"/>
+                        </StackLayout>
+
+                         <StackLayout Grid.Row="1" x:Name="sp_edit" IsVisible="false">
+                           <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions> 
+                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" x:Name="shipping_picker" TextColor="Black" />  
+                              <StackLayout Grid.Column="1" >
+                                <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
+                                </StackLayout>
+                          </Grid>                                     
+                             </StackLayout>                       
+                     </Grid>
+
+               </StackLayout>
+
+           </StackLayout>
+     
+
+                
 
                 <BoxView Color="Transparent" HeightRequest="10"/>
 
@@ -1066,7 +1163,7 @@
                  <BoxView Color="Transparent" HeightRequest="10"/>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" x:Name="savebtn_layout" IsVisible="false">
-                    <Button Text="Save" TextColor="White" BackgroundColor="Black" Clicked="save_clicked"/>
+                    <Button Text="Save" TextColor="White" BackgroundColor="Black" Clicked="save_clickedAsync"/>
                     <Button Text="Cancel" TextColor="Black" BackgroundColor="White" Clicked="cancel_clicked"/>
                 </StackLayout>
                 

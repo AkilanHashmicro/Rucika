@@ -259,6 +259,9 @@
       <DependentUpon>AttachmentPopupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\IDownloader.cs" />
+    <Compile Include="Pages\CustomerSelectionPage.xaml.cs">
+      <DependentUpon>CustomerSelectionPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -406,6 +409,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\AttachmentPopupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\CustomerSelectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

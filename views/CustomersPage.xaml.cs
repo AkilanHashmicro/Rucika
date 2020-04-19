@@ -29,14 +29,14 @@ namespace SalesApp.views
             customerdata = Controller.InstanceCreation().GetCustomerData();
             Customerlist.ItemsSource = customerdata;
              
-            var plusRecognizer = new TapGestureRecognizer();
-            plusRecognizer.Tapped += (s, e) =>
-            {
-              //  App.Current.MainPage = new MasterPage(new CRMLeadCreationPage());
+            //var plusRecognizer = new TapGestureRecognizer();
+            //plusRecognizer.Tapped += (s, e) =>
+            //{
+            //  //  App.Current.MainPage = new MasterPage(new CRMLeadCreationPage());
 
-                Navigation.PushPopupAsync( new CRMLeadCreationPage());
-            };
-            plus.GestureRecognizers.Add(plusRecognizer);
+            //    Navigation.PushPopupAsync( new CRMLeadCreationPage());
+            //};
+            //plus.GestureRecognizers.Add(plusRecognizer);
 
         }
 
@@ -60,6 +60,47 @@ namespace SalesApp.views
             ViewCell obj = (ViewCell)sender;
            // obj.View.BackgroundColor = Color.FromHex("#414141");  
             obj.View.BackgroundColor = Color.White;
+        }
+
+        private void Toolbar_Search_Activated(object sender, EventArgs e)
+        {
+            if (searchBar.IsVisible)
+            {
+                searchBar.IsVisible = false;
+            }
+            else { searchBar.IsVisible = true; }
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(e.NewTextValue))
+            {
+
+                Customerlist.ItemsSource = customerdata;
+                // Customerlist.HeightRequest = 60 * customerdata.Count;
+
+
+                if (searchBar.Text != "")
+                {
+                    // btn_layout.IsVisible = true;
+                }
+
+                else if (searchBar.Text == "")
+                {
+                    //  btn_layout.IsVisible = false;
+                }
+            }
+            else
+            {
+
+                var data = customerdata.Where(x => x.name.ToLower().Contains(e.NewTextValue.ToLower()));
+                // Customerlist.HeightRequest = 60 * data.Count();
+                Customerlist.ItemsSource = data;
+
+
+            }
+
         }
 
     }

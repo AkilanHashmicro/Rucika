@@ -330,31 +330,14 @@
                         
                 </Grid>
 
-                  <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand"  x:Name="OrderLineList1">
+                  <StackLayout   x:Name="OrderLineList1">
                     <ListView SeparatorColor="Blue"  x:Name="orderListview" HasUnevenRows="true" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                                 <ViewCell>
                                     <Grid>
                                             
-                                        <!--<Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width=".40*"/>
-                                            <ColumnDefinition Width=".40*"/>
-                                            <ColumnDefinition Width=".20*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <StackLayout Grid.Column="0">                                           
-                                        <Label x:Name="SNo"  Text="{Binding product_name}" Margin="5" TextColor="Black" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
-                                        </StackLayout>
-                                        <StackLayout Grid.Column="1">
-                                            <Label  x:Name="Brand"  Text="{Binding price_subtotal}" TextColor="Black" Margin="5" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
-                                            </StackLayout>
-                                        <StackLayout Grid.Column="2">
-                                            <Label   Text="{Binding product_uom_qty}" Margin="5" TextColor="Black" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
-                                            </StackLayout>-->
-
+                                  
                                             <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width=".35*"/>
                                         <ColumnDefinition Width=".25*"/>
@@ -363,23 +346,23 @@
                                         <ColumnDefinition Width=".15*"/>
                                     </Grid.ColumnDefinitions>
                                      
-                                        <StackLayout Grid.Column="0" VerticalOptions="FillAndExpand">                                           
-                                        <Label x:Name="SNo"  Text="{Binding product_name}" Margin="10,5,5,5" TextColor="#102b1e"  HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                        <StackLayout Grid.Column="0" >                                           
+                                        <Label x:Name="SNo"  Text="{Binding product_name}" Margin="10,5,5,5" TextColor="#102b1e"  HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                         </StackLayout>
                                         <StackLayout Grid.Column="1">
-                                            <Label  x:Name="Brand"  Text="{Binding price_subtotal}" TextColor="#102b1e" Margin="5" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                            <Label  x:Name="Brand"  Text="{Binding price_subtotal}" TextColor="#102b1e" Margin="5" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
                                             
                                            <StackLayout Grid.Column="2">
-                                            <Label   Text="{Binding product_uom_qty}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                            <Label   Text="{Binding product_uom_qty}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
 
                                             <StackLayout Grid.Column="3">
-                                            <Label   Text="{Binding tax_namecut}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                            <Label   Text="{Binding tax_namecut}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
 
                                              <StackLayout Grid.Column="4">
-                                            <Label   Text="{Binding discount}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                            <Label   Text="{Binding discount}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
 
                                             
@@ -390,7 +373,7 @@
                             </ListView>
                         </StackLayout>
                     
-                    </StackLayout>
+                   </StackLayout>
 
                    <StackLayout Padding="10,0,10,0" x:Name="OtherInfoStack1" IsVisible="false">
 
@@ -429,6 +412,33 @@
                             <Label x:Name="CR"  FontSize="Small" TextColor="Black"  IsEnabled="False"/>
                         </StackLayout>
                     </Grid>
+
+                    <BoxView Color="Transparent" HeightRequest="5"/>
+                            
+                     <Grid >
+                        <StackLayout Grid.Row="0" Grid.Column="0" Padding="0,5,0,0">
+                            <Label Text="Branch" TextColor="#102b1e" FontAttributes="Bold"  FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="0" Grid.Column="1"  x:Name="branch_noedit" >
+                            <Label x:Name="branch_name"  FontSize="Small" TextColor="#102b1e"  IsEnabled="False"/>
+                        </StackLayout>
+       
+                     </Grid>
+
+                      <BoxView Color="Transparent" HeightRequest="5"/>
+
+                      <Grid >
+                        <StackLayout Grid.Row="0"  Grid.Column="0">
+                            <Label Text="Analytic Account" TextColor="#102b1e" FontAttributes="Bold"  FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="0" Grid.Column="1"  x:Name="analytic_noedit" >
+                            <Label x:Name="analytic_account"  FontSize="Small" TextColor="#102b1e"  IsEnabled="False"/>
+                        </StackLayout>
+                           
+                     </Grid>
+                            
                     </StackLayout>
 
                     </Frame>
@@ -468,9 +478,51 @@
                      </Frame>
                     </StackLayout>
 
+          <StackLayout Padding="10,0,10,0" x:Name="OtherInfoStack3" IsVisible="false">
+
+                   <Frame BackgroundColor="White" CornerRadius="5" HasShadow="true">
+                        <StackLayout>
+                     
+                           <Label Text="Shipping Information" Margin="5,0,0,0" TextColor="#102b1e" FontAttributes="Bold" FontSize="Medium"/>
+
+            <StackLayout BackgroundColor="White" >
+                                                
+                    <Grid Padding="10,0,0,0">
+                        <StackLayout Grid.Row="0" Grid.Column="0" >
+                            <Label Text="Warehouse" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="0" Grid.Column="1"  x:Name="wh_noedit">
+                            <Label x:Name="WH"  FontSize="Small" TextColor="#102b1e" IsEnabled="False"/>
+                        </StackLayout>
+
+                             
+                    </Grid>
+
+                     <Grid Padding="10,0,0,0">
+                        <StackLayout Grid.Row="0" Grid.Column="0" >
+                            <Label Text="Shipping Policy" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small" />
+                        </StackLayout>
+                            
+                        <StackLayout Grid.Row="0" Grid.Column="1" x:Name="sp_noedit">
+                            <Label x:Name="shipping_policy"  FontSize="Small" TextColor="#102b1e"  IsEnabled="False"/>
+                        </StackLayout>
+                      
+                     </Grid>
+
+
+                </StackLayout>
+
+             </StackLayout>
+
+                    </Frame>
+                    </StackLayout>
+     
+                
+
                     <!-- //Total Cal  -->             
 
-                <BoxView Color="Transparent" HeightRequest="15"/>
+                <BoxView Color="Transparent" HeightRequest="5"/>
 
      <StackLayout x:Name="total_cal">
 

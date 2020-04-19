@@ -344,17 +344,20 @@ namespace SalesApp.views
 
         private void meetingStackClicked(object sender, EventArgs e)
         {
-            Navigation.PushPopupAsync(new MeetingsListviewPage(cusobj.id));
+          //  Navigation.PushPopupAsync(new MeetingsListviewPage(cusobj.id));
+            Navigation.PushPopupAsync(new MeetingsListviewPage(customer_id));
         }
 
         private void oppoClicked(object sender, EventArgs e)
         {
-            Navigation.PushPopupAsync(new OppurtunityListviewPage(cusobj.id));
+          //  Navigation.PushPopupAsync(new OppurtunityListviewPage(cusobj.id));
+            Navigation.PushPopupAsync(new OppurtunityListviewPage(customer_id));
         }
 
         private void saleClicked(object sender, EventArgs e)
         {
-            Navigation.PushPopupAsync(new SaleListviewPage(cusobj.id));
+           // Navigation.PushPopupAsync(new SaleListviewPage(cusobj.id));
+            Navigation.PushPopupAsync(new SaleListviewPage(customer_id));
         }
 
         private void CusListView_ItemTapped(object sender, ItemTappedEventArgs e)

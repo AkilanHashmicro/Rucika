@@ -5,14 +5,24 @@
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              Title=" Customers" BackgroundColor="#F0EEEF">   <!--xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"-->
-
+   <ContentPage.ToolbarItems>
+      <!--  <ToolbarItem Icon="filter.png" Activated="Toolbar_Filter_Activated" Priority="4"></ToolbarItem>-->
+        <ToolbarItem Icon="search.png" Activated="Toolbar_Search_Activated"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <ScrollView>
             <RelativeLayout >
                 <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"  
              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
 
+                    
                     <StackLayout>
+
+                    <StackLayout Padding="0,3,0,0">
+                        <SearchBar x:Name="searchBar" Text="" Placeholder="search customer" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="false"/> 
+                  </StackLayout>
+                        
                        <ListView x:Name="Customerlist" ItemTapped="CustomerListView_ItemTappedAsync" SeparatorColor=" Black" BackgroundColor="#F0EEEF" HasUnevenRows="True">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -63,9 +73,9 @@
                     </StackLayout>
 
                 </ContentView>
-                <Image Source="fab.png" x:Name="plus" WidthRequest="50" HeightRequest="60" 
+                <!--<Image Source="fab.png" x:Name="plus" WidthRequest="50" HeightRequest="60" 
                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-55}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-65}" />
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-65}" />-->
             </RelativeLayout>
         </ScrollView>
     </ContentPage.Content>

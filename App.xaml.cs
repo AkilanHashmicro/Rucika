@@ -59,6 +59,9 @@ namespace SalesApp
         public static List<ProductsList> productList = new List<ProductsList>();
         public static List<LocationsList> locationsList = new List<LocationsList>();
        
+        public static List<branch> branchList = new List<branch>();
+        public static List<warehouse> warehousList = new List<warehouse>();
+        public static List<analytic> analayticList = new List<analytic>();
 
         public static List<taxes> taxList = new List<taxes>();
 

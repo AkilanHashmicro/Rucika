@@ -33,8 +33,13 @@ namespace SalesApp.views
             PT.Text = item.payment_term;
             SP.Text = item.sales_person;
             ST.Text = item.sales_team;
-            CR.Text = item.customer_reference;
+            CR.Text = item.client_order_ref;
             FP.Text = item.fiscal_position;
+
+            branch_name.Text = item.branch_id;
+            WH.Text = item.warehouse_id;
+            shipping_policy.Text = item.picking_policy;
+            analytic_account.Text = item.project_id;
 
             orderListview.ItemsSource = item.order_line;
 
@@ -53,7 +58,7 @@ namespace SalesApp.views
                 attach_name.Text = attachres.Count + " " + "Attachment(s)";
             }
 
-            orderListview.HeightRequest = item.order_line.Count * 35;
+            orderListview.HeightRequest = item.order_line.Count * 50;
 
             amt_untax.Text = item.amount_untaxed;
             amt_tax.Text = item.amount_tax;
@@ -210,6 +215,7 @@ namespace SalesApp.views
             orderLineList.IsVisible = true;
             OtherInfoStack1.IsVisible = false;
             OtherInfoStack2.IsVisible = false;
+            OtherInfoStack3.IsVisible = false;
             tab1frame.BackgroundColor = Color.FromHex("#363E4B");
             tab1borderstack.BackgroundColor = Color.FromHex("#363E4B");
             OrderLineList1.IsVisible = true;
@@ -245,6 +251,7 @@ namespace SalesApp.views
             orderLineList.IsVisible = false;
             OtherInfoStack1.IsVisible = true;
             OtherInfoStack2.IsVisible = true;
+            OtherInfoStack3.IsVisible = true;
             tab1frame.BackgroundColor = Color.FromHex("#363E4B");
             tab1borderstack.BackgroundColor = Color.White;
             OrderLineList1.IsVisible = false;

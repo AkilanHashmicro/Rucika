@@ -390,6 +390,13 @@ namespace SalesApp.models
             }
            
             public List<OrderLine> order_line { get; set; }
+            public string warehouse_id { get; set; }
+            public string team_id { get; set; }
+            public string client_order_ref { get; set; }
+            public string branch_id { get; set; }
+            public string picking_policy { get; set; }
+            public string project_id { get; set; }
+
         }
 
 
@@ -518,6 +525,13 @@ namespace SalesApp.models
 
             public int id { get; set; }
 
+            public string warehouse_id { get; set; }
+            public string team_id { get; set; }
+            public string client_order_ref { get; set; }
+            public string branch_id { get; set; }
+            public string picking_policy { get; set; }
+            public string project_id { get; set; }
+
             //   var rootObj = JsonConvert.DeserializeObject<sa>(myjson);
 
         }
@@ -600,6 +614,17 @@ namespace SalesApp.models
             public string name { get; set; }
         }
 
+
+        //public class Customers_List
+        //{
+        //    // [JsonProperty("customer_lead")]
+        //    public int id { get; set; }
+
+        //    // [JsonProperty("price_unit")]
+        //    public string name { get; set; }
+        //}
+
+
         [Table("stages")]
         public class stages
         {
@@ -619,6 +644,28 @@ namespace SalesApp.models
             // [JsonProperty("price_unit")]
             public string name { get; set; }
         }
+
+        public class warehouse
+        {
+            
+            public int id { get; set; }
+            public string name { get; set; }
+        }
+
+        public class branch
+        {
+
+            public int id { get; set; }
+            public string name { get; set; }
+        }
+
+        public class analytic
+        {
+
+            public int id { get; set; }
+            public string name { get; set; }
+        }
+
 
         public class paytermList
         {
@@ -710,6 +757,13 @@ namespace SalesApp.models
                 // tapCommand = new Command<object>(OnTapped);
             }
 
+            //public taxes(string name, int id)
+            //{
+            //    Id = id;
+            //    Name = name;
+            //    // tapCommand = new Command<object>(OnTapped);
+            //}
+
             private void OnTapped(object obj)
             {
                 taxes myobj = obj as taxes;
@@ -752,11 +806,27 @@ namespace SalesApp.models
             public string discount { get; set; }
 
             public string multi_discount { get; set; }
+
+            public int subtotal { get; set; }
             // public string Taxes { get; set; }
 
             public List<int> tax_id { get; set; }
 
-            public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount)
+            //public int warehouse_id { get; set; }
+            //public string picking_policy { get; set; }
+            //public int user_id { get; set; }
+            //public int team_id { get; set; }
+            //public int branch_id { get; set; }
+            //public int project_id { get; set; }
+            //public string client_order_ref { get; set; }
+
+
+            //public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount,
+            //                     int Warehouse_id, string Picking_policy, int User_id, int Team_id, int Branch_id, int Project_id, string Client_Order_Ref)
+            //{
+
+            public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount, int sub_total
+                                  )
             {
                 product = Product;
                 ordered_qty = Ordered_Qty;
@@ -766,6 +836,13 @@ namespace SalesApp.models
                 taxstring = tax_string;
                 discount = fin_discount;
                 multi_discount = multidiscount;
+                subtotal = sub_total;
+                //warehouse_id = Warehouse_id;
+                //picking_policy = Picking_policy;
+                //user_id = User_id;
+                //team_id = Team_id;
+                //project_id = Project_id;
+                //client_order_ref = Client_Order_Ref;
             }
 
 
@@ -788,7 +865,6 @@ namespace SalesApp.models
             //public string unit_price { get; set; }
             //public string description { get; set; }
             // public string Taxes { get; set; }
-
 
             public string customer_lead { get; set; }
 

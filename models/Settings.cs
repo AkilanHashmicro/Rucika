@@ -36,6 +36,15 @@ namespace SalesApp.models
         }
 
 
+        private const string UserIdKey = "userid_key";
+        private static readonly int UserIdDefault = 0;
+
+        public static int UserId
+        {
+            get { return AppSettings.GetValueOrDefault<int>(UserIdKey, UserIdDefault); }
+            set { AppSettings.AddOrUpdateValue<int>(UserIdKey, value); }
+        }
+
         private const string UrlKey = "url_key";
         private static readonly string UrlDefault = string.Empty;
 

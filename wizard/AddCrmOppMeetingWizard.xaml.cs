@@ -24,7 +24,7 @@ namespace SalesApp.wizard
           
             attnListView.HeightRequest = 0;
 
-            attnPicker.ItemsSource = App.cusdict.Select(d => d.Value).ToList();
+            attnPicker.ItemsSource = App.cusList.Select(d => d.name).ToList();;
             attnPicker.SelectedIndex = -1;
            // Attn.ItemsSource = App.cusdict;
 

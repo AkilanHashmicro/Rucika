@@ -13,7 +13,7 @@ using Xamarin.Forms.Xaml;
 using Acr.UserDialogs;
 using SalesApp.Pages;
 using Rg.Plugins.Popup.Services;
-
+using SalesApp.DBModel;
 
 namespace SalesApp.views
 {
@@ -113,8 +113,7 @@ namespace SalesApp.views
 
             //Detail = new NavigationPage((page)) { BarBackgroundColor = Color.FromHex("#414141") };
 
-            Detail = new NavigationPage((page)) { BarBackgroundColor = Color.FromHex("#363E4B") };
-
+             Detail = new NavigationPage((page)) { BarBackgroundColor = Color.FromHex("#363E4B") };
 
           //  { BarBackgroundColor = Color.FromHex("#414141") }
 
@@ -122,26 +121,16 @@ namespace SalesApp.views
 
         }
 
-        private async Task OnMenuItemTappedAsync(object sender, ItemTappedEventArgs ea)
+        private async void OnMenuItemTappedAsync(object sender, ItemTappedEventArgs ea)
         {
           
             try
             {
 
                 MasterPageItem masterItemObj = (MasterPageItem)ea.Item;
-                string name = masterItemObj.Title;
-                //Settings.CurrentMenu = name;
-
-                //if(masterItemObj.Title == "CRM")
-                //{
-                //    masterItemObj.Icon = "crmcolor.png";
-                //    masterItemObj.Title = "Test Tiele";
-                //}
-
+                string name = masterItemObj.Title;         
                 if (name == "Sign Out")
                 {
-                    //var alertResult = new LogoutAlert();
-                    //await PopupNavigation.PushAsync(alertResult);
                     var data = await DisplayAlert("Logout Alert", "Are you sure you want to log out?", "OK", "Cancel");
                     if (data)
                     {
@@ -149,6 +138,14 @@ namespace SalesApp.views
                         Settings.UserPassword = "";
                         Settings.PrefKeyUserDetails = "";
                         App.userid = 0;
+                        Settings.UserId = 0;
+                        App.cusList.Clear();
+                        App.oppo_swipped = true;
+                        App.draftquot_swipped = true;
+                        App.quot_swipped = true;
+                        App.so_swipped = true;
+                        App._connection.CreateTable<UserModelDB>();
+                        App._connection.Query<UserModelDB>("DELETE from UserModelDB");
                         App.Current.MainPage = new NavigationPage(new LoginPage());
                     }
                     else
@@ -160,29 +157,11 @@ namespace SalesApp.views
                 else
                 {
                     Type page = masterItemObj.TargetType;
-
-                  //  masterItemObj.Icon = "crmcolor.png";
-
-                    var currentpage = new LoadingAlert();
-                    await PopupNavigation.PushAsync(currentpage);
-
-                    Detail = new NavigationPage((Page)Activator.CreateInstance(page)) { BarBackgroundColor = Color.FromHex("#363E4B") };
-
+                    act_ind.IsRunning = true;
+                    await Task.Run(() =>  Detail = new NavigationPage((Page)Activator.CreateInstance(page)) { BarBackgroundColor = Color.FromHex("#363E4B") });
+                    act_ind.IsRunning = false;
                     IsPresented = false;
 
-
-                    //await Task.Run(() =>
-                    //{
-                    //    Device.BeginInvokeOnMainThread(() =>
-                    //    {
-                    //        Detail = new NavigationPage((Page)Activator.CreateInstance(page)) ;  
-                    //        //{ BarBackgroundColor = Color.FromHex("#414141") }
-                    //        IsPresented = false;
-
-                    //    });
-                    //});
-
-                    Loadingalertcall();
                 }
             }
 
@@ -191,19 +170,12 @@ namespace SalesApp.views
                 if (App.NetAvailable == false)
                 {
                     await DisplayAlert("Alert", "Need Internet Connection", "Ok");
-                    Loadingalertcall();
+                   
                 }
 
             }
 
         }
-
-       
-        async void Loadingalertcall()
-        {
-            await PopupNavigation.PopAllAsync();
-        }
-
 
 
         private void ViewCell_Tapped(object sender, EventArgs e)

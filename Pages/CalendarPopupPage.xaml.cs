@@ -53,7 +53,7 @@ namespace SalesApp.Pages
             update_stack.IsVisible = false;
             create_stack.IsVisible = true;
 
-            attspicker1.ItemsSource = App.cusdict.Select(x => x.Value).ToList();
+            attspicker1.ItemsSource = App.cusList.Select(x => x.name).ToList();
             attspicker1.SelectedIndex = -1;
             attspicker1.Title = "Select";
 
@@ -72,8 +72,8 @@ namespace SalesApp.Pages
 
             atnIdsList.Add(App.partner_id);
 
-            var keyValuePair = App.cusdict.Single(x => x.Key == App.partner_id);
-            string value = keyValuePair.Value;
+            string value = App.cusList.Single(x => x.id == App.partner_id).name;
+            //string value = keyValuePair.Value;
             attList.Add(new AttendeesList(value));
             attnListView.ItemsSource = attList;
 
@@ -125,7 +125,7 @@ namespace SalesApp.Pages
             foreach(var attobj in obj.attendees)
             {
                 attList.Add(new AttendeesList(attobj.name));
-                int cusid = App.cusdict.FirstOrDefault(x => x.Value == attobj.name).Key;
+                int cusid = App.cusList.FirstOrDefault(x => x.name == attobj.name).id;
                 atnIdsList.Add(cusid);
             } 
 
@@ -185,7 +185,7 @@ namespace SalesApp.Pages
 
             mainstack.HeightRequest = mainstack.HeightRequest + tagsListView.HeightRequest;
 
-            attspicker1.ItemsSource = App.cusdict.Select(x => x.Value).ToList();
+            attspicker1.ItemsSource = App.cusList.Select(x => x.name).ToList();
             attspicker1.SelectedIndex = -1;
             attspicker1.Title = "Select";
 
@@ -222,7 +222,7 @@ namespace SalesApp.Pages
 
         public void myPickerSelectedIndexChanged(object sender, EventArgs e)
         {            
-            int cusid = App.cusdict.FirstOrDefault(x => x.Value == attspicker1.SelectedItem.ToString()).Key;
+            int cusid = App.cusList.FirstOrDefault(x => x.name == attspicker1.SelectedItem.ToString()).id;
             atnIdsList.Add(cusid);
 
             attList.Add(new AttendeesList(attspicker1.SelectedItem.ToString()));
@@ -269,7 +269,7 @@ namespace SalesApp.Pages
             var itemToRemove = attList.Single(r => r.name == t2.name);
             attList.Remove(itemToRemove);
 
-            int cusid = App.cusdict.FirstOrDefault(x => x.Value == t2.name.ToString()).Key;
+            int cusid = App.cusList.FirstOrDefault(x => x.name == t2.name.ToString()).id;
             atnIdsList.Remove(cusid);
 
             attnListView.ItemsSource = attList;
@@ -323,7 +323,7 @@ namespace SalesApp.Pages
 
         }
 
-        async Task Handle_Clicked(object sender, System.EventArgs e)
+        async void Handle_Clicked(object sender, System.EventArgs e)
         {
 
             try

@@ -122,7 +122,7 @@ namespace SalesApp.views
         List<OrderLinesList> orderLineList1 = new List<OrderLinesList>();
         List<OrderLinesList> orderLineList2 = new List<OrderLinesList>();
 
-        Dictionary<int, string> cusdictdb = new Dictionary<int, string>();
+      //  Dictionary<int, string> cusdictdb = new Dictionary<int, string>();
         List<taxes> taxListdb = new List<taxes>();
         List<paytermList> payment_termsdb = new List<paytermList>();
         List<commisiongroupList> commission_groupdb = new List<commisiongroupList>();
@@ -162,7 +162,8 @@ namespace SalesApp.views
         {
             InitializeComponent();
             orderListview.HeightRequest = 0;
- 
+
+            App.cusList = App.cusList;
 
            // exDatePicker.Date.ToString()
             void exdateentry_focused(object sender, FocusEventArgs e)
@@ -246,7 +247,7 @@ namespace SalesApp.views
                 foreach (var res in App.UserListDb)
                 {
 
-                    cusdictdb = JsonConvert.DeserializeObject<Dictionary<int, string>>(res.customers_list);
+                  //  cusdictdb = JsonConvert.DeserializeObject<Dictionary<int, string>>(res.customers_list);
                     taxtlist_array = JsonConvert.DeserializeObject<JArray>(res.tax_list);
                     payment_termsdb = JsonConvert.DeserializeObject<List<paytermList>>(res.payment_terms);
                     commission_groupdb = JsonConvert.DeserializeObject<List<commisiongroupList>>(res.commission_group);
@@ -956,7 +957,7 @@ namespace SalesApp.views
                 vals["special_notes"] = comments.Text;
 
                // var cusid = App.cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
-                var cusid = App.cusdict.FirstOrDefault(x => x.Value == searchcus.Text.ToString()).Key;
+                var cusid = App.cusList.FirstOrDefault(x => x.name == searchcus.Text.ToString()).id;
                 vals["customer"] = cusid;
 
                 try
@@ -1209,8 +1210,8 @@ namespace SalesApp.views
                     }
 
                  //   var cusiddb = App.cusdictDb.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
-                    var cusiddb = App.cusdict.FirstOrDefault(x => x.Value == searchcus.Text.ToString()).Key;
-                    vals["customer"] = cusiddb;
+                    //var cusiddb = App.cusdict.FirstOrDefault(x => x.Value == searchcus.Text.ToString()).Key;
+                    //vals["customer"] = cusiddb;
 
                     List<OrderLine> or_linelistdb = new List<OrderLine>();
 
@@ -1253,7 +1254,7 @@ namespace SalesApp.views
                         payment_term_id = selectpaytermid,
                         commission_group_id = selectcomgroupid,
                         user_id = App.userid_db,
-                        customer_id = cusiddb,
+                      //  customer_id = cusiddb,
                         order_line = orderLineListnew,
                         customer = searchcus.Text.ToString(),
                         date_Order = orDatePicker.Date.ToString(),

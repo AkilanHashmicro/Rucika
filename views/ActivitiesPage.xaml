@@ -19,7 +19,7 @@
 
                     <ScrollView>
                         
-                    <StackLayout >
+                    <StackLayout Padding="10">
                             <SearchBar x:Name="searchBar"  Placeholder="Search Customer" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="False"/>
                         
                             <ListView x:Name="crmLeadListView" ItemTapped="crmLeadListView_ItemTapped" SeparatorColor="Black" HasUnevenRows="True" IsPullToRefreshEnabled="True" >

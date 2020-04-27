@@ -12,6 +12,8 @@ using Rg.Plugins.Popup.Services;
 using SalesApp.Pages;
 using static SalesApp.models.CRMModel;
 using Syncfusion.SfBusyIndicator.XForms;
+using Newtonsoft.Json.Linq;
+using SalesApp.DBModel;
 
 namespace SalesApp.views
 {
@@ -19,6 +21,47 @@ namespace SalesApp.views
     public partial class LoginPage : ContentPage
     {
         private Controller controllerObj = Controller.InstanceCreation();
+
+
+
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            MessagingCenter.Subscribe<string, string>("MyApp", "Login", async (sender, arg) =>
+            {
+                await Task.Run(() =>
+                {
+                    var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
+                    if (App.cusList.Count == 0 && user_details.Count == 0 && Settings.UserId != 0)
+                    {
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        JObject sales_persons = Controller.InstanceCreation().GetSalespersonsList();
+                        App.salespersons = sales_persons.ToObject<Dictionary<int, string>>();                       
+                        App.taxList = Controller.InstanceCreation().GettaxList();
+                        App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList();
+
+
+                        App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                        App.productList = Controller.InstanceCreation().GetProductssList();
+
+
+
+
+                        MessagingCenter.Send<string, string>("MyApp", "FieldsListUpdated", "true");
+
+                    }
+                });
+            });
+        }
+
 
         public LoginPage()
         {
@@ -77,9 +120,7 @@ namespace SalesApp.views
         }
         private void login_Unfoucsed(object sender, EventArgs e)
         {
-            //  Navigation.PushPopupAsync(new PickerSelectionPage());
 
-            // searchprod.Unfocus();
             login_frame.BackgroundColor = Color.FromHex("#f7dede");
             loginEntry.BackgroundColor = Color.FromHex("#f7dede");
 
@@ -116,9 +157,6 @@ namespace SalesApp.views
         }
         private void pass_Unfoucsed(object sender, EventArgs e)
         {
-            //  Navigation.PushPopupAsync(new PickerSelectionPage());
-
-            // searchprod.Unfocus();
             pass_frame.BackgroundColor = Color.FromHex("#f7dede");
 
             if (loginEntry.Text != "" && passwordEntry.Text != "")
@@ -146,7 +184,6 @@ namespace SalesApp.views
                 {
                     String[] dbData = controllerObj.getDatabases(urlText);
 
-
                     foreach (String db in dbData)
                     {
                         dbPicker.Items.Add(db);
@@ -154,122 +191,78 @@ namespace SalesApp.views
 
                     if(dbData == null )
                     {
-                      //  url_tickimg.IsVisible = false;
-
+ 
                         db_layout.IsVisible = false;
-                      //  db_layout1.IsVisible = false;
-                       // db_layout2.IsVisible = false;
                     }
 
                     else
                     {
-                      //  url_tickimg.IsVisible = true;
                         db_layout.IsVisible = true;
-                      //  db_layout1.IsVisible = true;
-                       // db_layout2.IsVisible = true;
                     }
                                        
                     dbPicker.SelectedIndex = 0;
                     if (dbData.Length >=1)
                     {
-                        //urlAlert.Text = "Invalid URL";
                        dbPicker.IsVisible = true;
-                     //   urlAlert.IsVisible = false;
                     }
                                       
                 }
                 catch (Exception ex)
-                {
-                    //url_tickimg.IsVisible = false;
-
+                {    
                     db_layout.IsVisible = false;
-                  //  db_layout1.IsVisible = false;
-                    //db_layout2.IsVisible = false;
                 }
             }
         }
 
-        async void Loadingalertcall()
-        {
-            await PopupNavigation.PopAllAsync();
-        }
 
         public async void SignInActionAsync(object sender, EventArgs ea)
         {
-         
-            try
+           try
             {
-                
-                var currentpage = new LoadingAlert();
-                await PopupNavigation.PushAsync(currentpage);
-
+                act_ind.IsRunning = true;  
+              
                 Settings.UserName = loginEntry.Text;
                 Settings.UserPassword = passwordEntry.Text;
-
-            // Settings.UserUrlName = "http://laborindo.equip-sapphire.com";
 
                 Settings.UserUrlName = "https://laborindo.hashmicro.com";
               //  dbPicker.SelectedItem = "laborindo";
                 dbPicker.SelectedItem = "test25";
-
-                  //Settings.UserUrlName = "http://beta-dev1.hashmicro.com";
-                  //dbPicker.SelectedItem = "MBTurssco";
-
                 Settings.UserDbName = dbPicker.SelectedItem.ToString();
 
-
-                //controllerObj.login("http://salesapp.hashmicro.com", "salesapp", "admin", "admin");
-
-            String res =    await Task.Run(() => controllerObj.login(Settings.UserUrlName, Settings.UserDbName, Settings.UserName, Settings.UserPassword));
-
-                //    await Task.Run(() => controllerObj.login("http://beta-dev2.hashmicro.com", "PNM", "admin", "admin"));
+            String res =  await Task.Run(() => controllerObj.login(Settings.UserUrlName, Settings.UserDbName, Settings.UserName, Settings.UserPassword));
 
                 if (res == "false")
                 {
                     loginfailedAlert.Text = "Invalid Username or Password.";
                     loginfailedAlert.IsVisible = true;
-
-                    Loadingalertcall();
+                    act_ind.IsRunning = false; 
                 }
 
                 else
                 {
-                   // loginfailedAlert.Text = "Invalid Username or Password.";
-                    loginfailedAlert.IsVisible = false;
+                    MessagingCenter.Send<string, string>("MyApp", "Login", "true");
+                    JObject obj = controllerObj.getuserdata("res.users", "get_user_data");
+                    App.partner_id = obj["partner_id"].ToObject<int>();
+                    App.partner_name = obj["user_name"].ToObject<string>();
+                    App.partner_image = obj["image_medium"].ToObject<string>();
+                    App.partner_email = obj["user_email"].ToObject<string>();
 
+                    loginfailedAlert.IsVisible = false;
+                    App.lead_rpc = true;
                     Page pageRef = new CrmTabbedPage();
                     App.Current.MainPage = new MasterPage(pageRef);
-
-                    //await Task.Run(() =>
-                    //{
-
-                    //    Device.BeginInvokeOnMainThread(() =>
-                    //    {
-
-                    //        indi.IsVisible = true;
-                    //        indi.IsRunning = true;
-                           
-                    //        Page pageRef = new CrmTabbedPage();
-                    //        App.Current.MainPage = new MasterPage(pageRef);
-                    //        indi.IsVisible = false;
-                    //        indi.IsRunning = false;
-                    //    });
-                    //});
-
-                   Loadingalertcall();
-                     
+                      act_ind.IsRunning = false;
                    
                 }
-
-
             }
             catch
             {
 
+
                 loginfailedAlert.Text = "Invalid Username or Password.";
                 loginfailedAlert.IsVisible = true;
 
-                Loadingalertcall();
+                act_ind.IsRunning = false; 
             }
 
 

@@ -30,15 +30,7 @@ namespace SalesApp.views
             Title = "Activities";
             BackgroundColor = Color.White;
             InitializeComponent();
-
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                //Fixes an android bug where the search bar would be hidden
-                searchBar.HeightRequest = 40.0;
-            }
-
-            crmLeadListView.ItemsSource = App.crmList;
-            crmLeadListView.Refreshing += this.RefreshRequested;
+                    
 
             var plusRecognizer = new TapGestureRecognizer();
             plusRecognizer.Tapped += (s, e) => {
@@ -51,100 +43,9 @@ namespace SalesApp.views
             plus.GestureRecognizers.Add(plusRecognizer);
 
             DateTime dateTime = DateTime.Now;
-
-           // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
+                  
             List<CRMOpportunities> nextactData = Controller.InstanceCreation().nextActivity();
-
-            //try
-            //{
-            //    dateTime = DateTime.ParseExact(dateTime.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            //}
-
-            //catch
-            //{
-            //    try
-            //    {
-            //        dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-            //    }
-
-            //    catch
-            //    {
-            //        try
-            //        {
-            //            dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //        }
-
-            //        catch
-            //        {
-            //            try
-            //            {
-            //                dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //            }
-            //            catch
-            //            {
-
-            //                try
-            //                {
-            //                    dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //                }
-            //                catch
-            //                {
-            //                    try
-            //                    {
-            //                        dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-            //                    }
-            //                    catch
-            //                    {
-
-            //                        try
-            //                        {
-            //                            dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            //                        }
-
-            //                        catch
-            //                        {
-            //                            try
-            //                            {
-            //                                dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-            //                            }
-            //                            catch
-            //                            {
-            //                                try
-            //                                {
-            //                                    dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //                                }
-            //                                catch
-            //                                {
-            //                                    try
-            //                                    {
-            //                                        dateTime = DateTime.ParseExact(dateTime.ToString(), "MM/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            //                                    }
-
-            //                                    catch
-            //                                    {
-
-            //                                        dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //                                    }
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-
-            //string convertdate = dateTime.ToString("yyyy-MM-dd");
-            //DateTime startDate = DateTime.ParseExact(convertdate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-
-
-
-           // crmListViewList = App.crmList.Where(p => p.conDate >= startDate).ToList();
-         //   crmListViewList = App.crmOpprList.Where(p => p.pipe_datetime >= startDate).ToList();
-
+                     
             crmLeadListView.ItemsSource = nextactData;
 
             crmLeadListView.Refreshing += this.RefreshRequested;
@@ -153,104 +54,13 @@ namespace SalesApp.views
 
         private async void RefreshRequested(object sender, object e)
         {
-            await Task.Delay(2000);
+          //  await Task.Delay(2000);
+         
+            crmLeadListView.IsRefreshing = true;
+
             List<CRMOpportunities> nextactData = Controller.InstanceCreation().nextActivity();
 
-         //   DateTime dateTime = DateTime.Now;
-
-          //  DateTime startdateTime = DateTime.ParseExact(dateTime.ToString(), "M/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-
-
-            //try
-            //{
-            //    dateTime = DateTime.ParseExact(dateTime.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            //}
-
-            //catch
-            //{
-            //    try
-            //    {
-            //        dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-            //    }
-
-            //    catch
-            //    {
-            //        try
-            //        {
-            //            dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //        }
-
-            //        catch
-            //        {
-            //            try
-            //            {
-            //                dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //            }
-            //            catch
-            //            {
-
-            //                try
-            //                {
-            //                    dateTime = DateTime.ParseExact(dateTime.ToString(), "dd-MM-yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //                }
-            //                catch
-            //                {
-            //                    try
-            //                    {
-            //                        dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-            //                    }
-            //                    catch
-            //                    {
-
-            //                        try
-            //                        {
-            //                            dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            //                        }
-
-            //                        catch
-            //                        {
-            //                            try
-            //                            {
-            //                                dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-            //                            }
-            //                            catch
-            //                            {
-            //                                try
-            //                                {
-            //                                    dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //                                }
-            //                                catch
-            //                                {
-            //                                    try
-            //                                    {
-            //                                        dateTime = DateTime.ParseExact(dateTime.ToString(), "MM/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            //                                    }
-
-            //                                    catch
-            //                                    {
-
-            //                                        dateTime = DateTime.ParseExact(dateTime.ToString(), "dd/MM/yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-            //                                    }
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-
-            //string convertdate = dateTime.ToString("yyyy-MM-dd");
-
-            //DateTime startDate = DateTime.ParseExact(convertdate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-
-            //crmListViewList = App.crmOpprList.Where(p => p.pipe_datetime >= startDate).ToList();
-
-
-            crmLeadListView.ItemsSource = nextactData;
-            crmLeadListView.EndRefresh();
+            crmLeadListView.IsRefreshing = false;
         }
 
         private void Toolbar_Search_Activated(object sender, EventArgs e)

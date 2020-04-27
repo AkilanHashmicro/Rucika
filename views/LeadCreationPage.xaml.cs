@@ -81,7 +81,7 @@ namespace SalesApp.views
 
                 salesperson_Picker.SelectedItem = value1;
 
-                int countdic = App.cusdict.Count;
+                int countdic = App.cusList.Count;
 
                 int p_id = App.partner_id;
 
@@ -281,25 +281,6 @@ namespace SalesApp.views
 
                 await PopupNavigation.PushAsync(currentpage);
 
-                try
-                {
-                    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-                }
-
-
-                catch (Exception ea1)
-                {
-                    if (ea1.Message.Contains("(Network is unreachable)") || ea1.Message.Contains("NameResolutionFailure"))
-                    {
-                        App.NetAvailable = false;
-                    }
-
-                    else if (ea1.Message.Contains("(503) Service Unavailable"))
-                    {
-                        App.responseState = false;
-                    }
-                }
-
 
                 int stateid = 0;
                 int countryid = 0;
@@ -387,10 +368,9 @@ namespace SalesApp.views
                     string   updated = Controller.InstanceCreation().UpdateLeadCreationData("crm.lead", "create", vals);
 
                     if (updated == "Odoo Error")
-                    {
-                        // App.Current.MainPage = new MasterPage(new CrmTabbedPage());
-                        // Navigation.PushPopupAsync(new MasterPage(  );
-                      await  DisplayAlert("Alert", "Please try again", "Ok");
+                    {                       
+                        await  DisplayAlert("Alert", "Please try again", "Ok");
+                        PopupNavigation.PopAsync();
                     }
                     else
                     {

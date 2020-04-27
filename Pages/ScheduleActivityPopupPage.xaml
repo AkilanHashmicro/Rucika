@@ -107,7 +107,7 @@
             <ContentView
          
           AbsoluteLayout.LayoutFlags="PositionProportional"
-                AbsoluteLayout.LayoutBounds=".5,0,100,25">>
+                AbsoluteLayout.LayoutBounds=".5,0,100,25">
                 <!--<ContentView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnCloseButtonTapped"/>
                  AbsoluteLayout.LayoutFlags ="All"

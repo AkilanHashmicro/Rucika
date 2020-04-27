@@ -19,6 +19,7 @@ using Plugin.AudioRecorder;
 using System.IO;
 using Rg.Plugins.Popup.Services;
 using System.Diagnostics;
+using SalesApp.Persistance;
 
 namespace SalesApp.views
 {
@@ -40,24 +41,71 @@ namespace SalesApp.views
         {
             base.OnAppearing();
 
-            MessagingCenter.Subscribe<string, string>("MyApp", "leadListUpdated", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>("MyApp", "referesh", (sender, arg) =>
             {
                // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
                 crmLeadListView.ItemsSource = App.crmList;
 
+
             });
+
+            //MessagingCenter.Subscribe<string, string>("MyApp", "Login", async (sender, arg) =>
+            //{
+                //await Task.Run(() =>
+                //{
+                //    var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
+                //    if (App.cusList.Count == 0 && user_details.Count == 0 && Settings.UserId != 0)
+                //    {
+                //        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                //        JObject sales_persons = Controller.InstanceCreation().GetSalespersonsList();
+                //        App.salespersons = sales_persons.ToObject<Dictionary<int, string>>();
+                //        App.taxList = Controller.InstanceCreation().GettaxList();
+                //        App.warehousList = Controller.InstanceCreation().GetwarehouseList();
+                //        App.productList = Controller.InstanceCreation().GetProductssList();
+
+                      
+                //        MessagingCenter.Send<string, string>("MyApp", "FieldsListUpdated", "true");
+
+                //    }
+                //});
+           // });
+
+
+            MessagingCenter.Subscribe<string, string>("MyApp", "FieldsListUpdated", (sender, arg) =>
+            {
+                App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+                App._connection.CreateTable<UserModelDB>();
+
+                if (App.UserListDb.Count == 0)
+                {
+                    var json_salespersons = Newtonsoft.Json.JsonConvert.SerializeObject(App.salespersons);
+                    var json_customers_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.cusList);
+                    var jso_products_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.productList);
+                    var jso_warehoue_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.warehousList);                  
+                    var jso_tax_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.taxList);
+
+                    var sample = new UserModelDB
+                    {
+                        userid = App.userid,
+                        partnerid = App.partner_id,
+                        user_image_medium = App.partner_image,
+                        user_email = App.partner_email,
+                        user_name = App.partner_name,
+                        sales_persons = json_salespersons,
+                        customers_list = json_customers_list,
+                        products = jso_products_list,
+                        warehouse_list = jso_warehoue_list,                       
+                        tax_list = jso_tax_list
+                    };
+                    App._connection.Insert(sample);
+                }
+
+            });
+
+
         }
 
-        private async void RefreshDataconstructor()
-        {
-            await RefreshData();
-        }
-
-        async Task RefreshData()
-        {
-            List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-        }
-              
+  
         public CrmLeadPage()
         {
             Title = "CRM Leads";
@@ -75,45 +123,19 @@ namespace SalesApp.views
                // AudioSilenceTimeout = TimeSpan.FromSeconds(2)
             };
 
+            if (App.lead_rpc)
+            {
+               
+                App.crmList = Controller.InstanceCreation().GetCrmLeads();
+                crmLeadListView.ItemsSource = App.crmList;
+                App.lead_rpc = false;
+                App.filterdict.Clear();
+            }
            
-            if (App.filterstring == "Month")
+            else
             {
-                RefreshDataconstructor();
+                crmLeadListView.ItemsSource = App.crmList;
             }
-
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                //Fixes an android bug where the search bar would be hidden
-                searchBar.HeightRequest = 40.0;
-            }
-
-
-            if(App.NetAvailable == true)
-            {
-                
-                var result1 = from y in App.crmListDb
-                              where y.yellowimg_string == "yellowcircle.png"
-                              select y;
-
-                if (result1.Count() == 0)
-                {
-                    crmLeadListView.ItemsSource = App.crmList;
-                }
-
-                else
-                {
-                    crmLeadListView.ItemsSource = App.crmListDb;
-                }
-            }
-
-        
-
-            else if(App.NetAvailable == false)
-            {
-              crmLeadListView.ItemsSource = App.crmListDb;
-            }
-                      
-         //   crmLeadListView.ItemsSource = App.crmList;
 
             crmLeadListView.Refreshing += this.RefreshRequested;
 
@@ -127,57 +149,20 @@ namespace SalesApp.views
 
         }
 
-        private async void RefreshRequested(object sender, object e)
+        private void RefreshRequested(object sender, object e)
         {
             //await Task.Delay(2000);
             //List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
 
-            crmLeadListView.IsRefreshing = true;
+            crmLeadListView.IsRefreshing = true;           
+            App.crmList = Controller.InstanceCreation().GetCrmLeads();
+            App.filterdict.Clear();
 
-              await RefreshData();
+           // crmLeadListView.ItemsSource = null;
+            crmLeadListView.ItemsSource = App.crmList;
+         //   crmLeadListView.ItemsSource = new ObservableCollection<CRMLead>(App.crmList);
 
-            if (App.filterstring == "Month")
-            {
-                RefreshDataconstructor();
-            }
-
-            if (App.NetAvailable == true )
-            {                
-                crmLeadListView.ItemsSource = App.crmList;
-                crmLeadListView.IsRefreshing = false;
-
-                //var result1 = from y in App.crmListDb
-                //              where y.yellowimg_string == "yellowcircle.png"
-                //              select y;
-
-                //if (result1.Count() == 0)
-                //{
-                //    await Task.Delay(2000);
-                //    List<CRMLead> crmLeadData1 = Controller.InstanceCreation().crmLeadData();
-                //    crmLeadListView.ItemsSource = App.crmList;
-                //    crmLeadListView.EndRefresh();
-                //}
-
-                //else
-                //{
-                //    crmLeadListView.ItemsSource = App.crmListDb;
-                //    crmLeadListView.EndRefresh();
-                //}
-
-                //await Task.Delay(2000);
-                //List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-                //  List<CRMLead> crmLeadData = Controller.InstanceCreation().crmFilterData();
-
-            }
-
-            else if (App.NetAvailable == false)
-            {
-               // await Task.Delay(500);
-                crmLeadListView.ItemsSource = App.crmListDb;
-                crmLeadListView.EndRefresh();
-            }
-
-            crmLeadListView.EndRefresh();
+             crmLeadListView.IsRefreshing = false;
 
         }
 
@@ -195,16 +180,6 @@ namespace SalesApp.views
             Navigation.PushPopupAsync(new FilterPopupPage("tab1"));
         }
 
-
-        //protected override void OnAppearing()
-        //{
-        //    base.OnAppearing();
-        //    MessagingCenter.Subscribe<Dictionary<string,dynamic>, string>(vals, "NotifyMsg", (sender, arg) =>
-        //    {
-        //        string retarg = arg;
-        //        List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-        //    });
-        //}
 
 
         async Task RecordAudio()

@@ -23,7 +23,7 @@ namespace SalesApp.views
             salesteam_picker.ItemsSource = App.salespersons.Select(x => x.Value).ToList();
             salesteam_picker.SelectedIndex = 0;
 
-            cus_picker.ItemsSource = App.cusdict.Select(x => x.Value).ToList();
+            cus_picker.ItemsSource = App.cusList.Select(x => x.name).ToList();
             cus_picker.SelectedIndex = 0;
 
             var convertempimgRecognizer = new TapGestureRecognizer();

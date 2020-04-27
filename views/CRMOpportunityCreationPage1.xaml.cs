@@ -50,30 +50,14 @@ namespace SalesApp.views
         {
             InitializeComponent();
 
-         
-
-
-              List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
             int product_id = 0;
 
-            try
-            {
-
-               List<StockWareHouseList> data = Controller.InstanceCreation().GetStockProductData(product_id);
-
-             //   List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-            }
-
-            catch
-            {
-                int j = 0;
-            }
+       
         
             if (App.NetAvailable == true)
             {
 
-                cuspicker1.ItemsSource = App.cusdict.Select(d => d.Value).ToList();
+                cuspicker1.ItemsSource = App.cusList.Select(d => d.name).ToList();
                 cuspicker1.SelectedIndex = 0;
 
                 stagePicker.ItemsSource = App.stageList.Select(x => x.name).ToList();
@@ -91,12 +75,12 @@ namespace SalesApp.views
                 attnListView.HeightRequest = 0;
                 meetingsListview.HeightRequest = 0;
 
-                attnPicker.ItemsSource = App.cusdict.Select(d => d.Value).ToList();
+                attnPicker.ItemsSource = App.cusList.Select(d => d.name).ToList();
                 attnPicker.SelectedIndex = -1;
 
                 atnIdsList.Add(App.partner_id);
-                var keyValuePair = App.cusdict.Single(x => x.Key == App.partner_id);
-                string value = keyValuePair.Value;
+                string value = App.cusList.Single(x => x.id == App.partner_id).name;
+               // string value = keyValuePair.Value;
                 attList.Add(new AttendeesList(value));
                 attnListView.ItemsSource = attList;
 
@@ -108,58 +92,12 @@ namespace SalesApp.views
 
             if (App.NetAvailable == false)
             {
-                int user_iddb = 0;
-                int partner_iddb = 0;
+                //int user_iddb = 0;
+                //int partner_iddb = 0;
 
-                JArray nxt_activities = new JArray();
+                //JArray nxt_activities = new JArray();
 
-                foreach (var res in App.UserListDb)
-                {
-                    salespersdict = JsonConvert.DeserializeObject<Dictionary<int, object>>(res.sales_persons);
-                    salesteamdict = JsonConvert.DeserializeObject<Dictionary<int, object>>(res.sales_team);
-                    cusdict = JsonConvert.DeserializeObject<Dictionary<int, string>>(res.customers_list);
-                    stageListDB = JsonConvert.DeserializeObject<List<stages>>(res.stages);
-                    nextActivityListDB = JsonConvert.DeserializeObject<List<next_activity>>(res.next_activity);
-                  
-                    user_iddb = res.userid;
-                    partner_iddb = res.partnerid;
-
-                }
-
-
-                cuspicker1.ItemsSource = cusdict.Select(d => d.Value).ToList();
-                cuspicker1.SelectedIndex = 0;
-
-                stagePicker.ItemsSource = stageListDB.Select(x => x.name).ToList();
-                stagePicker.SelectedIndex = 0;
-
-                nextActPicker.ItemsSource = nextActivityListDB.Select(x => x.name).ToList();
-                nextActPicker.SelectedIndex = 0;
-
-                salesperson_Picker.ItemsSource = App.salespersons.Select(x => x.Value).ToList();
-                salesperson_Picker.SelectedIndex = 0;
-
-                salesteam_Picker.ItemsSource = App.salesteam.Select(x => x.Value).ToList();
-                salesteam_Picker.SelectedIndex = 0;
-
-                attnListView.HeightRequest = 0;
-                meetingsListview.HeightRequest = 0;
-
-                attnPicker.ItemsSource = cusdict.Select(d => d.Value).ToList();
-                attnPicker.SelectedIndex = -1;
-
-                atnIdsList.Add(partner_iddb);
-                var keyValuePair = cusdict.Single(x => x.Key == partner_iddb);
-                string value = keyValuePair.Value;
-                attList.Add(new AttendeesList(value));
-                attnListView.ItemsSource = attList;
-
-                attnListView.ItemsSource = attList;
-                attnListView.RowHeight = 30;
-                attnListView.HeightRequest = 30 * attList.Count;
-
-          
-
+               
             }
 
 
@@ -336,7 +274,7 @@ namespace SalesApp.views
                 attnPicker.IsVisible = false;
                 attList.Add(new AttendeesList(attnPicker.SelectedItem.ToString()));
 
-                int cusid = App.cusdict.FirstOrDefault(x => x.Value == attnPicker.SelectedItem.ToString()).Key;
+                int cusid = App.cusList.FirstOrDefault(x => x.name == attnPicker.SelectedItem.ToString()).id;
                 atnIdsList.Add(cusid);
 
                 atnIdsList = atnIdsList.GroupBy(i => i).Select(g => g.First()).ToList();
@@ -353,21 +291,21 @@ namespace SalesApp.views
             else if (App.NetAvailable == false)
             {
 
-                attnListView.ItemsSource = attList1;
-                attnPicker.IsVisible = false;
-                attList.Add(new AttendeesList(attnPicker.SelectedItem.ToString()));
+                //attnListView.ItemsSource = attList1;
+                //attnPicker.IsVisible = false;
+                //attList.Add(new AttendeesList(attnPicker.SelectedItem.ToString()));
 
-                int cusid = cusdict.FirstOrDefault(x => x.Value == attnPicker.SelectedItem.ToString()).Key;
-                atnIdsList.Add(cusid);
+                //int cusid = cusdict.FirstOrDefault(x => x.Value == attnPicker.SelectedItem.ToString()).Key;
+                //atnIdsList.Add(cusid);
 
-                atnIdsList = atnIdsList.GroupBy(i => i).Select(g => g.First()).ToList();
-                attList = attList.GroupBy(i => i.name).Select(g => g.First()).ToList();
+                //atnIdsList = atnIdsList.GroupBy(i => i).Select(g => g.First()).ToList();
+                //attList = attList.GroupBy(i => i.name).Select(g => g.First()).ToList();
 
-                attnListView.ItemsSource = attList;
-                attnListView.RowHeight = 30;
-                attnListView.HeightRequest = 30 * attList.Count;
+                //attnListView.ItemsSource = attList;
+                //attnListView.RowHeight = 30;
+                //attnListView.HeightRequest = 30 * attList.Count;
 
-                return;
+                //return;
 
             }
 
@@ -561,7 +499,7 @@ namespace SalesApp.views
 
             await PopupNavigation.PushAsync(currentpage);
 
-            var cusid = App.cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
+            var cusid = App.cusList.FirstOrDefault(x => x.name == cuspicker1.SelectedItem.ToString()).id;
             vals["customer"] = cusid;
             vals["oppurtunity_title"] = oppTitle.Text;
             vals["email"] = eMail.Text;
@@ -663,7 +601,7 @@ namespace SalesApp.views
             var salesteamid = App.salesteam.FirstOrDefault(x => x.Value == salesteam_Picker.SelectedItem.ToString()).Key;
             vals["team_id"] = salesteamid;
 
-            var customerid = App.cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
+            var customerid = App.cusList.FirstOrDefault(x => x.name == cuspicker1.SelectedItem.ToString()).id;
             vals["partner_id"] = customerid;
 
             vals["partner_name"] = cuspicker1.SelectedItem.ToString();
@@ -697,9 +635,9 @@ namespace SalesApp.views
             String date_deadline_string = String.Format("{0:yyy-MM-dd HH:mm:ss}", expected_closing_Picker.Date);
 
             vals["date_deadline"] = date_deadline_string;
-      
-                List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-          
+
+            //   List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+
             if (App.NetAvailable == true)
             {
 
@@ -729,87 +667,88 @@ namespace SalesApp.views
                     else
                     {
                         await DisplayAlert("Alert", "Please try again", "Ok");
+                        await PopupNavigation.PopAsync();
                     }
                 }
             }
 
             else if (App.NetAvailable == false)
             {
-       
-                var cusiddb = cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
 
-                var json_meetingLineList = JsonConvert.SerializeObject(meetingLineList);
+                //    var cusiddb = cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
 
-
-                int next_activity_offline_id = 0;
-
-                var nextactivityids =
-                    (
-                        from i in App.nextActivityList
-                        where i.name == nextActPicker.SelectedItem.ToString()
-                        select new
-                        {
-                            i.id,
-                        }
-               ).ToList();
-
-                foreach (var comgroup in nextactivityids)
-                {
-                    next_activity_offline_id = comgroup.id;
-                }
-
-              
+                //    var json_meetingLineList = JsonConvert.SerializeObject(meetingLineList);
 
 
-                String ex_closing_string = String.Format("{0:MM-dd-yyyy HH:mm:ss}", expected_closing_Picker.Date);
+                //    int next_activity_offline_id = 0;
 
-                var sample = new CRMOpportunitiesDB
-                {
-                    //  id = item.id,
-                    cusid = cusiddb,
-                    customer = cuspicker1.SelectedItem.ToString(),
-                    next_activity = nextActPicker.SelectedItem.ToString(),
-                    name =oppTitle.Text,
-                    email = eMail.Text,
-                    phone = phone.Text,
-                    next_activity_date = nextactdatepicker_date.ToString(),
-                    expected_revenue = Convert.ToDouble(exRev.Text).ToString(),
-                    rating = count,
-                    stage = stagePicker.SelectedItem.ToString(),
-                    internal_notes = comments.Text,
-                    meetings = json_meetingLineList,
-                    FullState = "  New  ",
-                    state = "  New  ",
-                    state_colour = "#3498db",
-                    nextact_id = next_activity_offline_id,
-                    oppurtunity_title = oppTitle.Text,
-                    next_activity_summary = nextActSum.Text,
-                    expected_closing = date_deadline_string,
-                    yellowimg_string = "yellowcircle.png",
+                //    var nextactivityids =
+                //        (
+                //            from i in App.nextActivityList
+                //            where i.name == nextActPicker.SelectedItem.ToString()
+                //            select new
+                //            {
+                //                i.id,
+                //            }
+                //   ).ToList();
 
-                    //order_line = item.order_line[0].ToString()
-                };
-                App._connection.Insert(sample);
+                //    foreach (var comgroup in nextactivityids)
+                //    {
+                //        next_activity_offline_id = comgroup.id;
+                //    }
 
-                App._connection.CreateTable<CRMOpportunitiesDB>();
-                try
-                {
-                    var details = (from y in App._connection.Table<CRMOpportunitiesDB>() select y).ToList();
-                    App.CRMOpportunitiesListDb = details;
-                }
-                catch (Exception ex)
-                {
-                    int i = 0;
-                }
 
-             // await  DisplayAlert("Alert", "Created Successfull", "Ok");
-            
-                App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab2"));
 
-                await Navigation.PopAllPopupAsync();
 
+                //    String ex_closing_string = String.Format("{0:MM-dd-yyyy HH:mm:ss}", expected_closing_Picker.Date);
+
+                //    var sample = new CRMOpportunitiesDB
+                //    {
+                //        //  id = item.id,
+                //        cusid = cusiddb,
+                //        customer = cuspicker1.SelectedItem.ToString(),
+                //        next_activity = nextActPicker.SelectedItem.ToString(),
+                //        name =oppTitle.Text,
+                //        email = eMail.Text,
+                //        phone = phone.Text,
+                //        next_activity_date = nextactdatepicker_date.ToString(),
+                //        expected_revenue = Convert.ToDouble(exRev.Text).ToString(),
+                //        rating = count,
+                //        stage = stagePicker.SelectedItem.ToString(),
+                //        internal_notes = comments.Text,
+                //        meetings = json_meetingLineList,
+                //        FullState = "  New  ",
+                //        state = "  New  ",
+                //        state_colour = "#3498db",
+                //        nextact_id = next_activity_offline_id,
+                //        oppurtunity_title = oppTitle.Text,
+                //        next_activity_summary = nextActSum.Text,
+                //        expected_closing = date_deadline_string,
+                //        yellowimg_string = "yellowcircle.png",
+
+                //        //order_line = item.order_line[0].ToString()
+                //    };
+                //    App._connection.Insert(sample);
+
+                //    App._connection.CreateTable<CRMOpportunitiesDB>();
+                //    try
+                //    {
+                //        var details = (from y in App._connection.Table<CRMOpportunitiesDB>() select y).ToList();
+                //        App.CRMOpportunitiesListDb = details;
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        int i = 0;
+                //    }
+
+                // // await  DisplayAlert("Alert", "Created Successfull", "Ok");
+
+                //    App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab2"));
+
+                //    await Navigation.PopAllPopupAsync();
+
+                //}
             }
-                      
         }
 
         async void ListviewcloseClicked(object sender, EventArgs e1)
@@ -826,12 +765,8 @@ namespace SalesApp.views
             // taxes obj = (taxes)args;
         }
 
-
         protected override bool OnBackButtonPressed()
         {
-            // Prevent hide popup
-            // return base.OnBackButtonPressed();
-
             Navigation.PopAllPopupAsync();
             return true;
         }

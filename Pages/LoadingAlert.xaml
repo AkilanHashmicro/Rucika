@@ -8,7 +8,7 @@
                  x:Class="SalesApp.Pages.LoadingAlert">
 
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-    <syncfusion:SfBusyIndicator x:Name="busyindicator"  IsBusy="true" AnimationType ="SingleCircle" TextColor="White" Title="Loading...."  />
+    <ActivityIndicator x:Name="busyindicator"  Color="Red" IsRunning="true"  />
     </StackLayout>
     
 </pages:PopupPage>

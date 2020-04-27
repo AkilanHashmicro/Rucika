@@ -131,102 +131,67 @@ namespace SalesApp
 
         public static int createContact_Id = 0;
 
+        public static bool lead_rpc = false;
+        public static bool oppo_rpc = false;
+        public static bool draftquot_rpc = false;
+        public static bool salequot_rpc = false;
+        public static bool so_rpc = false;
+
+        public static bool oppo_swipped = true;
+        public static bool draftquot_swipped = true;
+        public static bool quot_swipped = true;
+        public static bool so_swipped = true;
+
+        public static bool lead_filter = false;
+        public static bool opp_filter = false;
+        public static bool dq_filter = false;
+        public static bool sq_filter = false;
+        public static bool so_filter = false;
+
         public App()
         {
             InitializeComponent();
 
-          //  App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-           
-          //  App._connection.CreateTable<SalesOrderDB>();
-          //  try
-          //  {
-
-          //         var details = (from y in App._connection.Table<SalesOrderDB>() select y).ToList();                   App.SalesOrderListDb = details;
-
-          //  }
-
-          //  catch (Exception e)
-          //  {
-          //      int j = 0;
-          //  }
-
-
-          //  App._connection.CreateTable<CRMOpportunitiesDB>();
-          //  try
-          //  {
-          //      var details = (from y in App._connection.Table<CRMOpportunitiesDB>() select y).ToList();
-          //      App.CRMOpportunitiesListDb = details;
-          //  }
-          //  catch(Exception ex)
-          //  {
-          //      int i = 0;
-          //  }
-
-
-          //  App._connection.CreateTable<CRMLeadDB>();
-          //  try
-          //  {
-          //      var details = (from y in App._connection.Table<CRMLeadDB>() select y).ToList();
-          //      App.crmListDb = details;
-          //  }
-          //  catch(Exception ex)
-          //  {
-          //      int i = 0;
-          //  }
-
-
-          //  App._connection.CreateTable<SalesQuotationDB>();
-          //  try
-          //  {
-          //      var details = (from y in App._connection.Table<SalesQuotationDB>() select y).ToList();
-          //      App.SalesQuotationListDb = details;
-          //  }
-          //  catch(Exception ex)
-          //  {
-          //      int i = 0;
-          //  }
-
-
-          //  App._connection.CreateTable<UserModelDB>();
-          //  try
-          //  {
-          //      var details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
-          //      App.UserListDb = details;
-          //  }
-          //  catch (Exception ex)
-          //  {
-          //      int i = 0;
-          //  }
-
-          
-          //  List<ProductsList> productslistdb = new List<ProductsList>();
-          //// Dictionary<int, string> cusdictDbapp = new Dictionary<int, string>();
-            //foreach (var item in App.UserListDb)
-            //{
-            //    productslistdb = JsonConvert.DeserializeObject<List<ProductsList>>(item.products);
-            //    App.cusdictDb = JsonConvert.DeserializeObject<Dictionary<int, string>>(item.customers_list);
-            //    App.ProductListDb = productslistdb;
-            //    App.userid_db = item.userid;
-            //  //  App.cusdictDb = cusdictDbapp;
-            //}
-     
-
-
-
-          //  var details1 = (from x in App._connection.Table<SalesQuotation>() select x).ToList();  
-
-            if (Settings.UserName.Length > 0 && Settings.UserPassword.Length > 0)
+            App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+            App._connection.CreateTable<UserModelDB>();
+            try
             {
-              // App.Current.MainPage = new MasterPage(new LogoutPage());
+                var details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
+                //  App.UserListDb = details;
 
+                if (App.cusList.Count == 0 && details.Count != 0)
+                {
+                    foreach (var res in details)
+                    {
+                        App.cusList = JsonConvert.DeserializeObject<List<Customers>>(res.customers_list);
+                        App.productList = JsonConvert.DeserializeObject<List<ProductsList>>(res.products);
+                        App.warehousList = JsonConvert.DeserializeObject<List<warehouse>>(res.warehouse_list);
+                        App.salespersons = JsonConvert.DeserializeObject<Dictionary<int, string>>(res.sales_persons);
+                        App.taxList = JsonConvert.DeserializeObject<List<taxes>>(res.tax_list);
+                        App.partner_id = res.partnerid;
+                        App.partner_name = res.user_name;
+                        App.partner_image = res.user_image_medium;
+                        App.partner_email = res.user_email;
+                        App.userid = res.userid;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                int i = 0;
+            }
+
+
+            if (Settings.UserId > 0)
+            {
+      
                 String res = "";
 
                     try
                     {
-                       res = Controller.InstanceCreation().login(Settings.UserUrlName, Settings.UserDbName, Settings.UserName, Settings.UserPassword);
-                       App.Current.MainPage = new MasterPage(new CrmTabbedPage());
-
-                     //   PopupNavigation.PushAsync( new CalendarPopupPage());
+                  //  res = Controller.InstanceCreation().login(Settings.UserUrlName, Settings.UserDbName, Settings.UserName, Settings.UserPassword);
+                    App.lead_rpc = true;  
+                    App.Current.MainPage = new MasterPage(new CrmTabbedPage());
                     }
 
                    catch(Exception ea)

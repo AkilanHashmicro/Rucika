@@ -41,6 +41,8 @@ namespace SalesApp.DBModel
 
         public string commission_group { get; set; }
 
+        public string warehouse_list { get; set; }
+
     }
 
 

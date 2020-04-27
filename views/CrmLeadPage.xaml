@@ -10,33 +10,18 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ScrollView>
+
         <RelativeLayout >
 
-       <!-- <RelativeLayout.GestureRecognizers>
-                      <TapGestureRecognizer Tapped="OnTapped" />
-                </RelativeLayout.GestureRecognizers>-->
-                
+   
             <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"  
              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <BoxView Color="Transparent" HeightRequest="5"/>
                                     
                     <StackLayout x:Name="main_layout" >
 
-               <!--   <StackLayout.GestureRecognizers>
-        <TapGestureRecognizer Tapped="OnTapped"/>
-    </StackLayout.GestureRecognizers>-->
-                      
-
-              <!--       <StackLayout.GestureRecognizers>
-            <TapGestureRecognizer 
-                Tapped="layout_focused" 
-                NumberOfTapsRequired="1">
-                                </TapGestureRecognizer>
-                                </StackLayout.GestureRecognizers>-->
-                        
                             <SearchBar x:Name="searchBar"  Placeholder="Search Customer" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="False"/>                        
-                            <ListView x:Name="crmLeadListView" ItemTapped="crmLeadListView_ItemTapped" HasUnevenRows="true" IsPullToRefreshEnabled="True" >
+                            <ListView x:Name="crmLeadListView" CachingStrategy="RecycleElement" ItemTapped="crmLeadListView_ItemTapped" HasUnevenRows="true" IsPullToRefreshEnabled="True" >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
@@ -107,31 +92,15 @@
             
             </ContentView>
 
-        <!--        <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Property=Width, Factor=1, Constant=10}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Property=Height, Factor=1, Constant=445}">
-
-                <StackLayout Padding="2,2,2,2" BackgroundColor="Black">
-
-                       
-
-                   <Grid BackgroundColor="White">
-
-                            <Image Grid.Column="0" x:Name="plus" Source="fab.png"  WidthRequest="50" HeightRequest="60"  />
-                            <Image Grid.Column="1" Source="fab.png"  WidthRequest="50" HeightRequest="60"  />
-                            <Image Grid.Column="2" Source="fab.png"  WidthRequest="50" HeightRequest="60"  />
-                            
-                   </Grid>
-
-                        
-                </StackLayout>
-                    
-                </StackLayout>-->
-
             <Image Source="fab.png" x:Name="plus" WidthRequest="50" HeightRequest="60" 
                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-55}"  
                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-65}" />
-        </RelativeLayout>
-        </ScrollView>
+
+           <ActivityIndicator  x:Name="act_ind"  IsRunning="false"  Color ="Red" 
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-205}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-275}" />         
+            </RelativeLayout>
+                
     </ContentPage.Content>
 
 </ContentPage>

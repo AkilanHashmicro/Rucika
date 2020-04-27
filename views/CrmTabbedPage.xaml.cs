@@ -48,9 +48,7 @@ namespace SalesApp.views
             //salesOrderPage.Title = "Sales Order";
             Children.Add(salesOrderPage);
 
-            //App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-            //App._connection.CreateTable<SalesOrderDB>();
-
+            this.CurrentPageChanged += CurrentPageHasChanged;
 
         }
 
@@ -84,11 +82,6 @@ namespace SalesApp.views
             //salesOrderPage.Title = "Sales Order";
             Children.Add(salesOrderPage);
 
-            //App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-            //App._connection.CreateTable<SalesOrderDB>();
-
-
-
             var tabPage = this as TabbedPage;
 
             if (tabs == "tab1")
@@ -116,7 +109,33 @@ namespace SalesApp.views
                 tabPage.CurrentPage = tabPage.Children[4];
             }
 
+            this.CurrentPageChanged += CurrentPageHasChanged;
 
+        }
+
+        protected void CurrentPageHasChanged(object sender, EventArgs e)
+        {
+
+            // ImageSource icon = CurrentPage.IconImageSource;
+            string icon_name = CurrentPage.Icon;
+
+            if (icon_name == "oppurtunity.png")
+            {
+                MessagingCenter.Send<string, string>("MyApp", "opp_swipped", "true");
+            }
+
+            else if (icon_name == "draftquot.png")
+            {
+                MessagingCenter.Send<string, string>("MyApp", "dq_swipped", "true");
+            }
+            else if (icon_name == "quotations.png")
+            {
+                MessagingCenter.Send<string, string>("MyApp", "sq_swipped", "true");
+            }
+            else if (icon_name == "salesorder.png")
+            {
+                MessagingCenter.Send<string, string>("MyApp", "so_swipped", "true");
+            }
         }
 
     }

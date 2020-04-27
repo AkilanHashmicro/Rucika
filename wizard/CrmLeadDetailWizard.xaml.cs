@@ -367,9 +367,9 @@ namespace SalesApp.wizard
             {      
                await DisplayAlert("Alert", "State successfully moved", "Ok");
 
-                List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
-               App.Current.MainPage = new MasterPage(new CrmTabbedPage());
+                //   List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+                App.lead_rpc = true;
+               App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab1"));
                Loadingalertcall();               
             }
 
@@ -390,7 +390,7 @@ namespace SalesApp.wizard
         private void ButtonMarkLost_Clicked(object sender, EventArgs e)
         {
            // Navigation.PushPopupAsync(new MarkLostPopupPage());
-            List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+         //   List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
             PopupNavigation.PushAsync(new MarkLostPopupPage(obj.id));
         }
 

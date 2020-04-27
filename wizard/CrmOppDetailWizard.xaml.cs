@@ -102,7 +102,7 @@ namespace SalesApp.wizard
                 SalesPersonValue.IsVisible = false;
 
                 cus_picker.IsVisible = true;
-                cus_picker.ItemsSource = App.cusdict.Select(x => x.Value).ToList();
+                cus_picker.ItemsSource = App.cusList.Select(x => x.name).ToList();
                 cus_picker.SelectedIndex = 0;
               //  cus_picker.SelectedItem = CustomerNameValue.Text;
                 CustomerNameValue.IsVisible = false;
@@ -285,9 +285,9 @@ namespace SalesApp.wizard
             else { }
         }
 
-        private async Task ButtonMarkWon_ClickedAsync(object sender, EventArgs e)
+        private async void ButtonMarkWon_ClickedAsync(object sender, EventArgs e)
         {
-            List<CRMLead> crmLeadData1 = Controller.InstanceCreation().crmLeadData();
+           // List<CRMLead> crmLeadData1 = Controller.InstanceCreation().crmLeadData();
                 
             if (App.NetAvailable == true)
             {
@@ -300,9 +300,9 @@ namespace SalesApp.wizard
                 {
                     await DisplayAlert("Alert", "State successfully moved", "Ok");
 
-                  //  List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
-                    App.Current.MainPage = new MasterPage(new CrmTabbedPage());
+                    //  List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+                    App.oppo_rpc = true;
+                    App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab2"));
                     Loadingalertcall();
                 }
 
@@ -327,7 +327,7 @@ namespace SalesApp.wizard
         private async void ButtonMarkLost_ClickedAsync(object sender, EventArgs e)
         {
             // Navigation.PushPopupAsync(new MarkLostPopupPage());
-            List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+           // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
 
             if (App.NetAvailable == true)
             {
@@ -342,7 +342,7 @@ namespace SalesApp.wizard
 
         private async void ButtonNewQuotation_ClickedAsync(object sender, EventArgs e)
         {
-            List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+           // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
 
 
             if (App.NetAvailable == true)
@@ -386,7 +386,7 @@ namespace SalesApp.wizard
                 vals["partner_id"] = false;
             }
 
-            var customerid = App.cusdict.FirstOrDefault(x => x.Value == cus_picker.SelectedItem.ToString()).Key;
+            var customerid = App.cusList.FirstOrDefault(x => x.name == cus_picker.SelectedItem.ToString()).id;
 
             vals["partner_id"] = customerid;
 

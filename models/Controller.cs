@@ -47,21 +47,6 @@ namespace SalesApp.models
             {
                 odooConnector = OdooRPC.InstanceCreation(url);
                 App.userid = odooConnector.login(database, username, password);
-                //object[] domain = new object[] { "id", "=", App.userid };
-                //JArray userData = odooConnector.odooSearchReadCall<JArray>("res.users", domain, new string[] { "name", "email", "partner_id","groups_id","image_medium" }, false);
-
-                //string partnerName="", partnerRole="", partnerImage="";
-                //int partnerId=0;
-                //foreach (JObject obj in userData)
-                //{                        
-                //    partnerId = obj["partner_id"][0].ToObject<int>();
-                //    partnerName = obj["name"].ToString();
-                //    partnerRole = "Manager";
-                //    partnerImage = obj["image_medium"].ToString();                    
-                //}
-                //Settings.PrefKeyIsLocked = "True";
-                //UserAccount data = new UserAccount(url, database, App.userid,partnerId,partnerName,password,partnerImage,partnerRole);                
-                //Settings.PrefKeyUserDetails = JsonConvert.SerializeObject(data);    
 
                 if (App.userid == -1)
                 {
@@ -81,6 +66,148 @@ namespace SalesApp.models
                 //System.Diagnostics.Debug.WriteLine("SYSTEMRES???????????????" + ea.Message);
             }
         }
+
+        public JObject getuserdata(String modelname, String methodname)
+        {
+            JObject dt = odooConnector.odooMethodCall_promotions<dynamic>(modelname, methodname, Settings.UserId);
+            return dt;
+        }
+
+        public List<CRMLead> GetCrmLeads()
+        {
+            if (!App.lead_filter)
+            {
+                App.filterdict["range"] = false;
+                App.filterdict["days"] = false;
+                App.filterdict["month"] = true;
+            }
+            App.filterdict["lead"] = true;
+
+            odooConnector = OdooRPC.InstanceCreation(Settings.UserUrlName);
+            List<CRMLead> quotList = new List<CRMLead>();
+            quotList = odooConnector.odooMethodCall_crmleads<JArray>("crm.lead", "get_crm_lead_data");
+            //  tarList = result.ToObject<List<SalesQuotation>>();
+            return quotList;
+            App.lead_filter = false;
+        }
+
+
+        public List<CRMOpportunities> GetOpportunityList()
+        {
+            if (!App.opp_filter)
+            {
+                App.filterdict["range"] = false;
+                App.filterdict["days"] = false;
+                App.filterdict["month"] = true;
+            }
+            App.filterdict["lead"] = false;
+                      
+            List<CRMOpportunities> quotList = new List<CRMOpportunities>();
+            quotList = odooConnector.odooMethodCall_crmopportunities<JArray>("crm.lead", "get_crm_lead_data");
+            //  tarList = result.ToObject<List<SalesQuotation>>();
+            return quotList;
+            App.opp_filter = false;
+
+        }
+
+        public List<SalesQuotation> GetdraftQuotations()
+        {
+            List<SalesQuotation> quotList = new List<SalesQuotation>();
+
+            if (!App.dq_filter)
+            {
+                App.filterdict["range"] = false;
+                App.filterdict["days"] = false;
+                App.filterdict["month"] = true;
+            }
+            App.filterdict["sale_order"] = false;
+            App.filterdict["draft_quotation"] = true;
+
+            quotList = odooConnector.odooMethodCall_getsalequotations<JArray>("sale.order", "get_sales_data");
+            App.dq_filter = false;
+            return quotList;
+
+
+        }
+
+        public List<SalesQuotation> GetSalesQuotations()
+        {          
+            List<SalesQuotation> quotList = new List<SalesQuotation>();
+
+            if (!App.sq_filter)
+            {
+                App.filterdict["range"] = false;
+                App.filterdict["days"] = false;
+                App.filterdict["month"] = true;
+            }
+            App.filterdict["sale_order"] = false;
+            quotList = odooConnector.odooMethodCall_getsalequotations<JArray>("sale.order", "get_sales_data");
+            App.sq_filter = false;
+            return quotList;
+
+           
+        }
+
+        public List<SalesOrder> GetSalesQrder()
+        {
+
+            List<SalesOrder> quotList = new List<SalesOrder>();
+
+            if (!App.so_filter)
+            {
+                App.filterdict["range"] = false;
+                App.filterdict["days"] = false;
+                App.filterdict["month"] = true;
+            }
+            App.filterdict["sale_order"] = true;
+            quotList = odooConnector.odooMethodCall_getsaleorder<JArray>("sale.order", "get_sales_data");
+            App.so_filter = false;
+            return quotList;
+
+          
+        }
+
+        public List<Customers> GetCustomersList()
+        {
+
+            List<Customers> cusList = new List<Customers>();
+            JArray result = odooConnector.odooMethodCall_getcommonfields("res.partner", "get_partner_data");
+            cusList = result.ToObject<List<Customers>>();
+            return cusList;
+        }
+
+        public List<ProductsList> GetProductssList()
+        {
+
+            List<ProductsList> proList = new List<ProductsList>();
+            JArray result = odooConnector.odooMethodCall_getcommonfields("product.product", "get_product_data");
+            proList = result.ToObject<List<ProductsList>>();
+            return proList;
+        }
+
+   
+        public List<taxes> GettaxList()
+        {
+            List<taxes> proList = new List<taxes>();
+            JArray result = odooConnector.odooMethodCall_getcommonfields("account.tax", "get_account_tax_data");
+            proList = result.ToObject<List<taxes>>();
+            return proList;
+        }
+
+        public List<warehouse> GetwarehouseList()
+        {
+            List<warehouse> proList = new List<warehouse>();
+            JArray result = odooConnector.odooMethodCall_getcommonfields("stock.warehouse", "get_warehouse_data");
+            proList = result.ToObject<List<warehouse>>();
+            return proList;
+        }
+
+        public JObject GetSalespersonsList()
+        {
+            JObject dt = odooConnector.odooCustomerDataCall<dynamic>("res.users", "get_salesperson_data");
+            return dt;
+        }
+
 
 
         public String SaleOrderConfirm(String modelname, string methodname, int saleorderid)
@@ -162,90 +289,6 @@ namespace SalesApp.models
                 App.analayticList = res["analytic_account"].ToObject<List<analytic>>();
 
                 App.cusList = res["Customers_List"].ToObject<List<Customers>>();
-
- // App User DB Starts Here ********************//
-
-                //App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-                //App._connection.CreateTable<UserModelDB>();
-
-                //if (App.UserListDb.Count == 0)
-                //{
-
-                    //var json_state = Newtonsoft.Json.JsonConvert.SerializeObject(res["state_list"]);
-
-                    //var json_country = Newtonsoft.Json.JsonConvert.SerializeObject(res["country_list"]);
-
-                    //var json_tags = Newtonsoft.Json.JsonConvert.SerializeObject(res["crm_lead_tags"]);
-                    //var json_salesteam = Newtonsoft.Json.JsonConvert.SerializeObject(res["sales_team"]);
-                    //var json_salespersons = Newtonsoft.Json.JsonConvert.SerializeObject(res["sales_persons"]);
-
-                    //var json_customers_list = Newtonsoft.Json.JsonConvert.SerializeObject(res["Customers"]);
-                    //var  json_next_activity = Newtonsoft.Json.JsonConvert.SerializeObject(res["next_activity"]);
-                    //var json_stages = Newtonsoft.Json.JsonConvert.SerializeObject(res["stages"]);
-
-                    //var json_payment_terms =  Newtonsoft.Json.JsonConvert.SerializeObject(res["payment_terms"]);
-
-                    //var json_commission_groups = Newtonsoft.Json.JsonConvert.SerializeObject(res["commission_group"]);
-
-                    //var jso_tags_list = Newtonsoft.Json.JsonConvert.SerializeObject(res["taxes"]);
-
-                    //var jso_products_list = Newtonsoft.Json.JsonConvert.SerializeObject(res["Products"]);
-
-                   
-                    //var sample = new UserModelDB
-                    //{
-                    //    userid = App.userid,
-                    //    partnerid = App.partner_id,
-                    //    user_image_medium = App.partner_image,
-                    //    user_email= App.partner_email,
-                    //    user_name = App.partner_name,
-                    //    state_list = json_state,
-                    //    country_list = json_country,
-                    //    tagsPicker = json_tags,
-                    //    sales_team = json_salesteam,
-                    //    sales_persons = json_salespersons,
-                    //    customers_list = json_customers_list,
-                    //    next_activity = json_next_activity,
-                    //    stages = json_stages,
-                    //    payment_terms = json_payment_terms,
-                    //    commission_group = json_commission_groups,
-                    //    tax_list = jso_tags_list,
-                    //    products = jso_products_list
-                    //};
-                    //App._connection.Insert(sample);
-
-                    //try
-                    //{
-
-                    //    var details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
-
-                    //    App.UserListDb = details;
-
-                    //    List<ProductsList> productslistdb = new List<ProductsList>();
-                    //    Dictionary<int, string> cusdictdb = new Dictionary<int, string>();
-                    //    foreach (var item in App.UserListDb)
-                    //    {
-                    //        productslistdb = JsonConvert.DeserializeObject<List<ProductsList>>(item.products);
-
-                    //        cusdictdb = JsonConvert.DeserializeObject<Dictionary<int, string>>(item.customers_list);
-
-                    //        App.ProductListDb = productslistdb;
-                    //        App.cusdictDb = cusdictdb;
-                    //        App.userid_db = item.userid;
-                    //    }
-                    //}
-
-                                       
-                    //catch
-                    //{
-                    //    int te = 0;
-                    //}
-                     
-
-               // }
-
-            // DB Ends
-
 
 
                 App.nextActivityList = res["next_activity"].ToObject<List<next_activity>>();
@@ -396,7 +439,6 @@ namespace SalesApp.models
 
                 //var sq_details = App._connection.Query<SalesQuotationDB>("SELECT * from SalesQuotationDB where yellowimg_string = ?", "yellowcircle.png");
 
-    
                 //if (sq_details.Count() == 0)
                 //{
                 //  App._connection.Query<SalesQuotationDB>("DELETE from SalesQuotationDB");
@@ -543,7 +585,7 @@ namespace SalesApp.models
                 }
 
                 Settings.StageColourCode = colorCodeData;
-                App.cusdict = res["Customers"].ToObject<Dictionary<int, string>>();
+              //  App.cusdict = res["Customers"].ToObject<Dictionary<int, string>>();
 
                 App.reasondict = res["lost_reason"].ToObject<Dictionary<int, string>>();
 
@@ -627,7 +669,7 @@ namespace SalesApp.models
 
                 Settings.StageColourCode = colorCodeData;
 
-                App.cusdict = res["Customers"].ToObject<Dictionary<int, string>>();
+              //  App.cusdict = res["Customers"].ToObject<Dictionary<int, string>>();
 
                 App.cusList = res["Customers_List"].ToObject<List<Customers>>();
 

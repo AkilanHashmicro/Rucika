@@ -298,7 +298,7 @@ namespace SalesApp.views
                         salesperson_picker.SelectedItem = item.sales_person;
                         salesperson_picker.SelectedIndex = 0;
 
-                        cuspicker1.ItemsSource = App.cusdict.Select(x => x.Value).ToList();
+                        cuspicker1.ItemsSource = App.cusList.Select(x => x.name).ToList();
                         cuspicker1.SelectedItem = item.customer;
 
 
@@ -361,7 +361,7 @@ namespace SalesApp.views
 
      //newly added ends here
 
-                        var cusid = App.cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
+                        var cusid = App.cusList.FirstOrDefault(x => x.name == cuspicker1.SelectedItem.ToString()).id;
 
                         JObject con_dict = App.cus_address.FirstOrDefault(x => x.Key == cusid.ToString()).Value;
 
@@ -1852,7 +1852,7 @@ namespace SalesApp.views
 
                     vals["user_id"] = App.userid;
 
-                    var cusid = App.cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
+                    var cusid = App.cusList.FirstOrDefault(x => x.name == cuspicker1.SelectedItem.ToString()).id;
                     vals["customer"] = cusid;
 
                     vals["delivery_deadline"] = deldead_string;

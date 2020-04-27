@@ -94,23 +94,37 @@ namespace SalesApp.Pages
                     var currentpage = new LoadingAlert();
                     await PopupNavigation.PushAsync(currentpage);
 
-                    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmFilterData();
+                    if (tab_string == "tab1")
+                    {
+                        App.lead_filter = true;
+                        App.lead_rpc = true;
+                    }
+                    else if (tab_string == "tab2")
+                    {
+                        App.opp_filter = true;
+                        App.oppo_rpc = true;
+                    }
+
+                    else if (tab_string == "tab3")
+                    {
+                        App.dq_filter = true;
+                        App.draftquot_rpc = true;
+                    }
+
+                    else if(tab_string == "tab4")
+                    {
+                        App.sq_filter = true;
+                        App.salequot_rpc = true;
+                    }
+
+                    else 
+                    {
+                        App.so_filter = true;
+                        App.so_rpc = true;
+
+                    }
 
                     App.Current.MainPage = new MasterPage(new CrmTabbedPage(tab_string));
-
-                    //if (tab_string =="x_draft")
-                    //{
-                    //    List<SalesQuotation> crmdraftData = Controller.InstanceCreation().GetDraftQuotationData();
-                    //    App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab3"));
-                    //}
-
-                    //else
-                    //{
-
-                    //    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmFilterData();
-
-                    //    App.Current.MainPage = new MasterPage(new CrmTabbedPage(tab_string));
-                    //}
 
                    await Navigation.PopAllPopupAsync();
                 }
@@ -118,7 +132,6 @@ namespace SalesApp.Pages
 
             else
             {
-
                 if (App.filterstring == "Days")
                 {
                     App.filterdict["range"] = "False";
@@ -136,32 +149,43 @@ namespace SalesApp.Pages
                 var currentpage = new LoadingAlert();
                 await PopupNavigation.PushAsync(currentpage);
 
+                if (tab_string == "tab1")
+                {
+                    App.lead_filter = true;
+                    App.lead_rpc = true;
+                }
+                else if (tab_string == "tab2")
+                {
+                    App.opp_filter = true;
+                    App.oppo_rpc = true;
+                }
 
-                //if (tab_string =="x_draft")
-                //{
-                //   // List<SalesQuotation> crmdraftData = Controller.InstanceCreation().GetDraftQuotationData();
-                //    App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab3"));
-                //}
+                else if (tab_string == "tab3")
+                {
+                    App.dq_filter = true;
+                    App.draftquot_rpc = true;
+                }
 
-                //else
-                //{
-                //    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmFilterData();
+                else if (tab_string == "tab4")
+                {
+                    App.sq_filter = true;
+                    App.salequot_rpc = true;
+                }
 
-                //    App.Current.MainPage = new MasterPage(new CrmTabbedPage(tab_string));
-                //}
+                else
+                {
+                    App.so_filter = true;
+                    App.so_rpc = true;
 
-                List<CRMLead> crmLeadData = Controller.InstanceCreation().crmFilterData();
+                }
 
                 App.Current.MainPage = new MasterPage(new CrmTabbedPage(tab_string));
 
 
-                //await Navigation.PopAllPopupAsync();
-
                 Loadingalertcall();
 
             }
-          //  MessagingCenter.Send<Dictionary<string,dynamic>, string>(vals, "NotifyMsg", "test");
-
+   
             async void Loadingalertcall()
             {
                 await PopupNavigation.PopAllAsync();

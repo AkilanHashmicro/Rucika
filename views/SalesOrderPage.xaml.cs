@@ -1,4 +1,5 @@
 ﻿using Rg.Plugins.Popup.Extensions;
+using Rg.Plugins.Popup.Services;
 using SalesApp.DBModel;
 using SalesApp.models;
 using SalesApp.Pages;
@@ -17,20 +18,34 @@ namespace SalesApp.views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SalesOrderPage : ContentPage
     {
-        //public List<SalesModel> getSalesOrderDetails()
-        //{
-        //    //List<SalesModel> quotationData = Controller.InstanceCreation().salesOrderData("sales");
-        //    //return quotationData;
-
-        //    List<SalesModel> quotationData1 = Controller.InstanceCreation().salesOrderData1();
-        //    return quotationData1;
-
-        //}
-
-
-        private async void RefreshDataconstructor()
+        protected override void OnAppearing()
         {
-            await RefreshData();
+            base.OnAppearing();
+
+            MessagingCenter.Subscribe<string, string>("MyApp", "QuotListUpdated", (sender, arg) =>
+            {
+
+            });
+
+            MessagingCenter.Subscribe<string, string>("MyApp", "so_swipped", async (sender, arg) =>
+            {
+                if (App.so_swipped)
+                {
+                    act_ind.IsRunning = true;
+                   
+                    App.salesOrderList = Controller.InstanceCreation().GetSalesQrder();
+                    salesOrderListView.ItemsSource = App.salesOrderList;
+                    App.filterdict.Clear();
+                    App.so_swipped = false;
+
+                    act_ind.IsRunning = false;
+                }
+                else
+                {
+                    salesOrderListView.ItemsSource = App.salesOrderList;
+                }
+
+            });
         }
 
         public SalesOrderPage()
@@ -40,43 +55,22 @@ namespace SalesApp.views
             BackgroundColor = Color.White;
             InitializeComponent();
 
-            if (Device.RuntimePlatform == Device.Android)
+
+            if (App.so_rpc)
             {
-                //Fixes an android bug where the search bar would be hidden
-                searchBar.HeightRequest = 40.0;
+                
+                App.salesOrderList = Controller.InstanceCreation().GetSalesQrder();
+                salesOrderListView.ItemsSource = App.salesOrderList;
+                App.filterdict.Clear();
+
+                App.so_rpc = false;
             }
 
-            try
+            else
             {
-                if (App.filterstring == "Month" && App.load_rpc == true)
-                {
-                    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-                }
-
                 salesOrderListView.ItemsSource = App.salesOrderList;
             }
 
-            catch (Exception ea)
-            {
-                if (ea.Message.Contains("(Network is unreachable)") || ea.Message.Contains("NameResolutionFailure"))
-                {
-                    App.NetAvailable = false;
-                }
-
-                else if (ea.Message.Contains("(503) Service Unavailable"))
-                {
-                    App.responseState = false;
-                }
-            }
-
-            if (App.NetAvailable == false)
-            {
-                salesOrderListView.ItemsSource = App.SalesOrderListDb;
-            }
-
-
-            // salesOrderListView.ItemsSource = getSalesOrderDetails();
-          //  salesOrderListView.ItemsSource = App.salesOrderList;
             salesOrderListView.Refreshing += this.RefreshRequested;
         }
 
@@ -99,10 +93,7 @@ namespace SalesApp.views
           // App.Current.MainPage = new MasterPage(new SalesOrderDetailPage(ea.Item as SalesModel));
         }
 
-        async Task RefreshData()
-        {
-            List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-        }
+       
 
         private async void RefreshRequested(object sender, object e)
         {
@@ -110,34 +101,13 @@ namespace SalesApp.views
            // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
             salesOrderListView.IsRefreshing = true;
 
-            await RefreshData();
 
-            if (App.filterstring == "Month" && App.load_rpc == true)
-            {
-                RefreshDataconstructor();
-            }
+            App.salesOrderList = Controller.InstanceCreation().GetSalesQrder();
+            salesOrderListView.ItemsSource = App.salesOrderList;
+            App.filterdict.Clear();
+            salesOrderListView.IsRefreshing = false;
 
-            if (App.NetAvailable == true)
-            {
-                
-                //   List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-                salesOrderListView.ItemsSource = App.salesOrderList;
-                // salesQuotationListView.EndRefresh(); 
-
-                salesOrderListView.IsRefreshing = false;
-            }
-
-
-            else if (App.NetAvailable == false)
-            {
-                // await Task.Delay(500);
-                salesOrderListView.ItemsSource = App.SalesOrderListDb;
-              //  salesQuotationListView.EndRefresh();
-            }
-            salesOrderListView.EndRefresh();
-
-            //salesOrderListView.ItemsSource = App.salesOrderList;
-            //salesOrderListView.EndRefresh();
+          
         }
 
         private void Toolbar_Search_Activated(object sender, EventArgs e)

@@ -9,8 +9,10 @@
     <ContentPage.Content >
        
        <ScrollView>
-        <!--<AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" > AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"-->
             
+         <RelativeLayout>
+                <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"  
+             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
             <StackLayout Padding="10,0,10,0"  x:Name="loginFormLayout" >
 
                    <Grid>
@@ -192,9 +194,14 @@
                 </StackLayout>
             </StackLayout>
 
+             </ContentView>
+                    <ActivityIndicator  x:Name="act_ind"  IsRunning="false"  Color ="Red" 
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-205}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-275}" />         
+            </RelativeLayout>
+                    
             </ScrollView>
-               
-             <!--  </AbsoluteLayout>-->
+         
       
     </ContentPage.Content>
 </ContentPage>  

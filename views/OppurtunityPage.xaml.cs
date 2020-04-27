@@ -19,29 +19,40 @@ namespace SalesApp.views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OppurtunityPage : ContentPage
     {
-       
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
             MessagingCenter.Subscribe<string, string>("MyApp", "oppListUpdated", (sender, arg) =>
             {
-               // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+                // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
                 oppurtunityListView.ItemsSource = App.crmOpprList;
 
             });
+
+            MessagingCenter.Subscribe<string, string>("MyApp", "opp_swipped", async (sender, arg) =>
+            {
+                if (App.oppo_swipped)
+                {
+                    act_ind.IsRunning = true;
+
+                    await Task.Run(() => App.crmOpprList = Controller.InstanceCreation().GetOpportunityList());
+                    oppurtunityListView.ItemsSource = App.crmOpprList;
+                    App.filterdict.Clear();
+                    App.oppo_swipped = false;
+
+                    act_ind.IsRunning = false;
+                }
+                else
+                {
+                    oppurtunityListView.ItemsSource = App.crmOpprList;
+                }
+                             
+            });
         }
 
-        private async void RefreshDataconstructor()
-        {
-            await RefreshData();
-        }
-
-        async Task RefreshData()
-        {
-            List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-        }
-
+    
 
         public OppurtunityPage()
         {
@@ -49,44 +60,21 @@ namespace SalesApp.views
 
             BackgroundColor = Color.White;
             InitializeComponent();
-
-            if (App.filterstring == "Month" && App.load_rpc == true)
+             
+            if (App.oppo_rpc)
             {
-                RefreshDataconstructor();
-            }
+               
+                App.crmOpprList = Controller.InstanceCreation().GetOpportunityList();
+                oppurtunityListView.ItemsSource = App.crmOpprList;
+                App.filterdict.Clear();
 
-            if (Device.RuntimePlatform == Device.Android)
+                App.oppo_rpc = false;
+            }
+            else
             {
-                //Fixes an android bug where the search bar would be hidden
-                searchBar.HeightRequest = 40.0;
+                oppurtunityListView.ItemsSource = App.crmOpprList;
             }
-
-            if (App.NetAvailable == true)
-            {
-
-                var result1 = from y in App.CRMOpportunitiesListDb
-                              where y.yellowimg_string == "yellowcircle.png"
-                              select y;
-
-                if (result1.Count() == 0)
-                {
-                    oppurtunityListView.ItemsSource = App.crmOpprList;
-                }
-
-                else
-                {
-                    oppurtunityListView.ItemsSource = App.CRMOpportunitiesListDb;
-                }
-            }
-
-       
-            else  if (App.NetAvailable == false)
-            {
-                oppurtunityListView.ItemsSource = App.CRMOpportunitiesListDb;
-            }
-
-            // oppurtunityListView.ItemsSource = getOppurtunityDetails();
-           
+                          
             oppurtunityListView.Refreshing += this.RefreshRequested;
 
             var plusRecognizer = new TapGestureRecognizer();
@@ -155,91 +143,19 @@ namespace SalesApp.views
                 }
             }
 
-
-            //if (App.NetAvailable == true)
-            //{
-            //    CRMOpportunities masterItemObj = (CRMOpportunities)ea.Item;
-            //    Navigation.PushPopupAsync(new CrmOppDetailWizard(masterItemObj));
-            //}
-
-            //else if (App.NetAvailable == false)
-            //{
-            //    CRMOpportunitiesDB masterItemObj = (CRMOpportunitiesDB)ea.Item;
-            //    Navigation.PushPopupAsync(new CrmOppDetailWizard(masterItemObj));
-            //}
-
-            //  App.Current.MainPage = new MasterPage(new OppurtunityDetailPage(masterItemObj));
         }
 
         private async void RefreshRequested(object sender, object e)
         {
 
-            //await Task.Delay(2000);
-            //List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
-            oppurtunityListView.IsRefreshing = true;
-            //   await Task.Delay(200);
-
-           await RefreshData();
-
-            if (App.filterstring == "Month")
-            {
-                RefreshDataconstructor();
-            }
-
-            if (App.NetAvailable == true)
-            {
-                
+        
+                oppurtunityListView.IsRefreshing = true;
+            //   await Task.Delay(200);                
+                App.crmOpprList = Controller.InstanceCreation().GetOpportunityList();
                 oppurtunityListView.ItemsSource = App.crmOpprList;
-                oppurtunityListView.IsRefreshing = false;
+                App.filterdict.Clear();
 
-                //var result1 = from y in App.CRMOpportunitiesListDb
-                //              where y.yellowimg_string == "yellowcircle.png"
-                //              select y;
-
-                //if (result1.Count() == 0)
-                //{
-                //    await Task.Delay(2000);
-
-                //    // oppurtunityListView.ItemsSource = this.getOppurtunityDetails();
-                //    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-                //    oppurtunityListView.ItemsSource = App.crmOpprList;
-                //    oppurtunityListView.EndRefresh();
-                //}
-
-                //else
-                //{
-                //    await Task.Delay(500);
-                //    oppurtunityListView.ItemsSource = App.CRMOpportunitiesListDb;
-                //    oppurtunityListView.EndRefresh();
-                //}
-            }
-
-            //if (App.NetAvailable == true && App.crmList.Count == App.crmListDb.Count)
-            //{
-            //    await Task.Delay(2000);
-
-            //    // oppurtunityListView.ItemsSource = this.getOppurtunityDetails();
-            //    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-            //    oppurtunityListView.ItemsSource = App.crmOpprList;
-            //    oppurtunityListView.EndRefresh();
-            //}
-
-            //else if (App.NetAvailable == true && App.crmList.Count < App.crmListDb.Count)
-            //{
-            //    await Task.Delay(500);
-            //    oppurtunityListView.ItemsSource = App.CRMOpportunitiesListDb;
-            //    oppurtunityListView.EndRefresh();
-            //}
-
-            else if(App.NetAvailable == false)
-            {
-              //  await Task.Delay(500);
-                oppurtunityListView.ItemsSource = App.CRMOpportunitiesListDb;
-               // oppurtunityListView.EndRefresh();
-            }
-
-            oppurtunityListView.EndRefresh();
+            oppurtunityListView.IsRefreshing = false;
         }
 
         private void Toolbar_Search_Activated(object sender, EventArgs e)
@@ -257,13 +173,7 @@ namespace SalesApp.views
             Navigation.PushPopupAsync(new FilterPopupPage("tab2")); 
         }
 
-        //private void MenuItem_Clicked(object sender, EventArgs e)
-        //{
-        //    var mi = ((MenuItem)sender);
 
-        //    CRMLead obj = (CRMLead)mi.CommandParameter;
-        //    Navigation.PushPopupAsync(new CrmLeadDetailWizard(obj));
-        //}
 
         private void meetingClicked(object sender, EventArgs e1)
         {

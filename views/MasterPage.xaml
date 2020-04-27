@@ -6,7 +6,11 @@
 
     <MasterDetailPage.Master>
         <ContentPage Title="Menu" BackgroundColor="#F0EEEF">
-            <ScrollView  Orientation = "Vertical" VerticalOptions="StartAndExpand">
+           
+            <RelativeLayout>
+                <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"  
+             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                
                 <StackLayout Orientation="Vertical" BackgroundColor="#F0EEEF">
 
                     <!-- 
@@ -60,8 +64,14 @@
                 </StackLayout>
 
                     </StackLayout>
+
+              </ContentView>  
+              <ActivityIndicator  x:Name="act_ind"  IsRunning="false"  Color ="Red" 
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-205}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-275}" />         
+            </RelativeLayout>
                 
-            </ScrollView>
+       
         </ContentPage>
     </MasterDetailPage.Master>
 

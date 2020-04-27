@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"            
-             x:Class="SalesApp.views.OppurtunityPage">
+             x:Class="SalesApp.views.OppurtunityPage"
+             xmlns:controls="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="filter.png" Activated="Toolbar_Filter_Activated" Priority="4"></ToolbarItem>
         <ToolbarItem Icon="search.png" Activated="Toolbar_Search_Activated"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
+        
         <RelativeLayout>
             <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"  
              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <BoxView Color="Transparent" HeightRequest="5"/>
                             
-                    <StackLayout>
+                    <StackLayout x:Name="test">
                          <SearchBar x:Name="searchBar"  Placeholder="Search Customer" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="False"/>                        
-                        <ListView x:Name="oppurtunityListView" ItemTapped="OnMenuItemTapped" HasUnevenRows="true" IsPullToRefreshEnabled="True" >
+                        <ListView x:Name="oppurtunityListView" CachingStrategy="RecycleElement" ItemTapped="OnMenuItemTapped" HasUnevenRows="true" IsPullToRefreshEnabled="True" >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
@@ -49,7 +50,7 @@
                                                     </Image>
                                                     <Image Source="lvmeeting.png" WidthRequest="30" HeightRequest="30">
                                                         <Image.GestureRecognizers>
-                                                            <!--<TapGestureRecognizer Command="{Binding Path=TapCommand" CommandParameter="{Binding .}" />-->
+                                                           
                                                             <TapGestureRecognizer Tapped="meetingClicked" CommandParameter="{Binding .}" />
                                                             
                                                         </Image.GestureRecognizers>
@@ -87,7 +88,11 @@
             <Image Source="fab.png" x:Name="plus" WidthRequest="50" HeightRequest="60"
                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-55}"  
                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-65}" />
-        </RelativeLayout>
-            </ScrollView>
+
+             <ActivityIndicator  x:Name="act_ind"  IsRunning="false"  Color ="Red" 
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-205}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-275}" />         
+            </RelativeLayout>
+        
     </ContentPage.Content>
 </ContentPage> 

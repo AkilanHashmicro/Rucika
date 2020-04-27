@@ -227,7 +227,7 @@ namespace SalesApp.views
             }             
         }
 
-        private async Task calendar_MonthChangedAsync(object sender, MonthChangedEventArgs args)
+        private async void calendar_MonthChangedAsync(object sender, MonthChangedEventArgs args)
         {
 
             var currentpage = new LoadingAlert();

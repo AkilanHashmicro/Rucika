@@ -9,7 +9,6 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ScrollView>
             <RelativeLayout>
                 <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"  
              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
@@ -17,7 +16,7 @@
                     <StackLayout>
                     <SearchBar x:Name="searchBar"  Placeholder="Search Customer / Order number" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="False"/>
                         
-                    <ListView x:Name="salesOrderListView" ItemTapped="OnMenuItemTapped" HasUnevenRows="true" IsPullToRefreshEnabled="True" AbsoluteLayout.LayoutFlags="All"
+                    <ListView x:Name="salesOrderListView" CachingStrategy="RecycleElement" ItemTapped="OnMenuItemTapped" HasUnevenRows="true" IsPullToRefreshEnabled="True" AbsoluteLayout.LayoutFlags="All"
 						  AbsoluteLayout.LayoutBounds="0,0,1,1">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -62,9 +61,11 @@
                <Image Source="fab.png" WidthRequest="50" HeightRequest="60" IsVisible="false"
                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-55}"  
                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-65}" />
+
+                 <ActivityIndicator  x:Name="act_ind"  IsRunning="false"  Color ="Red" 
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-205}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-275}" />         
             </RelativeLayout>
-         
-        </ScrollView>
 
     </ContentPage.Content>
 </ContentPage>

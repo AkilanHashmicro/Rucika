@@ -19,10 +19,8 @@
           </StackLayout>
         </StackLayout>
         
-        <Image  x:Name="sq_editbtn" VerticalOptions="End" HorizontalOptions="End" Source="sqeditcolor.png" Margin="0,-20,10,0" WidthRequest="50" HeightRequest="50"  />
-        <!--<Image  x:Name="sq_tickbtn" VerticalOptions="End" HorizontalOptions="End" Source="sqtick.png" Margin="0,-20,10,0" WidthRequest="50" HeightRequest="50" IsVisible="false"  />-->
-
-
+      <!--  <Image  x:Name="sq_editbtn" VerticalOptions="End" HorizontalOptions="End" Source="sqeditcolor.png" Margin="0,-20,10,0" WidthRequest="50" HeightRequest="50"  />-->
+ 
         <StackLayout Padding="5" >
           <StackLayout>
             <Grid>

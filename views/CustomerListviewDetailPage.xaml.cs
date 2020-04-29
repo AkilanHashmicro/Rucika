@@ -244,56 +244,56 @@ namespace SalesApp.views
 
 
 
-            var editbutton = new TapGestureRecognizer();
-            editbutton.Tapped += (s, e) => {
+            //var editbutton = new TapGestureRecognizer();
+            //editbutton.Tapped += (s, e) => {
 
-                sq_editbtn.IsVisible = false;
+            //  //  sq_editbtn.IsVisible = false;
 
-                updatebtn.IsVisible = true;
+            //    updatebtn.IsVisible = true;
 
-                CusListView.IsEnabled = true;
+            //    CusListView.IsEnabled = true;
 
-                cus_image.IsEnabled = true;
+            //    cus_image.IsEnabled = true;
 
-                name.IsVisible = false;
-                name_entry.Text = name.Text;
-                name_label.IsVisible = true;
-                name_entry.IsVisible = true;
+            //    name.IsVisible = false;
+            //    name_entry.Text = name.Text;
+            //    name_label.IsVisible = true;
+            //    name_entry.IsVisible = true;
 
-                email.IsVisible = false;
-                email_entry.Text = email.Text;
-                email_label.IsVisible = true;
-                email_entry.IsVisible = true;
+            //    email.IsVisible = false;
+            //    email_entry.Text = email.Text;
+            //    email_label.IsVisible = true;
+            //    email_entry.IsVisible = true;
 
-                mobile_No.IsVisible = false;
-                mobile_No_entry.Text = mobile_No.Text;
-                mobile_No_label.IsVisible = true;
-                mobile_No_entry.IsVisible = true;
+            //    mobile_No.IsVisible = false;
+            //    mobile_No_entry.Text = mobile_No.Text;
+            //    mobile_No_label.IsVisible = true;
+            //    mobile_No_entry.IsVisible = true;
 
 
-                street.IsVisible = false;
-                street_entry.Text = street.Text;
-                street_label.IsVisible = true;
-                street_entry.IsVisible = true;
+            //    street.IsVisible = false;
+            //    street_entry.Text = street.Text;
+            //    street_label.IsVisible = true;
+            //    street_entry.IsVisible = true;
 
-                city.IsVisible = false;
-                city_entry.Text = city.Text;
-                city_label.IsVisible = true;
-                city_entry.IsVisible = true;
+            //    city.IsVisible = false;
+            //    city_entry.Text = city.Text;
+            //    city_label.IsVisible = true;
+            //    city_entry.IsVisible = true;
 
-                zip.IsVisible = false;
-                zip_entry.Text = zip.Text;
-                zip_label.IsVisible = true;
-                zip_entry.IsVisible = true;
+            //    zip.IsVisible = false;
+            //    zip_entry.Text = zip.Text;
+            //    zip_label.IsVisible = true;
+            //    zip_entry.IsVisible = true;
 
-                web_text.IsVisible = false;
-                web_text_entry.Text = web_text.Text;
-                web_text_entry.IsVisible = true;
+            //    web_text.IsVisible = false;
+            //    web_text_entry.Text = web_text.Text;
+            //    web_text_entry.IsVisible = true;
 
-                AddContact_line.IsVisible = true;
+            //    AddContact_line.IsVisible = true;
 
-            };
-            sq_editbtn.GestureRecognizers.Add(editbutton);
+            //};
+            //sq_editbtn.GestureRecognizers.Add(editbutton);
 
 
             var imageRecognizer = new TapGestureRecognizer();
@@ -572,7 +572,7 @@ namespace SalesApp.views
 
         private void updatecancel_clickedAsync(object sender, EventArgs ea)
         {
-            sq_editbtn.IsVisible = true;
+           // sq_editbtn.IsVisible = true;
             updatebtn.IsVisible = false;
 
             CusListView.IsEnabled = false;

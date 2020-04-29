@@ -200,7 +200,7 @@ namespace SalesApp.views
 
             // tax_listview.ItemsSource = item.order_line;
 
-            orderListview.HeightRequest = item.order_line.Count * 55;
+          //  orderListview.HeightRequest = item.order_line.Count * 55;
 
             var sq_editRecognizer = new TapGestureRecognizer();
             sq_editRecognizer.Tapped += async (s, e) =>
@@ -1030,7 +1030,7 @@ namespace SalesApp.views
 
             }
 
-            savebtn_layout.IsVisible = true;
+           
         }
 
 
@@ -1482,7 +1482,7 @@ namespace SalesApp.views
             final_listviewnew.Clear();
             orderListview.ItemsSource = final_listview;
 
-            orderListview.HeightRequest = final_listview.Count * 55;
+          //  orderListview.HeightRequest = final_listview.Count * 55;
 
             listview_editlayout.IsVisible = false;
             discount_grid.IsVisible = false;

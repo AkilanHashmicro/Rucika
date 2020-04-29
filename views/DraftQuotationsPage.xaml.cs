@@ -102,6 +102,7 @@ namespace SalesApp.views
             App.draftQuotList = Controller.InstanceCreation().GetdraftQuotations();
             App.filterdict.Clear();
             salesQuotationListView.ItemsSource = App.draftQuotList;
+            salesQuotationListView.IsRefreshing = false;
         
         }
 

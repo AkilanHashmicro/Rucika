@@ -163,7 +163,7 @@ namespace SalesApp.views
 
            // tax_listview.ItemsSource = item.order_line;
 
-            orderListview.HeightRequest = item.order_line.Count * 50;
+          //  orderListview.HeightRequest = item.order_line.Count * 50;
 
             var sq_editRecognizer = new TapGestureRecognizer();
             sq_editRecognizer.Tapped += async (s, e) =>
@@ -984,7 +984,7 @@ namespace SalesApp.views
 
             }
                 
-            savebtn_layout.IsVisible = true;
+           // savebtn_layout.IsVisible = true;
         }
 
 
@@ -1088,9 +1088,9 @@ namespace SalesApp.views
             tab2frame.BackgroundColor = Color.FromHex("#363E4B");
             tab2borderstack.BackgroundColor = Color.White;
             orderLineList.IsVisible = true;
-            OtherInfoStack1.IsVisible = false;
-            OtherInfoStack2.IsVisible = false;
-            OtherInfoStack3.IsVisible = false;
+            OtherInfoStack1.IsVisible = true;
+            OtherInfoStack2.IsVisible = true;
+            OtherInfoStack3.IsVisible = true;
             tab1frame.BackgroundColor = Color.FromHex("#363E4B");
             tab1borderstack.BackgroundColor = Color.FromHex("#363E4B");
             OrderLineList1.IsVisible = true;
@@ -1463,7 +1463,7 @@ namespace SalesApp.views
                 final_listviewnew.Clear();
                 orderListview.ItemsSource = final_listview;
 
-                orderListview.HeightRequest = final_listview.Count * 50;
+              //  orderListview.HeightRequest = final_listview.Count * 50;
 
               listview_editlayout.IsVisible = false;
               discount_grid.IsVisible = false;

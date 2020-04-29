@@ -79,7 +79,7 @@ namespace SalesApp.views
 
             if (updated)
             {
-                await DisplayAlert("Alert", "Password updated successfully", "Ok");
+                await DisplayAlert("Alert", "Profile updated successfully", "Ok");
 
                 name_entry.IsVisible = false;
                 name_value.IsVisible = true;
@@ -94,6 +94,8 @@ namespace SalesApp.views
                 App.partner_email = email_value.Text;
 
                 edit_img.IsVisible = true;
+
+                App.Current.MainPage = new MasterPage(new ProfilePage());
 
             }
 

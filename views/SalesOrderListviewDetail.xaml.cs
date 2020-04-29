@@ -26,7 +26,7 @@ namespace SalesApp.views
             NavigationPage.SetHasNavigationBar(this, false);
 
             //    App.orderLineList = item.order_line;
-            total_cal.IsVisible = true;
+           total_cal.IsVisible = true;
 
             Cus.Text = item.customer;
             CD.Text = item.DateOrder;
@@ -58,7 +58,7 @@ namespace SalesApp.views
                 attach_name.Text = attachres.Count + " " + "Attachment(s)";
             }
 
-            orderListview.HeightRequest = item.order_line.Count * 50;
+           // orderListview.HeightRequest = item.order_line.Count * 50;
 
             amt_untax.Text = item.amount_untaxed;
             amt_tax.Text = item.amount_tax;
@@ -240,7 +240,7 @@ namespace SalesApp.views
             //tab1frame.BackgroundColor = Color.White;
             //tab1borderstack.BackgroundColor = Color.FromHex("#363E4B");
             //OrderLineList1.IsVisible = false;
-            total_cal.IsVisible = false;
+          //  total_cal.IsVisible = false;
 
             tab2stack.BackgroundColor = Color.FromHex("#363E4B");
             tab2.BackgroundColor = Color.FromHex("#363E4B");

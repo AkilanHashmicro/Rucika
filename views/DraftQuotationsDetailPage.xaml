@@ -7,7 +7,8 @@
              x:Class="SalesApp.views.DraftQuotationsDetailPage" HasKeyboardOffset="false" >
    
     <ContentPage.Content >
-        <ScrollView BackgroundColor="#F0EEEF" >
+        <ScrollView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            
             <StackLayout BackgroundColor="#F0EEEF" >
 
                 <StackLayout x:Name="noedit_layout" Padding="0"> 
@@ -560,8 +561,13 @@
 
             </StackLayout>
                     
-                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" x:Name="OrderLineList1" Padding="5,0,5,0">
-                    <ListView SeparatorColor="Blue" ItemTapped="OnMenuItemTapped" HasUnevenRows="true" x:Name="orderListview"  >
+
+
+            
+
+               <StackLayout Orientation="Vertical" x:Name="OrderLineList1" VerticalOptions="FillAndExpand" Padding="5,0,5,0">
+                        
+                    <ListView SeparatorColor="Blue" ItemTapped="OnMenuItemTapped" RowHeight="60" VerticalOptions="FillAndExpand" x:Name="orderListview"  >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                                 <ViewCell Tapped="ViewCell_Tapped" >
@@ -601,7 +607,80 @@
                             </ListView>
                         </StackLayout>
 
-            
+               
+
+                <BoxView Color="Transparent" HeightRequest="10"/>
+
+<!-- //Total Cal  -->             
+
+     <StackLayout x:Name="total_cal" IsVisible="false">
+
+              <Grid Padding="0,0,15,0">
+                 <Grid.ColumnDefinitions>
+                   <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3.5*" />
+                        <ColumnDefinition Width="3.5*" />
+               </Grid.ColumnDefinitions> 
+                    
+                   <StackLayout Grid.Column="1">
+                   <Label Text="Untaxed Amount :" HorizontalTextAlignment="End"  TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
+                   </StackLayout>
+                      <StackLayout Grid.Column="2">
+                   <Label x:Name="amt_untax" Text=""  HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
+                   </StackLayout>
+               </Grid>
+
+
+               <Grid Padding="0,0,15,0">
+                    
+                 <Grid.ColumnDefinitions>
+                   <ColumnDefinition Width="4.5*" />
+                <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3.5*" />
+               </Grid.ColumnDefinitions> 
+                    
+                   <StackLayout  Grid.Column="1">
+                   <Label Text="Taxes :" HorizontalTextAlignment="End"  TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
+                   </StackLayout>
+                      <StackLayout Grid.Column="2">
+                   <Label Text="" x:Name="amt_tax" HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
+                   </StackLayout>
+               </Grid>
+
+                <Grid Padding="0,0,5,0">
+                    
+                    <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="6*" />
+                    
+               </Grid.ColumnDefinitions> 
+                    
+                   <BoxView  Grid.Column="1" 
+           HorizontalOptions="FillAndExpand"
+           HeightRequest="1"
+         
+           Color="#5b5d68"></BoxView>
+
+                </Grid>
+
+                   <Grid Padding="0,0,15,0">
+                 <Grid.ColumnDefinitions>
+                   <ColumnDefinition Width="4.5*" />
+                <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3.5*" />
+               </Grid.ColumnDefinitions> 
+                    
+                   <StackLayout Grid.Column="1">
+                   <Label Text="Total :"  HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
+                   </StackLayout>
+                      <StackLayout Grid.Column="2">
+                   <Label Text="" x:Name="amt_total" HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
+                   </StackLayout>
+               </Grid>
+
+</StackLayout>
+                    
                         
             <Grid Padding="10,0,10,10" x:Name="listview_editlayout" IsVisible="false" >
                 <Grid.ColumnDefinitions>
@@ -825,7 +904,7 @@
              <Label Text="Taxes" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"   VerticalTextAlignment="Center"/>
                            
                 <Frame Padding="10,5,10,0"  CornerRadius="20" BackgroundColor="#363E4B" x:Name="taxStackLayout_ol"   > 
-                     <ListView x:Name="taxListView_ol"  SeparatorColor="#FFA212" BackgroundColor="#363E4B" HeightRequest="0" >
+                     <ListView x:Name="taxListView_ol"   SeparatorColor="#FFA212" BackgroundColor="#363E4B" HeightRequest="0" >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell Tapped="ViewCelltax_Tapped"> 
@@ -1089,77 +1168,7 @@
 
                 
 
-                <BoxView Color="Transparent" HeightRequest="10"/>
 
-<!-- //Total Cal  -->             
-
-     <StackLayout x:Name="total_cal">
-
-              <Grid Padding="0,0,15,0">
-                 <Grid.ColumnDefinitions>
-                   <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="3.5*" />
-                        <ColumnDefinition Width="3.5*" />
-               </Grid.ColumnDefinitions> 
-                    
-                   <StackLayout Grid.Column="1">
-                   <Label Text="Untaxed Amount :" HorizontalTextAlignment="End"  TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
-                   </StackLayout>
-                      <StackLayout Grid.Column="2">
-                   <Label x:Name="amt_untax" Text=""  HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
-                   </StackLayout>
-               </Grid>
-
-
-               <Grid Padding="0,0,15,0">
-                    
-                 <Grid.ColumnDefinitions>
-                   <ColumnDefinition Width="4.5*" />
-                <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="3.5*" />
-               </Grid.ColumnDefinitions> 
-                    
-                   <StackLayout  Grid.Column="1">
-                   <Label Text="Taxes :" HorizontalTextAlignment="End"  TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
-                   </StackLayout>
-                      <StackLayout Grid.Column="2">
-                   <Label Text="" x:Name="amt_tax" HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
-                   </StackLayout>
-               </Grid>
-
-                <Grid Padding="0,0,5,0">
-                    
-                    <Grid.ColumnDefinitions>
-
-                <ColumnDefinition Width="4*" />
-                <ColumnDefinition Width="6*" />
-                    
-               </Grid.ColumnDefinitions> 
-                    
-                   <BoxView  Grid.Column="1" 
-           HorizontalOptions="FillAndExpand"
-           HeightRequest="1"
-         
-           Color="#5b5d68"></BoxView>
-
-                </Grid>
-
-                   <Grid Padding="0,0,15,0">
-                 <Grid.ColumnDefinitions>
-                   <ColumnDefinition Width="4.5*" />
-                <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="3.5*" />
-               </Grid.ColumnDefinitions> 
-                    
-                   <StackLayout Grid.Column="1">
-                   <Label Text="Total :"  HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
-                   </StackLayout>
-                      <StackLayout Grid.Column="2">
-                   <Label Text="" x:Name="amt_total" HorizontalTextAlignment="End" TextColor="#102b1e" FontAttributes="Bold" FontSize="Small"/>                    
-                   </StackLayout>
-               </Grid>
-
-</StackLayout>
                  <BoxView Color="Transparent" HeightRequest="10"/>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" x:Name="savebtn_layout" IsVisible="false">

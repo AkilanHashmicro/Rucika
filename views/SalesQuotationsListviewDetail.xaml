@@ -576,7 +576,7 @@
             </StackLayout>
                     
                     <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" x:Name="OrderLineList1" Padding="5,0,5,0">
-                    <ListView SeparatorColor="Blue" ItemTapped="OnMenuItemTapped" HasUnevenRows="true" x:Name="orderListview"  >
+                    <ListView SeparatorColor="Blue" ItemTapped="OnMenuItemTapped" RowHeight="60" x:Name="orderListview"  >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                                 <ViewCell Tapped="ViewCell_Tapped" >

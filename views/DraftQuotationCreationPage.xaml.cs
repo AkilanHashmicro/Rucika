@@ -27,6 +27,7 @@ namespace SalesApp.views
         String file_uploadname = "";
 
         float subtotal = 0;
+        int cus_id = 0;
 
       //  DateTime? nullDate = new DateTime? ();
 
@@ -167,8 +168,8 @@ namespace SalesApp.views
             if (App.NetAvailable == true)
             {
 
-                cuspicker1.ItemsSource = App.cusList.Select(x => x.name).ToList();
-                cuspicker1.SelectedIndex = -1;
+                    //cuspicker1.ItemsSource = App.cusList.Select(x => x.name).ToList();
+                    //cuspicker1.SelectedIndex = -1;
 
                 pricelist_picker.ItemsSource = App.product_PriceList.Select(x => x.name).ToList();
                 pricelist_picker.SelectedIndex = -1;
@@ -312,6 +313,16 @@ namespace SalesApp.views
             overall_close.GestureRecognizers.Add(overallcloseImgRecognizer);
         }
 
+        void productentry(object sender, EventArgs args)
+        {
+            Navigation.PushPopupAsync(new PickerSelectionPage());
+        }
+
+        void customerentry(object sender, EventArgs args)
+        {
+            Navigation.PushPopupAsync(new CustomerSelectionPage());
+        }
+
 
         protected override void OnAppearing()
         {
@@ -367,6 +378,82 @@ namespace SalesApp.views
 
             });
 
+            MessagingCenter.Subscribe<string, int>("MyApp", "CusPickerMsg", (sender, arg) =>
+            {
+                // HideLbl.Text = "New Quotation Creation";
+
+                if (App.cusList.Count != 0)
+                {
+                    var productlis = from pro in App.cusList
+                                     where pro.id == arg
+                                     select pro;
+
+                    foreach (var prodresults in productlis)
+                    {
+                        searchcus.Text = prodresults.name;
+                        cus_id = prodresults.id;
+                    }
+                }
+
+                else
+                {
+                    var productlis = from pro in App.cusList
+                                     where pro.id == arg
+                                     select pro;
+
+                    foreach (var prodresults in productlis)
+                    {
+                        searchcus.Text = prodresults.name;
+                        cus_id = prodresults.id;
+                    }
+                }
+
+                // int i = 0;
+
+
+                // var cusid = App.cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
+
+              JObject con_dict = App.cus_address.FirstOrDefault(x => x.Key == cus_id.ToString()).Value;
+
+              //  JObject con_dict = App.cusList.FirstOrDefault(x => x.id == cus_id.).Value;
+
+                cus_selectdict = con_dict.ToObject<Dictionary<int, string>>();
+
+                if (cus_selectdict.Count == 0)
+                {
+                    //  invaddr_picker.Items.Add(cuspicker1.SelectedItem.ToString());
+                    invaddr_picker.Items.Clear();
+                    invaddr_picker.Items.Add(searchcus.Text);
+                    invaddr_picker.SelectedItem = searchcus.Text.ToString();
+                    invaddr_picker.SelectedIndex = 0;
+                }
+
+                else
+                {
+                    invaddr_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+                    invaddr_picker.SelectedIndex = 0;
+                }
+
+                if (cus_selectdict.Count == 0)
+                {
+                    deladdr_picker.Items.Clear();
+                    deladdr_picker.Items.Add(searchcus.Text);
+                    deladdr_picker.SelectedItem = searchcus.Text.ToString();
+                    deladdr_picker.SelectedIndex = 0;
+                    // deladdr_picker.SelectedItem = cuspicker1.SelectedItem.ToString();
+                }
+
+                else
+                {
+                    deladdr_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+                    deladdr_picker.SelectedIndex = 0;
+                }
+
+                contperson_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+                contperson_picker.SelectedIndex = 0;
+
+
+            });
 
 
             MessagingCenter.Subscribe<string, int>("MyApp", "PickerMsg", (sender, arg) =>
@@ -418,51 +505,51 @@ namespace SalesApp.views
             Navigation.PopAllPopupAsync();
         }
 
-        private void cus_indexChanged(object sender, EventArgs e)
-        {
+        //private void cus_indexChanged(object sender, EventArgs e)
+        //{
 
-            var cusid = App.cusList.FirstOrDefault(x => x.name == cuspicker1.SelectedItem.ToString()).id;
+        //    var cusid = App.cusList.FirstOrDefault(x => x.name == cuspicker1.SelectedItem.ToString()).id;
 
-            JObject con_dict = App.cus_address.FirstOrDefault(x => x.Key == cusid.ToString()).Value;
+        //    JObject con_dict = App.cus_address.FirstOrDefault(x => x.Key == cusid.ToString()).Value;
 
-            cus_selectdict = con_dict.ToObject<Dictionary<int, string>>();
+        //    cus_selectdict = con_dict.ToObject<Dictionary<int, string>>();
 
         
-            if (cus_selectdict.Count == 0)
-            {
-                //  invaddr_picker.Items.Add(cuspicker1.SelectedItem.ToString());
-                invaddr_picker.Items.Clear();
-                invaddr_picker.Items.Add(cuspicker1.SelectedItem.ToString());
-                invaddr_picker.SelectedItem = cuspicker1.SelectedItem.ToString();
-                invaddr_picker.SelectedIndex = 0;
-            }
+        //    if (cus_selectdict.Count == 0)
+        //    {
+        //        //  invaddr_picker.Items.Add(cuspicker1.SelectedItem.ToString());
+        //        invaddr_picker.Items.Clear();
+        //        invaddr_picker.Items.Add(cuspicker1.SelectedItem.ToString());
+        //        invaddr_picker.SelectedItem = cuspicker1.SelectedItem.ToString();
+        //        invaddr_picker.SelectedIndex = 0;
+        //    }
 
-            else
-            {
-                invaddr_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
-                invaddr_picker.SelectedIndex = 0;
-            }
+        //    else
+        //    {
+        //        invaddr_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+        //        invaddr_picker.SelectedIndex = 0;
+        //    }
 
-            if (cus_selectdict.Count == 0)
-            {
-                deladdr_picker.Items.Clear();
-                deladdr_picker.Items.Add(cuspicker1.SelectedItem.ToString());
-                deladdr_picker.SelectedItem = cuspicker1.SelectedItem.ToString();
-                deladdr_picker.SelectedIndex = 0;
-                deladdr_picker.SelectedItem = cuspicker1.SelectedItem.ToString();
-            }
+        //    if (cus_selectdict.Count == 0)
+        //    {
+        //        deladdr_picker.Items.Clear();
+        //        deladdr_picker.Items.Add(cuspicker1.SelectedItem.ToString());
+        //        deladdr_picker.SelectedItem = cuspicker1.SelectedItem.ToString();
+        //        deladdr_picker.SelectedIndex = 0;
+        //        deladdr_picker.SelectedItem = cuspicker1.SelectedItem.ToString();
+        //    }
 
-            else
-            {
-                deladdr_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
-                deladdr_picker.SelectedIndex = 0;
-            }
+        //    else
+        //    {
+        //        deladdr_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+        //        deladdr_picker.SelectedIndex = 0;
+        //    }
 
-            contperson_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
-            contperson_picker.SelectedIndex = 0;
+        //    contperson_picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+        //    contperson_picker.SelectedIndex = 0;
 
 
-        }
+        //}
 
         protected override bool OnBackButtonPressed()
         {
@@ -549,7 +636,7 @@ namespace SalesApp.views
 
            
 
-            else if (cuspicker1.SelectedIndex == -1)
+            else if (searchcus.Text == "")
             {
                 cus_alert.IsVisible = true;
                 invaddr_alert.IsVisible = false;
@@ -752,7 +839,7 @@ namespace SalesApp.views
 
                 vals["special_notes"] = comments.Text;
 
-                var cusid = App.cusList.FirstOrDefault(x => x.name == cuspicker1.SelectedItem.ToString()).id;
+                var cusid = App.cusList.FirstOrDefault(x => x.name == searchcus.Text.ToString()).id;
                 vals["customer"] = cusid;
 
                 try
@@ -1055,7 +1142,7 @@ namespace SalesApp.views
                         user_id = App.userid_db,
                         //customer_id = cusiddb,
                         order_line = orderLineListnew,
-                        customer = cuspicker1.SelectedItem.ToString(),
+                       // customer = cuspicker1.SelectedItem.ToString(),
                         date_Order = orDatePicker.Date.ToString(),
                         name = "LocalSO",
                         FullState = "draft",
@@ -1094,16 +1181,6 @@ namespace SalesApp.views
 
             }
         }
-
-        void productentry(object sender, EventArgs args)
-        {
-            Navigation.PushPopupAsync(new PickerSelectionPage());
-        }
-
-
-
-
-
 
 
         private async void ol_clickedAsync(object sender, EventArgs e)

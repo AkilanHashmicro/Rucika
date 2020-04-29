@@ -16,7 +16,7 @@
                     <StackLayout>
                     <SearchBar x:Name="searchBar"  Placeholder="Search Customer / Order number" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="False"/>
                         
-                    <ListView x:Name="salesOrderListView" CachingStrategy="RecycleElement" ItemTapped="OnMenuItemTapped" HasUnevenRows="true" IsPullToRefreshEnabled="True" AbsoluteLayout.LayoutFlags="All"
+                    <ListView x:Name="salesOrderListView" CachingStrategy="RecycleElement" ItemTapped="OnMenuItemTappedAsync" HasUnevenRows="true" IsPullToRefreshEnabled="True" AbsoluteLayout.LayoutFlags="All"
 						  AbsoluteLayout.LayoutBounds="0,0,1,1">
                         <ListView.ItemTemplate>
                             <DataTemplate>

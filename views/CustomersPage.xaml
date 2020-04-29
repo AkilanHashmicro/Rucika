@@ -23,7 +23,7 @@
                         <SearchBar x:Name="searchBar" Text="" Placeholder="search customer" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="false"/> 
                   </StackLayout>
                         
-                       <ListView x:Name="Customerlist" ItemTapped="CustomerListView_ItemTappedAsync" SeparatorColor=" Black" BackgroundColor="#F0EEEF" HasUnevenRows="True">
+                       <ListView x:Name="Customerlist" CachingStrategy="RecycleElement" ItemTapped="CustomerListView_ItemTappedAsync" SeparatorColor=" Black" BackgroundColor="#F0EEEF" HasUnevenRows="True">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell Tapped="ViewCell_Tapped">

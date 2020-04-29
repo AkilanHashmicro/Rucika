@@ -74,9 +74,9 @@
                  <Grid BackgroundColor="#128197"  x:Name="brandGrid" IsVisible="false"  >
                             
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".50*"/>
-                        <ColumnDefinition Width=".25*"/>
-                         <ColumnDefinition Width=".25*"/>
+                        <ColumnDefinition Width=".30*"/>
+                        <ColumnDefinition Width=".35*"/>
+                         <ColumnDefinition Width=".35*"/>
                         <!--<ColumnDefinition Width=".25*"/>-->
                         <!--<ColumnDefinition Width=".20*"/>-->
                     </Grid.ColumnDefinitions>
@@ -111,21 +111,21 @@
                                     <Grid>
                                         
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width=".50*"/>
-                                            <ColumnDefinition Width=".25*"/>
-                                             <ColumnDefinition Width=".25*"/>                                          
+                                           <ColumnDefinition Width=".30*"/>
+                                            <ColumnDefinition Width=".35*"/>
+                                             <ColumnDefinition Width=".35*"/>                                         
                                         </Grid.ColumnDefinitions>
                                         
                                         <StackLayout Grid.Column="0">                                           
-                                        <Label x:Name="brand"  Text="{Binding name}" Margin="5,0,0,0" TextColor="#102b1e"  HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                        <Label x:Name="brand"  Text="{Binding name}" Margin="5,0,0,0" TextColor="#102b1e"  HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
                                         </StackLayout>
                                         
                                         <StackLayout Grid.Column="1">                                           
-                                        <Label x:Name="mintarget"  Text="{Binding target_amount}"  TextColor="#102b1e"  HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                        <Label x:Name="mintarget"  Text="{Binding target_amount}" FontSize="Small"  TextColor="#102b1e"  HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
                                         </StackLayout>
                                         
                                        <StackLayout Grid.Column="2">                                           
-                                        <Label  Text="{Binding actual_amount}"  TextColor="#102b1e"  HorizontalOptions="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                        <Label  Text="{Binding actual_amount}"  TextColor="#102b1e" FontSize="Small" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                         </StackLayout>
                                         
                                                 </Grid>
@@ -332,12 +332,11 @@
                                         <Label  Text="{Binding actual_amount}"  TextColor="#102b1e"  Margin="0,5,0,0" VerticalOptions="Center"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center"  />
                                         </StackLayout>
 
-                                        
-                                
+
                                                 </Grid>
                                             </ViewCell>
                                     </DataTemplate>
-                                </ListView.ItemTemplate>
+                                </ListView.ItemTemplate>        
                             </ListView>
                    </StackLayout>
 

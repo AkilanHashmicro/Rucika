@@ -33,7 +33,7 @@ namespace SalesApp.views
                 {
                     act_ind.IsRunning = true;
                    
-                    App.salesOrderList = Controller.InstanceCreation().GetSalesQrder();
+                    await Task.Run(() => App.salesOrderList = Controller.InstanceCreation().GetSalesQrder());
                     salesOrderListView.ItemsSource = App.salesOrderList;
                     App.filterdict.Clear();
                     App.so_swipped = false;
@@ -75,14 +75,16 @@ namespace SalesApp.views
         }
 
 
-        private void OnMenuItemTapped(object sender, ItemTappedEventArgs ea)
+        private async void OnMenuItemTappedAsync(object sender, ItemTappedEventArgs ea)
         {
 
             if (App.NetAvailable == true)
             {
-              //  App.Current.MainPage = new MasterPage(new SalesOrderListviewDetail(ea.Item as SalesOrder));
+                act_ind.IsRunning = true;
 
-                Navigation.PushPopupAsync(new SalesOrderListviewDetail(ea.Item as SalesOrder));
+                await Task.Run(() => Navigation.PushPopupAsync(new SalesOrderListviewDetail(ea.Item as SalesOrder)));
+
+                act_ind.IsRunning = false;
             }
 
             if (App.NetAvailable == false)

@@ -128,6 +128,7 @@ namespace SalesApp.OdooRpc
             return result;
         }
 
+
         public List<SalesQuotation> odooMethodCall_getsalequotations<T>(string model, string method)
         {
             JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { }, App.filterdict });
@@ -212,7 +213,7 @@ namespace SalesApp.OdooRpc
 
         public List<StockWareHouseList> odooMethodCall_stockcount<T>(string model, string method, int locid)
         {
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { }, locid });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { locid}  });
             JArray stockData = odooServerCall<JArray>(jsonRpcUrl, parameters);
 
             List<StockWareHouseList> result = stockData.ToObject<List<StockWareHouseList>>();
@@ -223,7 +224,7 @@ namespace SalesApp.OdooRpc
 
         public List<StockWareHouseList> odooMethodCall_allcountdata<T>(string model, string method, int prod_id, int loc_id)
         {
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { }, prod_id, loc_id });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] {prod_id }, new object[] { loc_id }  });
             JArray stockData = odooServerCall<JArray>(jsonRpcUrl, parameters);
 
             List<StockWareHouseList> result = stockData.ToObject<List<StockWareHouseList>>();
@@ -233,7 +234,7 @@ namespace SalesApp.OdooRpc
 
         public dynamic odooMethodCall_meeting<T>(string model, string method, int userid)
         {
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { }, userid });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { }, userid  });
             T responseData = odooServerCall<T>(jsonRpcUrl, parameters);
 
             try
@@ -370,9 +371,9 @@ namespace SalesApp.OdooRpc
             return result;
         }
 
-        public string odooUpdateGpsData(string model, string method, float lat, float longitude, int id, string time)
+        public string odooUpdateGpsData(string model, string method, int id, float lat, float longitude, string time)
         {
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, lat, longitude, id, time });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, id, lat, longitude, time });
             string result = odooServerCall<string>(jsonRpcUrl, parameters);
             return result;
         }
@@ -429,7 +430,7 @@ namespace SalesApp.OdooRpc
         public bool odooLostData(string model, string method, int modelId, int lostId)
         {
 
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { }, modelId, lostId });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, modelId, lostId });
             var responseData = odooServerCall<bool>(jsonRpcUrl, parameters);
             return responseData;
         }
@@ -750,7 +751,7 @@ namespace SalesApp.OdooRpc
                 this.Uid = App.userid_db;
             }
 
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { this.Database, this.Uid, this.Password, model, method, vals });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, this.Password, model, method, vals });
             var result = odooServerCall<int>(jsonRpcUrl, parameters);
             if (result > 0)
             {
@@ -766,7 +767,7 @@ namespace SalesApp.OdooRpc
 
         public JObject odooMethodCall_promotions<T>(string model, string method, int sale_id)
         {
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { this.Database, this.Uid, Settings.UserPassword, model, method, new object[] { sale_id } });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { sale_id } });
             JObject responseData = odooServerCall<JObject>(jsonRpcUrl, parameters);
             //List<CRMModel> result = responseData.ToObject<List<CRMModel>>();
             return responseData;

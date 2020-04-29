@@ -303,7 +303,7 @@ namespace SalesApp.views
 
         private async void CancelSignIn_ClickedAsync(object sender, EventArgs e)
         {
-            var updated = Controller.InstanceCreation().clearGPSData("calendar.event", "app_cancel_sign_in", editobj.id);
+            var updated = Controller.InstanceCreation().clearGPSData("calendar.event", "cancel_sign_in", editobj.id);
 
 
             MyMap.MoveToRegion(
@@ -358,7 +358,7 @@ namespace SalesApp.views
 
                 //dt = fd.ToString("yyyy-MM-dd HH:mm:ss");
 
-                var updated = Controller.InstanceCreation().UpdateGPSData("calendar.event", "app_get_sign_in_location", (float)position.Latitude, (float)position.Longitude, editobj.id,dt);
+                var updated = Controller.InstanceCreation().UpdateGPSData("calendar.event", "set_sign_in_location",editobj.id, (float)position.Latitude, (float)position.Longitude,dt);
 
                 var currentpage = new LoadingAlert();
                 await PopupNavigation.PushAsync(currentpage);
@@ -411,7 +411,7 @@ namespace SalesApp.views
         private async void CancelSignout_ClickedAsync(object sender, EventArgs e)
         {
 
-            var updated = Controller.InstanceCreation().clearGPSData("calendar.event", "app_cancel_sign_out", editobj.id);
+            var updated = Controller.InstanceCreation().clearGPSData("calendar.event", "cancel_sign_out", editobj.id);
             // await RetrieveLocationForSignOut();
 
             MyMap1.MoveToRegion(
@@ -464,7 +464,7 @@ namespace SalesApp.views
 
                 //dt = fd.ToString("yyyy-MM-dd HH:mm:ss");
 
-                var updated = Controller.InstanceCreation().UpdateGPSData("calendar.event", "app_get_sign_out_location", (float)position.Latitude, (float)position.Longitude, editobj.id,dt);
+                var updated = Controller.InstanceCreation().UpdateGPSData("calendar.event", "set_sign_out_location",editobj.id, (float)position.Latitude, (float)position.Longitude, dt);
 
                 calresult = Controller.InstanceCreation().GetCalenderData(DateTime.Now.Month, DateTime.Now.Year);
 

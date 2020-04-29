@@ -324,15 +324,17 @@ namespace SalesApp.wizard
             else { }
         }
 
-        private void Convertbtn_Clicked(object sender, EventArgs e)
+        private async void Convertbtn_ClickedAsync(object sender, EventArgs e)
         {
-            
+            var currentpage = new LoadingAlert();
+            await PopupNavigation.PushAsync(currentpage);
+
                 vals["type"] = "opportunity";
                 string updated = Controller.InstanceCreation().UpdateLeadCreationConvertData("crm.lead", "write", obj.id, vals);
 
                 if (App.NetAvailable == false)
                 {
-                    DisplayAlert("Alert", "Need Internet Connection", "Ok");
+                await DisplayAlert("Alert", "Need Internet Connection", "Ok");
                 }
 
                 else
@@ -341,13 +343,19 @@ namespace SalesApp.wizard
                     {
                         // App.Current.MainPage = new MasterPage(new CrmTabbedPage());
                         // Navigation.PushPopupAsync(new MasterPage(  );
-                        DisplayAlert("Alert", "Please try again", "Ok");
+                      await  DisplayAlert("Alert", "Please try again", "Ok");
+
+                    Loadingalertcall();      
                     }
                     else
                     {
 
-                        DisplayAlert("Alert", "Created Successfull", "Ok");
-                        Navigation.PopAllPopupAsync();
+                      //  DisplayAlert("Alert", "Created Successfull", "Ok");
+                    App.oppo_rpc = true;
+                    App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab2"));
+                    await  Navigation.PopAllPopupAsync();
+
+                  //  Loadingalertcall();      
 
                     }
                 }
@@ -496,7 +504,8 @@ namespace SalesApp.wizard
 
                 if (updated == true)
                 {
-                    App.Current.MainPage = new MasterPage(new CrmTabbedPage());
+                    App.lead_rpc = true;
+                    App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab1"));
                          
                 }
 

@@ -80,10 +80,12 @@ namespace SalesApp.views
 
         private async void OnMenuItemTappedAsync(object sender, ItemTappedEventArgs ea)
         {
-
+            act_ind.IsRunning = true;
       
-            await Navigation.PushPopupAsync(new DraftQuotationsDetailPage(ea.Item as SalesQuotation));
+            await Task.Run(()=> Navigation.PushPopupAsync(new DraftQuotationsDetailPage(ea.Item as SalesQuotation)));
 
+            act_ind.IsRunning = false;
+         //  PopupNavigation.PopAsync();
      
         }
 

@@ -922,7 +922,7 @@ namespace SalesApp.views
                 if (App.NetAvailable == true)
                 {
 
-                    string updated = Controller.InstanceCreation().UpdateCRMOpporData("sale.crm", "create_sale_quotation", vals);
+                    string updated = Controller.InstanceCreation().UpdateCRMOpporData("sale.order", "create_sale_quotation", vals);
 
                     if (updated == "true")
                     {
@@ -930,7 +930,7 @@ namespace SalesApp.views
                         // Navigation.PushPopupAsync(new MasterPage(  );
                         // await  DisplayAlert("Alert", "Successfully created", "Ok");
                         //  await Navigation.PopAllPopupAsync();
-
+                        App.draftquot_rpc = true;
                         App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab3"));
 
                         Loadingalertcall();
@@ -1190,7 +1190,10 @@ namespace SalesApp.views
                
                 int subtotal1 = (int)subtotal;
 
-                orderLineList1.Add(new OrderLinesList(searchprod.Text, Convert.ToDouble(oqty.Text), Convert.ToDouble(up.Text), taxidList, orderline_des.Text, taxname, dis1.Text, multidis.Text,subtotal1));
+
+                var pro_id = App.productList.FirstOrDefault(x => x.Name == searchprod.Text.ToString()).Id;
+
+                orderLineList1.Add(new OrderLinesList(pro_id,searchprod.Text.ToString(), Convert.ToDouble(oqty.Text), Convert.ToDouble(up.Text), taxidList, orderline_des.Text, taxname, dis1.Text, multidis.Text,subtotal1));
          
                 orderListview.ItemsSource = orderLineList1;
                 orderListview.RowHeight = 40;

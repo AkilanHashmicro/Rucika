@@ -491,6 +491,12 @@ namespace SalesApp.views
             await PopupNavigation.PopAllAsync();
         }
 
+
+        private async void discardClickedAsync(object sender, EventArgs ea)
+        {
+            await PopupNavigation.PopAllAsync();
+        }
+
         private async void createClickedAsync(object sender, EventArgs ea)
         {   
 
@@ -652,7 +658,7 @@ namespace SalesApp.views
                 {
 
                     //bool updated = Controller.InstanceCreation().UpdateCRMOpporData("sale.crm", "create_crm_quotations", vals);
-                    string updated = Controller.InstanceCreation().UpdateCRMOpporData("sale.crm", "create_crm_quotations", vals);
+                    string updated = Controller.InstanceCreation().UpdateCRMOpporData("crm.lead", "create_crm_quotations", vals);
 
                     if (updated == "true")
                     {
@@ -660,6 +666,7 @@ namespace SalesApp.views
                         // Navigation.PushPopupAsync(new MasterPage(  );
                         // await DisplayAlert("Alert", "Created Successfull", "Ok");
                         //  await   Navigation.PopAllPopupAsync();
+                        App.oppo_rpc = true;
                         App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab2"));
                         await Navigation.PopAllPopupAsync();
 

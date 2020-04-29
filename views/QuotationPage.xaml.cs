@@ -96,11 +96,13 @@ namespace SalesApp.views
             salesQuotationListView.Refreshing += this.RefreshRequested;
         }
 
-        private void OnMenuItemTapped(object sender, ItemTappedEventArgs ea)
+        private async void OnMenuItemTappedAsync(object sender, ItemTappedEventArgs ea)
         {
+            act_ind.IsRunning = true;
 
-            Navigation.PushPopupAsync(new SalesQuotationsListviewDetail(ea.Item as SalesQuotation));
+            await Task.Run(() => Navigation.PushPopupAsync(new SalesQuotationsListviewDetail(ea.Item as SalesQuotation)));
 
+            act_ind.IsRunning = false;
         }
 
       

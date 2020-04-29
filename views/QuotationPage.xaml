@@ -15,7 +15,7 @@
 
                     <StackLayout>
                          <SearchBar x:Name="searchBar"  Placeholder="Search Customer / Order number" TextColor="Black" TextChanged="SearchBar_TextChanged" HorizontalOptions="FillAndExpand" IsVisible="False"/>                        
-                    <ListView x:Name="salesQuotationListView" CachingStrategy="RecycleElement" ItemTapped="OnMenuItemTapped" RowHeight="90" IsPullToRefreshEnabled="True"  >
+                    <ListView x:Name="salesQuotationListView" CachingStrategy="RecycleElement" ItemTapped="OnMenuItemTappedAsync" RowHeight="90" IsPullToRefreshEnabled="True"  >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

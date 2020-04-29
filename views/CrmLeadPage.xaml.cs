@@ -41,6 +41,10 @@ namespace SalesApp.views
         {
             base.OnAppearing();
 
+           
+              
+           
+
             MessagingCenter.Subscribe<string, string>("MyApp", "referesh", (sender, arg) =>
             {
                // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
@@ -49,26 +53,7 @@ namespace SalesApp.views
 
             });
 
-            //MessagingCenter.Subscribe<string, string>("MyApp", "Login", async (sender, arg) =>
-            //{
-                //await Task.Run(() =>
-                //{
-                //    var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
-                //    if (App.cusList.Count == 0 && user_details.Count == 0 && Settings.UserId != 0)
-                //    {
-                //        App.cusList = Controller.InstanceCreation().GetCustomersList();
-                //        JObject sales_persons = Controller.InstanceCreation().GetSalespersonsList();
-                //        App.salespersons = sales_persons.ToObject<Dictionary<int, string>>();
-                //        App.taxList = Controller.InstanceCreation().GettaxList();
-                //        App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                //        App.productList = Controller.InstanceCreation().GetProductssList();
-
-                      
-                //        MessagingCenter.Send<string, string>("MyApp", "FieldsListUpdated", "true");
-
-                //    }
-                //});
-           // });
+           
 
 
             MessagingCenter.Subscribe<string, string>("MyApp", "FieldsListUpdated", (sender, arg) =>
@@ -78,11 +63,11 @@ namespace SalesApp.views
 
                 if (App.UserListDb.Count == 0)
                 {
-                    var json_salespersons = Newtonsoft.Json.JsonConvert.SerializeObject(App.salespersons);
-                    var json_customers_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.cusList);
-                    var jso_products_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.productList);
-                    var jso_warehoue_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.warehousList);                  
-                    var jso_tax_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.taxList);
+                    //var json_salespersons = Newtonsoft.Json.JsonConvert.SerializeObject(App.salespersons);
+                    //var json_customers_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.cusList);
+                    //var jso_products_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.productList);
+                    //var jso_warehoue_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.warehousList);                  
+                    //var jso_tax_list = Newtonsoft.Json.JsonConvert.SerializeObject(App.taxList);
 
                     var sample = new UserModelDB
                     {
@@ -91,11 +76,11 @@ namespace SalesApp.views
                         user_image_medium = App.partner_image,
                         user_email = App.partner_email,
                         user_name = App.partner_name,
-                        sales_persons = json_salespersons,
-                        customers_list = json_customers_list,
-                        products = jso_products_list,
-                        warehouse_list = jso_warehoue_list,                       
-                        tax_list = jso_tax_list
+                        //sales_persons = json_salespersons,
+                        //customers_list = json_customers_list,
+                        //products = jso_products_list,
+                        //warehouse_list = jso_warehoue_list,                       
+                        //tax_list = jso_tax_list
                     };
                     App._connection.Insert(sample);
                 }

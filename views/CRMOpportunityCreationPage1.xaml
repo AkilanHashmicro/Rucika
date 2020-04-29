@@ -501,7 +501,7 @@
 
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Orientation="Horizontal" x:Name="createStackLayout" IsVisible="false">
                         <Button Text="Create" HorizontalOptions="StartAndExpand" TextColor="White" BackgroundColor="#128197" Clicked="createClickedAsync"/>
-                        <Button Text="Discard" HorizontalOptions="StartAndExpand" TextColor="Black" BackgroundColor="#F0EEEF"/>
+                        <Button Text="Discard" HorizontalOptions="StartAndExpand" TextColor="Black" BackgroundColor="#F0EEEF" Clicked="discardClickedAsync"/>
                     </StackLayout>
                     
                 </StackLayout>

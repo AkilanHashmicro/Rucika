@@ -2068,6 +2068,8 @@ namespace SalesApp.views
 
                     if (updated == true)
                     {
+
+                        App.salequot_rpc = true;
                         App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab4"));
                         await Navigation.PopAllPopupAsync();
                     }

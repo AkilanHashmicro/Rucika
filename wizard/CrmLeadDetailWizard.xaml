@@ -20,7 +20,7 @@
              <Image x:Name="lead_editbtn" VerticalOptions="End" HorizontalOptions="End" Source="sqeditcolor.png" Margin="0,-20,10,0" WidthRequest="50" HeightRequest="50"  />
             
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                <Button x:Name="Convertbtn"  Text="Convert To Opportunities" Clicked="Convertbtn_Clicked"  BackgroundColor="#128197" TextColor="White"/>
+                <Button x:Name="Convertbtn"  Text="Convert To Opportunities" Clicked="Convertbtn_ClickedAsync"  BackgroundColor="#128197" TextColor="White"/>
             </StackLayout>
             
             <StackLayout Padding="15,5,15,0" x:Name="lead_noeditLayout" >

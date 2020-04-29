@@ -445,6 +445,7 @@ namespace SalesApp.wizard
 
                 if (updated == true)
                 {
+                    App.oppo_rpc = true;
                     App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab2"));
                          
                 }

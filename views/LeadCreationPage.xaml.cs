@@ -42,14 +42,7 @@ namespace SalesApp.views
         {
             InitializeComponent();
                                  
-            var overallcloseImgRecognizer = new TapGestureRecognizer();
-            overallcloseImgRecognizer.Tapped += (s, e) => {
-                // handle the tap              
-                Navigation.PopAllPopupAsync();
-            };
-            overall_close.GestureRecognizers.Add(overallcloseImgRecognizer);
-
-           
+          
             if (App.NetAvailable == true)
             {
 
@@ -231,6 +224,15 @@ namespace SalesApp.views
             };
             str3.GestureRecognizers.Add(str3Recognizer);
 
+            var overallcloseImgRecognizer = new TapGestureRecognizer();
+            overallcloseImgRecognizer.Tapped += (s, e) => {
+                // handle the tap              
+                Navigation.PopAllPopupAsync();
+            };
+            overall_close.GestureRecognizers.Add(overallcloseImgRecognizer);
+
+           
+
         }
 
        
@@ -377,10 +379,10 @@ namespace SalesApp.views
                         var currentpage1 = new LoadingAlert();
                         await PopupNavigation.PushAsync(currentpage1);
 
-                      //  await DisplayAlert("Alert", "Created Successfull", "Ok");
+                        //  await DisplayAlert("Alert", "Created Successfull", "Ok");
 
-                    //    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
+                        //    List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+                        App.lead_rpc = true;
                         App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab1"));
 
                         Loadingalertcall();

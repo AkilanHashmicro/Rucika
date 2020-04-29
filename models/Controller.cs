@@ -73,6 +73,13 @@ namespace SalesApp.models
             return dt;
         }
 
+
+        public JObject GetMastersList()
+        {
+            JObject dt = odooConnector.odooCustomerDataCall<dynamic>("res.users", "get_all_master_data");
+            return dt;
+        }
+
         public List<CRMLead> GetCrmLeads()
         {
             if (!App.lead_filter)
@@ -227,7 +234,7 @@ namespace SalesApp.models
         public List<CRMOpportunities> nextActivity()
         {
             List<CRMOpportunities> tarList = new List<CRMOpportunities>();
-            JArray result = odooConnector.odooMethodCall_salestarget<JArray>("sale.crm", "get_next_activities");
+            JArray result = odooConnector.odooMethodCall_salestarget<JArray>("crm.lead", "get_next_activities");
             tarList = result.ToObject<List<CRMOpportunities>>();
             return tarList;
         }
@@ -261,11 +268,11 @@ namespace SalesApp.models
                 App.countrydict = res["country_list"].ToObject<Dictionary<int, string>>();
 
 
-                App.cus_address = res["Customers_Address"].ToObject<Dictionary<dynamic, dynamic>>();
+
 
                 App.product_PriceList = res["Product_PriceList"].ToObject<List<Product_PriceList>>();
 
-                App.all_delivery_method = res["all_delivery_method"].ToObject<List<all_delivery_method>>();
+               
 
                 App.partner_name = res["user_name"].ToString();
                 App.partner_image = res["user_image_medium"].ToString();
@@ -273,11 +280,15 @@ namespace SalesApp.models
                 App.partner_email = res["user_email"].ToString();
                     
                 App.taxList = res["taxes"].ToObject<List<taxes>>();
-                App.paytermList = res["payment_terms"].ToObject<List<paytermList>>();
-
-               App.commisiongroupList = res["commission_group"].ToObject<List<commisiongroupList>>();
 
                 App.salesteam = res["sales_team"].ToObject<Dictionary<int, string>>();
+                App.paytermList = res["payment_terms"].ToObject<List<paytermList>>();
+                App.cus_address = res["Customers_Address"].ToObject<Dictionary<dynamic, dynamic>>();
+                App.all_delivery_method = res["all_delivery_method"].ToObject<List<all_delivery_method>>();
+
+                App.commisiongroupList = res["commission_group"].ToObject<List<commisiongroupList>>();
+
+               
                 App.salespersons = res["sales_persons"].ToObject<Dictionary<int, string>>();
 
                 App.productList = res["Products"].ToObject<List<ProductsList>>();
@@ -754,7 +765,7 @@ namespace SalesApp.models
         {
             List<CustomersModel> data = new List<CustomersModel>();
 
-            JArray dt = odooConnector.odooCustomerDataCall<dynamic>("res.partner", "get_customer_list");
+            JArray dt = odooConnector.odooCustomerDataCall<dynamic>("res.partner", "get_partner_data");
             data = dt.ToObject<List<CustomersModel>>();
             return data;
 
@@ -775,7 +786,7 @@ namespace SalesApp.models
 
         public JObject GetCustomerCreationData()
         {
-            JObject dt = odooConnector.odooCustomerDataCall<dynamic>("res.partner", "get_create_customers_data");
+            JObject dt = odooConnector.odooCustomerDataCall<dynamic>("res.partner", "get_create_customer_data");
             return dt;
         }
 
@@ -784,7 +795,7 @@ namespace SalesApp.models
         {
             List<all_events> calresList = new List<all_events>();
 
-            JObject result = odooConnector.odooMethodCall_cal<JObject>("calendar.event", "get_calendar_event_app", App.userid, month, year);
+            JObject result = odooConnector.odooMethodCall_cal<JObject>("calendar.event", "get_event_data", App.userid, month, year);
 
             calresList = result["all_events"].ToObject<List<all_events>>();
 
@@ -798,7 +809,7 @@ namespace SalesApp.models
         {
             List<StockWareHouseList> calresList = new List<StockWareHouseList>();
          
-             calresList = odooConnector.odooMethodCall_stockcount<dynamic>("stock.inventory", "search_by_product", id);
+            calresList = odooConnector.odooMethodCall_stockcount<dynamic>("product.product", "product_qty_by_all_location", id);
             return calresList;
         }
 
@@ -807,7 +818,7 @@ namespace SalesApp.models
         {
             List<StockWareHouseList> calresList = new List<StockWareHouseList>();
 
-            calresList = odooConnector.odooMethodCall_stockcount<JObject>("stock.inventory", "search_by_warehoue", id);
+            calresList = odooConnector.odooMethodCall_stockcount<JObject>("product.product", "all_product_qty_by_location", id);
             return calresList;
         }
 
@@ -815,7 +826,7 @@ namespace SalesApp.models
         {
             List<StockWareHouseList> calresList = new List<StockWareHouseList>();
 
-            calresList = odooConnector.odooMethodCall_allcountdata<JObject>("stock.inventory", "search_product_with_location", prod_id, loc_id);
+            calresList = odooConnector.odooMethodCall_allcountdata<JObject>("product.product", "product_qty_by_location", prod_id, loc_id);
             return calresList;
         }
 
@@ -823,7 +834,7 @@ namespace SalesApp.models
         {
             List<all_events> meetingList = new List<all_events>();
 
-            JObject result = odooConnector.odooMethodCall_meeting<JObject>("calendar.event", "get_customers_meetings", partnerid);
+            JObject result = odooConnector.odooMethodCall_meeting<JObject>("calendar.event", "get_meeting_data", partnerid);
 
             meetingList = result["all_events"].ToObject<List<all_events>>();
 
@@ -836,7 +847,7 @@ namespace SalesApp.models
         public List<CRMOpportunities> GetOppssData(int partnerid)
         {
             List<CRMOpportunities> oppoList = new List<CRMOpportunities>();
-            JArray result = odooConnector.odooMethodCall_meeting<JArray>("res.partner", "get_customers_oppurtunities", partnerid);
+            JArray result = odooConnector.odooMethodCall_meeting<JArray>("res.partner", "get_customer_lead", partnerid);
             oppoList = result.ToObject<List<CRMOpportunities>>();
             return oppoList;
         }
@@ -845,7 +856,7 @@ namespace SalesApp.models
         public List<SalesOrder> GetSalesData(int partnerid)
         {
             List<SalesOrder> oppoList = new List<SalesOrder>();
-            JArray result = odooConnector.odooMethodCall_meeting<JArray>("res.partner", "get_customers_quotation", partnerid);
+            JArray result = odooConnector.odooMethodCall_meeting<JArray>("res.partner", "get_customer_quotation", partnerid);
             oppoList = result.ToObject<List<SalesOrder>>();
             return oppoList;
         }
@@ -952,9 +963,9 @@ namespace SalesApp.models
             return flag;
         }
 
-        public string UpdateGPSData(string modelName, string methodName, float latitude, float longitude, int id, string time)
+        public string UpdateGPSData(string modelName, string methodName,int id, float latitude, float longitude, string time)
         {
-            string flag = odooConnector.odooUpdateGpsData(modelName, methodName, latitude, longitude, id, time);
+            string flag = odooConnector.odooUpdateGpsData(modelName, methodName, id, latitude, longitude, time);
             return flag;
         }
 
@@ -1026,7 +1037,7 @@ namespace SalesApp.models
         {
             try
             {
-                odooConnector.odooLostData("sale.crm", "mark_lost_app", modelId, lostId);
+                odooConnector.odooLostData("crm.lead", "mark_lost_app", modelId, lostId);
             }
             catch
             {

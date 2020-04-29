@@ -599,7 +599,7 @@ namespace SalesApp.Pages
 
                 else
                 {
-                    var updated = Controller.InstanceCreation().UpdateCRMOpporData("calendar.event", "create_calendar_event_app", vals);
+                    var updated = Controller.InstanceCreation().UpdateCRMOpporData("calendar.event", "create_event", vals);
                     if (updated == "true")
                     {
                         date_alert.IsVisible = false;
@@ -739,12 +739,11 @@ namespace SalesApp.Pages
             }
             else
             {
-                  var updated = Controller.InstanceCreation().UpdateCRMOpporData1("calendar.event", "update_calendar_event", updateId, vals_update);
+                  var updated = Controller.InstanceCreation().UpdateCRMOpporData1("calendar.event", "update_event", updateId, vals_update);
 
                     if (updated == "true")
                     {
-
-                      date_alert.IsVisible = false;
+                       date_alert.IsVisible = false;
                         // App.Current.MainPage = new MasterPage(new CrmTabbedPage());
                         // Navigation.PushPopupAsync(new MasterPage(  );
                         DisplayAlert("Alert", "Created Successfull", "Ok");

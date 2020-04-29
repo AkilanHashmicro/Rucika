@@ -14,6 +14,7 @@ using Acr.UserDialogs;
 using SalesApp.Pages;
 using Rg.Plugins.Popup.Services;
 using SalesApp.DBModel;
+using static SalesApp.models.CRMModel;
 
 namespace SalesApp.views
 {
@@ -29,6 +30,68 @@ namespace SalesApp.views
         {
             return true;
         }
+
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
+
+
+        //    // var user_details = App._connection.Query<UserModelDB>("SELECT * from UserModelDB");
+        //    //  var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
+
+
+           
+        //        Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+        //        {
+
+
+        //          //  var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
+        //            if (App.cusList.Count == 0  && Settings.UserId != 0)
+        //            {
+        //                JObject obj = Controller.InstanceCreation().GetMastersList();
+
+        //                App.product_PriceList = obj["product_pricelist_data"].ToObject<List<Product_PriceList>>();
+        //                App.nextActivityList = obj["crm_activity_data"].ToObject<List<next_activity>>();
+        //                App.reasondict = obj["crm_lost_reason_data"].ToObject<Dictionary<int, string>>();
+        //                App.stageList = obj["crm_stage_data"].ToObject<List<stages>>();
+        //                App.paytermList = obj["payment_term_data"].ToObject<List<paytermList>>();
+        //                App.taxList = obj["tax_data"].ToObject<List<taxes>>();
+
+        //                App.salesteam = obj["crm_team_data"].ToObject<Dictionary<int, string>>();
+        //                App.salespersons = obj["res_user_data"].ToObject<Dictionary<int, string>>();
+        //                App.crmleadtags = obj["crm_lead_tag_data"].ToObject<Dictionary<int, string>>();
+
+        //                App.analayticList = obj["analytic_account_data"].ToObject<List<analytic>>();
+        //                App.commisiongroupList = obj["target_group_data"].ToObject<List<commisiongroupList>>();
+        //                App.all_delivery_method = obj["delivery_carrier_data"].ToObject<List<all_delivery_method>>();
+        //                App.locationsList = obj["stock_location_data"].ToObject<List<LocationsList>>();
+        //                App.warehousList = obj["stock_warehouse_data"].ToObject<List<warehouse>>();
+        //                App.branchList = obj["res_branch_data"].ToObject<List<branch>>();
+
+        //                App.cus_address = obj["customer_address"].ToObject<Dictionary<dynamic, dynamic>>();
+
+
+        //                App.cusList = Controller.InstanceCreation().GetCustomersList();
+        //                App.productList = Controller.InstanceCreation().GetProductssList();
+        //                JObject sales_persons = Controller.InstanceCreation().GetSalespersonsList();
+
+        //                App.cusList = Controller.InstanceCreation().GetCustomersList();
+        //                App.cusList = Controller.InstanceCreation().GetCustomersList();
+        //                App.cusList = Controller.InstanceCreation().GetCustomersList();
+        //                App.cusList = Controller.InstanceCreation().GetCustomersList();
+        //                App.cusList = Controller.InstanceCreation().GetCustomersList();
+        //                App.cusList = Controller.InstanceCreation().GetCustomersList();
+
+        //                MessagingCenter.Send<string, string>("MyApp", "FieldsListUpdated", "true");
+        //            }
+
+        //            return true;
+
+        //        });
+
+        //}
+
+
 
         public MasterPage(Page pageRef)
         {

@@ -23,8 +23,6 @@ namespace SalesApp.views
         private Controller controllerObj = Controller.InstanceCreation();
 
 
-
-
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -32,32 +30,47 @@ namespace SalesApp.views
             {
                 await Task.Run(() =>
                 {
-                    var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
-                    if (App.cusList.Count == 0 && user_details.Count == 0 && Settings.UserId != 0)
-                    {
+                        var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
+                        if (App.cusList.Count == 0 && user_details.Count == 0 && Settings.UserId != 0)
+                        {
+                         JObject obj = Controller.InstanceCreation().GetMastersList();
+
+                        App.product_PriceList = obj["product_pricelist_data"].ToObject<List<Product_PriceList>>();
+                        App.nextActivityList = obj["crm_activity_data"].ToObject<List<next_activity>>();
+                        App.reasondict = obj["crm_lost_reason_data"].ToObject<Dictionary<int, string>>();
+                        App.stageList = obj["crm_stage_data"].ToObject<List<stages>>();
+                        App.paytermList = obj["payment_term_data"].ToObject<List<paytermList>>();
+                        App.taxList = obj["tax_data"].ToObject<List<taxes>>();
+
+                        App.salesteam = obj["crm_team_data"].ToObject<Dictionary<int, string>>();
+                        App.salespersons = obj["res_user_data"].ToObject<Dictionary<int, string>>();
+                        App.crmleadtags = obj["crm_lead_tag_data"].ToObject<Dictionary<int, string>>();
+
+                        App.analayticList = obj["analytic_account_data"].ToObject<List<analytic>>();
+                        App.commisiongroupList = obj["target_group_data"].ToObject<List<commisiongroupList>>();
+                        App.all_delivery_method = obj["delivery_carrier_data"].ToObject<List<all_delivery_method>>();
+                        App.locationsList = obj["stock_location_data"].ToObject<List<LocationsList>>();
+                        App.warehousList = obj["stock_warehouse_data"].ToObject<List<warehouse>>();
+                        App.branchList = obj["res_branch_data"].ToObject<List<branch>>();   
+                            
+                        App.cus_address = obj["customer_address"].ToObject<Dictionary<dynamic, dynamic>>();
+
+                            
                         App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        App.productList = Controller.InstanceCreation().GetProductssList();
                         JObject sales_persons = Controller.InstanceCreation().GetSalespersonsList();
-                        App.salespersons = sales_persons.ToObject<Dictionary<int, string>>();                       
-                        App.taxList = Controller.InstanceCreation().GettaxList();
-                        App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList();
+                         
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
 
+                     MessagingCenter.Send<string, string>("MyApp", "FieldsListUpdated", "true");
+                        }
 
-                        App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList(); App.warehousList = Controller.InstanceCreation().GetwarehouseList();
-                        App.productList = Controller.InstanceCreation().GetProductssList();
-
-
-
-
-                        MessagingCenter.Send<string, string>("MyApp", "FieldsListUpdated", "true");
-
-                    }
+                      
                 });
             });
         }
@@ -68,6 +81,8 @@ namespace SalesApp.views
             InitializeComponent();
            // loginEntry.Text = "admin";
            // passwordEntry.Text = "admin";
+
+          //  App.cusList = Controller.InstanceCreation().GetCustomersList();
 
             NavigationPage.SetHasNavigationBar(this, false);
             sign_color.BackgroundColor = Color.FromHex("#f7dede");
@@ -96,6 +111,9 @@ namespace SalesApp.views
 
             };
             eye_close.GestureRecognizers.Add(eye_closeImgRecognizer);
+
+
+
 
         }
 
@@ -229,31 +247,35 @@ namespace SalesApp.views
                 dbPicker.SelectedItem = "test25";
                 Settings.UserDbName = dbPicker.SelectedItem.ToString();
 
-            String res =  await Task.Run(() => controllerObj.login(Settings.UserUrlName, Settings.UserDbName, Settings.UserName, Settings.UserPassword));
+            
+                String res = await Task.Run(() => controllerObj.login(Settings.UserUrlName, Settings.UserDbName, Settings.UserName, Settings.UserPassword));
 
-                if (res == "false")
-                {
-                    loginfailedAlert.Text = "Invalid Username or Password.";
-                    loginfailedAlert.IsVisible = true;
-                    act_ind.IsRunning = false; 
-                }
+                    if (res == "false")
+                    {
+                        loginfailedAlert.Text = "Invalid Username or Password.";
+                        loginfailedAlert.IsVisible = true;
+                        act_ind.IsRunning = false;
+                    }
 
-                else
-                {
-                    MessagingCenter.Send<string, string>("MyApp", "Login", "true");
-                    JObject obj = controllerObj.getuserdata("res.users", "get_user_data");
-                    App.partner_id = obj["partner_id"].ToObject<int>();
-                    App.partner_name = obj["user_name"].ToObject<string>();
-                    App.partner_image = obj["image_medium"].ToObject<string>();
-                    App.partner_email = obj["user_email"].ToObject<string>();
+                    else
+                    {
+                        MessagingCenter.Send<string, string>("MyApp", "Login", "true");
+                        JObject obj = controllerObj.getuserdata("res.users", "get_user_data");
+                        App.partner_id = obj["partner_id"].ToObject<int>();
+                        App.partner_name = obj["user_name"].ToObject<string>();
+                        App.partner_image = obj["image_medium"].ToObject<string>();
+                        App.partner_email = obj["user_email"].ToObject<string>();
 
-                    loginfailedAlert.IsVisible = false;
-                    App.lead_rpc = true;
-                    Page pageRef = new CrmTabbedPage();
-                    App.Current.MainPage = new MasterPage(pageRef);
-                      act_ind.IsRunning = false;
+                        loginfailedAlert.IsVisible = false;
+                        App.lead_rpc = true;
+                        Page pageRef = new CrmTabbedPage("tab1");
+                        App.Current.MainPage = new MasterPage(pageRef);
                    
-                }
+
+                        act_ind.IsRunning = false;
+
+                    }
+               
             }
             catch
             {
@@ -265,7 +287,7 @@ namespace SalesApp.views
                 act_ind.IsRunning = false; 
             }
 
-
+                
         }
 
 

@@ -273,7 +273,7 @@ namespace SalesApp.views
                 var currentpage = new LoadingAlert();
                 await PopupNavigation.PushAsync(currentpage);
                               
-                var updated = Controller.InstanceCreation().UpdateCRMOpporData("res.partner", "create_customer_app", vals);
+                var updated = Controller.InstanceCreation().UpdateCRMOpporData("res.partner", "app_create_customer", vals);
 
                 if (updated == "true")
                 {

@@ -484,6 +484,8 @@ namespace SalesApp.models
                     stageColours.Add("sale", "#c0392b");
                     stageColours.Add("done", "#2ecc71");
                     stageColours.Add("cancel", "#d35400");
+                    stageColours.Add("x_draft", "#3498db");
+
 
                     tempColours = tempColours.Substring(1, tempColours.Length - 1);
 
@@ -808,6 +810,8 @@ namespace SalesApp.models
             public string multi_discount { get; set; }
 
             public int subtotal { get; set; }
+
+            public int product_id { get; set; }
             // public string Taxes { get; set; }
 
             public List<int> tax_id { get; set; }
@@ -825,9 +829,13 @@ namespace SalesApp.models
             //                     int Warehouse_id, string Picking_policy, int User_id, int Team_id, int Branch_id, int Project_id, string Client_Order_Ref)
             //{
 
-            public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount, int sub_total
+            //public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount, int sub_total
+                                  //)
+            public OrderLinesList(int Product_id,string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount, int sub_total
                                   )
             {
+               
+                product_id = Product_id;
                 product = Product;
                 ordered_qty = Ordered_Qty;
                 unit_price = UnitPrice;

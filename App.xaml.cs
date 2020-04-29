@@ -152,6 +152,10 @@ namespace SalesApp
         {
             InitializeComponent();
 
+
+
+
+
             App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
             App._connection.CreateTable<UserModelDB>();
             try
@@ -163,11 +167,11 @@ namespace SalesApp
                 {
                     foreach (var res in details)
                     {
-                        App.cusList = JsonConvert.DeserializeObject<List<Customers>>(res.customers_list);
-                        App.productList = JsonConvert.DeserializeObject<List<ProductsList>>(res.products);
-                        App.warehousList = JsonConvert.DeserializeObject<List<warehouse>>(res.warehouse_list);
-                        App.salespersons = JsonConvert.DeserializeObject<Dictionary<int, string>>(res.sales_persons);
-                        App.taxList = JsonConvert.DeserializeObject<List<taxes>>(res.tax_list);
+                        //App.cusList = JsonConvert.DeserializeObject<List<Customers>>(res.customers_list);
+                        //App.productList = JsonConvert.DeserializeObject<List<ProductsList>>(res.products);
+                        //App.warehousList = JsonConvert.DeserializeObject<List<warehouse>>(res.warehouse_list);
+                        //App.salespersons = JsonConvert.DeserializeObject<Dictionary<int, string>>(res.sales_persons);
+                        //App.taxList = JsonConvert.DeserializeObject<List<taxes>>(res.tax_list);
                         App.partner_id = res.partnerid;
                         App.partner_name = res.user_name;
                         App.partner_image = res.user_image_medium;
@@ -191,10 +195,20 @@ namespace SalesApp
                     {
                   //  res = Controller.InstanceCreation().login(Settings.UserUrlName, Settings.UserDbName, Settings.UserName, Settings.UserPassword);
                     App.lead_rpc = true;  
-                    App.Current.MainPage = new MasterPage(new CrmTabbedPage());
+
+                  //  App.Current.MainPage = new MasterPage(new LoginPage());
+
+                   
+                    App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab1"));
+
+                   // App.cusList = Controller.InstanceCreation().GetCustomersList();
+                    App.productList = Controller.InstanceCreation().GetProductssList();
+
+                   // MessagingCenter.Send<string, string>("MyApp", "Login_auto", "true");
+
                     }
 
-                   catch(Exception ea)
+                    catch(Exception ea)
                     {
                         if (ea.Message.Contains("(Network is unreachable)") || ea.Message.Contains("NameResolutionFailure"))
                         {
@@ -208,13 +222,9 @@ namespace SalesApp
                     }
 
                     if (App.NetAvailable == false)
-                    {
-                    
+                    {                    
                         App.Current.MainPage = new MasterPage(new CrmTabbedPage());
                     }
-                
-
-              
 
                 //   Loadingalertcall();
             }
@@ -230,351 +240,70 @@ namespace SalesApp
           
         }
 
-  
-//        async Task MainRefreshData()
-//        {
-//            if (!stopWatch.IsRunning)
-//            {
-//                stopWatch.Start();
-//            }
-
-
-//            try
-//            {
-                
-//                Device.StartTimer(new TimeSpan(0, 0, 1), () =>
-//             {
-
-//             if (App.NetAvailable == false)
-//                 {
-//                     List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-//                 }
-
-//                 var sq_details = App._connection.Query<SalesQuotationDB>("SELECT * from SalesQuotationDB where yellowimg_string = ?", "yellowcircle.png");
-
-//                 if (sq_details.Count() != 0 && App.NetAvailable == true)
-//                 {
-//                     foreach (var dbobj in sq_details)
-//                     {
-//                         Dictionary<string, dynamic> vals = new Dictionary<string, dynamic>();
-
-//                         vals["order_date"] = dbobj.order_date;
-//                         vals["expiration_date"] = dbobj.expiration_date;
-
-//                            vals["payment_terms"] = dbobj.payment_term_id;
-//                            vals["commission_group"] = dbobj.commission_group_id;
-
-
-//                         if (dbobj.payment_term_id == 0)
-//                         {
-//                             vals["payment_terms"] = false;
-//                         }
-
-//                            if (dbobj.commission_group_id == 0)
-//                         {
-//                                vals["commission_group"] = false;
-//                         }
-
-
-//                         vals["user_id"] = dbobj.user_id;
-
-//                     // var cusid = App.cusdict.FirstOrDefault(x => x.Value == cuspicker1.SelectedItem.ToString()).Key;
-//                     vals["customer"] = dbobj.customer_id;
-
-//                         vals["state"] = "draft";
-
-//                         List<OrderLinesList> orderLineList1 = new List<OrderLinesList>();
-
-//                     //  orderLineList1 = JsonConvert.DeserializeObject<List<OrderLinesList>>(dbobj.order_line);
-
-//                     JArray output = JsonConvert.DeserializeObject<JArray>(dbobj.order_line);
-
-//                         foreach (JObject obj in output)
-//                         {
-//                         //   object[] tax_idList = new object[2];
-
-//                      //  List<int> TaxesIdList = new List<int>();
-
-//                             string product = obj["product_name"].ToString();
-//                             double ordered_qty = Convert.ToDouble(obj["product_uom_qty"].ToString());
-//                             double unit_price = Convert.ToDouble(obj["price_subtotal"].ToString());
-//                              string discount = obj["discount"].ToString();
-//                              string multi_discount = obj["multi_discount"].ToString();
-
-//                                List<int> TaxesIdList = obj["taxesid"].ToObject<List<int>>();
-
-
-//                         //  TaxesIdList = 
-//                         string description = "";
-
-//                                OrderLinesList od = new OrderLinesList(product, ordered_qty, unit_price, TaxesIdList, description,"",discount,multi_discount);
-
-//                             orderLineList1.Add(od);
-//                         }
-
-//                         vals["order_lines"] = orderLineList1;
-
-//                         string updated = Controller.InstanceCreation().UpdateCRMOpporData("sale.crm", "create_sale_quotation", vals);
-
-//                         if (updated == "true")
-//                         {
-                        
-//                         App._connection.Query<SalesQuotationDB>("UPDATE SalesQuotationDB set yellowimg_string=? Where Dbid=?", "", dbobj.Dbid);
-
-//                             App._connection.CreateTable<SalesQuotationDB>();
-//                             var details = (from y in App._connection.Table<SalesQuotationDB>() select y).ToList();
-//                             App.SalesQuotationListDb = details;
-
-//                             List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
-//                             MessagingCenter.Send<string, String>("MyApp", "QuotListUpdated", "true");
-
-
-//                         }
-
-//                     }
-//                 }
-
-
-//                 var lead_details = App._connection.Query<CRMLeadDB>("SELECT * from CRMLeadDB where yellowimg_string = ?", "yellowcircle.png");
-
-
-//                 if (lead_details.Count() != 0 && App.NetAvailable == true)
-//                 {
-
-//                     foreach (var dbobj in lead_details)
-//                     {
-//                         Dictionary<string, dynamic> vals = new Dictionary<string, dynamic>();
-
-//                         int stateid = 0;
-//                         int countryid = 0;
-
-//                         vals["contact_name"] = dbobj.customer;
-
-//                         vals["name"] = dbobj.name;
-
-//                         vals["email_from"] = dbobj.email;
-//                         vals["phone"] = dbobj.phone;
-//                         vals["function"] = dbobj.function;
-//                         vals["street"] = dbobj.street;
-//                         vals["street2"] = dbobj.street2;
-//                         vals["zip"] = dbobj.zip;
-
-//                     //   var salespersonid = App.salespersons.FirstOrDefault(x => x.Value == salesperson_Picker.SelectedItem.ToString()).Key;
-//                     vals["user_id"] = dbobj.user_id;
-
-//                     //   var salesteamid = App.salesteam.FirstOrDefault(x => x.Value == salesteam_Picker.SelectedItem.ToString()).Key;
-//                     vals["team_id"] = dbobj.team_id;
-
-//                         if (dbobj.state_id == 0)
-//                         {
-//                             vals["state_id"] = false;
-//                         }
-//                         else
-//                         {
-//                         //  stateid = App.statedict.FirstOrDefault(x => x.Value == state_picker.SelectedItem.ToString()).Key;
-//                         vals["state_id"] = dbobj.state_id;
-//                         }
-
-//                         if (dbobj.country_id == 0)
-//                         {
-//                             vals["country_id"] = false;
-//                         }
-//                         else
-//                         {
-//                         //  countryid = App.countrydict.FirstOrDefault(x => x.Value == country_picker.SelectedItem.ToString()).Key;
-//                         vals["country_id"] = dbobj.country_id;
-//                         }
-
-
-//                         vals["description"] = dbobj.description;
-
-//                         vals["type"] = "lead";
-
-//                           vals["priority"] = dbobj.priority.ToString();
-
-//                          vals["next_activity_id"] = dbobj.nextact_id;
-
-//                          vals["date_deadline"] = dbobj.expected_closing;
-
-
-//                     //bool updated = Controller.InstanceCreation().UpdateCRMOpporData("sale.crm", "create_crm_quotations", vals);
-
-
-
-//                     string updated = Controller.InstanceCreation().UpdateLeadCreationData("crm.lead", "create", vals);
-
-//                         if (updated == "Odoo Error")
-//                         {
-//                         // App.Current.MainPage = new MasterPage(new CrmTabbedPage());
-//                         // Navigation.PushPopupAsync(new MasterPage(  );
-
-//                     }
-//                         else
-//                         {
-
-//                         //   App._connection.Query<CRMLeadDB>("UPDATE CRMLeadDB SET yellowimg_string = empty " + "WHERE Dbid = ?", dbobj.Dbid);
-//                         App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-
-//                             try
-//                             {
-//                                 App._connection.Query<CRMLeadDB>("UPDATE CRMLeadDB set yellowimg_string=? Where Dbid=?", "", dbobj.Dbid);
-
-//                                 App._connection.CreateTable<CRMLeadDB>();
-//                                 var details = (from y in App._connection.Table<CRMLeadDB>() select y).ToList();
-//                                 App.crmListDb = details;
-
-//                                 List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
-//                                 MessagingCenter.Send<string, String>("MyApp", "leadListUpdated", "true");
-//                             }
-
-//                             catch (Exception ex)
-//                             {
-
-//                             }
-
-//                         }
-//                     }
-
-//                 }
-
-
-//                 var oppor_details = App._connection.Query<CRMOpportunitiesDB>("SELECT * from CRMOpportunitiesDB where yellowimg_string = ?", "yellowcircle.png");
-
-//                 if (oppor_details.Count() != 0 && App.NetAvailable == true)
-//                 {
-
-//                     foreach (var dbobj in oppor_details)
-//                     {
-//                         Dictionary<string, dynamic> vals = new Dictionary<string, dynamic>();
-
-//                         vals["customer"] = dbobj.cusid;
-//                         vals["oppurtunity_title"] = dbobj.oppurtunity_title;
-//                         vals["email"] = dbobj.email;
-//                         vals["phone"] = dbobj.phone;
-
-//                         vals["next_activity_date"] = dbobj.next_activity_date;
-
-//                         vals["next_activity"] = dbobj.next_activity;
-//                         vals["next_activity_summary"] = dbobj.next_activity_summary;
-
-//                         vals["expected_revenue"] = dbobj.expected_revenue;
-
-//                         vals["rating"] = dbobj.rating;
-//                         vals["stage"] = dbobj.stage;
-//                         vals["internal_notes"] = dbobj.internal_notes;
-
-//                         vals["state"] = "new";
-
-//                         vals["next_activity_id"] = dbobj.nextact_id;
-
-//                         vals["date_deadline"] = dbobj.expected_closing;
-
-//                         List<MeetingLinesList> meetingLineList = new List<MeetingLinesList>();
-
-//                         meetingLineList = JsonConvert.DeserializeObject<List<MeetingLinesList>>(dbobj.meetings);
-
-//                         vals["meetings"] = meetingLineList;
-
-//                         string updated = Controller.InstanceCreation().UpdateCRMOpporData("sale.crm", "create_crm_quotations", vals);
-
-//                         if (updated == "true")
-//                         {
-//                             App._connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-
-//                             try
-//                             {
-//                                 App._connection.Query<CRMOpportunitiesDB>("UPDATE CRMOpportunitiesDB set yellowimg_string=? Where Dbid=?", "", dbobj.Dbid);
-
-//                                 App._connection.CreateTable<CRMOpportunitiesDB>();
-//                                 var details = (from y in App._connection.Table<CRMOpportunitiesDB>() select y).ToList();
-//                                 App.CRMOpportunitiesListDb = details;
-
-//                                 List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
-
-//                                 MessagingCenter.Send<string, String>("MyApp", "oppListUpdated", "true");
-//                             }
-
-//                             catch (Exception ex)
-//                             {
-
-//                             }
-
-//                         }
-//                         else
-//                         {
-
-//                         }
-//                     }
-//                 }
-
-
-//                 if (!stopWatch.IsRunning && App.userid != 0)
-//                 {
-//                     stopWatch.Start();
-//                 }
-
-
-//                 if (stopWatch.IsRunning && App.user_gps_enabled == true && stopWatch.Elapsed.Minutes >= App.user_gps_time && App.userid != 0)
-//                 {
-//                 //prepare to perform your data pull here as we have hit the 1 minute mark   
-
-//                 // Perform your long running operations here.
-
-//                 Device.BeginInvokeOnMainThread(async () =>
-//                 {
-//                        // If you need to do anything with your UI, you need to wrap it in this.
-
-//                        //Stopwatch stopWatch = new Stopwatch();
-//                        //stopWatch.Start();
-
-//                        try
-//                            {
-//                                var locator = CrossGeolocator.Current;
-//                                locator.DesiredAccuracy = 10;
-//                                var position = await locator.GetPositionAsync(timeout: new TimeSpan(20000));
-
-
-
-//                                var updated = Controller.InstanceCreation().UpdateGPSData1("gps.sales.person.location", "create_sales_person_gps_location", (float)position.Latitude, (float)position.Longitude);
-//                            }
-
-
-//                            catch (Exception ex)
-//                            {
-//                                if (!App.NetAvailable)
-//                                {
-//                                    int i = 0;
-//                                // await  DisplayAlert("Alert", "Your Internet Connection has been lost.", "Ok");
-//                                }
-
-//                                else if (!App.responseState)
-//                                {
-//                                //  await  DisplayAlert("Alert", "The server is temporarily unavailable", "Ok");
-//                                }
-//                            }
-
-//                        //  System.Diagnostics.Debug.WriteLine("USER>>>>>>"+ App.userid);
-
-//                    });
-
-//                     stopWatch.Restart();
-//                 }
-
-//             // Always return true as to keep our device timer running.
-//             return true;
-//             });
-
-//            }
-//            catch(Exception exce)
-//            {
-//                System.Diagnostics.Debug.WriteLine(exce.Message);
-//            }
-           
-//        }
-
 //// Back Thread Ends
+        /// 
+       
+         async Task FieldsData()
+        {
+
+            await Task.Run(() =>
+            {
+                // var user_details = App._connection.Query<UserModelDB>("SELECT * from UserModelDB");
+                //  var user_details = (from y in App._connection.Table<UserModelDB>() select y).ToList();
+
+                Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+                {
+                    //MessagingCenter.Subscribe<string, string>("MyApp", "Login", async (sender, arg) =>
+                    //{
+
+                     if (App.cusList.Count == 0 && Settings.UserId != 0)
+                     {
+                        
+                        JObject obj = Controller.InstanceCreation().GetMastersList();
+
+                        App.product_PriceList = obj["product_pricelist_data"].ToObject<List<Product_PriceList>>();
+                        App.nextActivityList = obj["crm_activity_data"].ToObject<List<next_activity>>();
+                        App.reasondict = obj["crm_lost_reason_data"].ToObject<Dictionary<int, string>>();
+                        App.stageList = obj["crm_stage_data"].ToObject<List<stages>>();
+                        App.paytermList = obj["payment_term_data"].ToObject<List<paytermList>>();
+                        App.taxList = obj["tax_data"].ToObject<List<taxes>>();
+
+                        App.salesteam = obj["crm_team_data"].ToObject<Dictionary<int, string>>();
+                        App.salespersons = obj["res_user_data"].ToObject<Dictionary<int, string>>();
+                        App.crmleadtags = obj["crm_lead_tag_data"].ToObject<Dictionary<int, string>>();
+
+                        App.analayticList = obj["analytic_account_data"].ToObject<List<analytic>>();
+                        App.commisiongroupList = obj["target_group_data"].ToObject<List<commisiongroupList>>();
+                        App.all_delivery_method = obj["delivery_carrier_data"].ToObject<List<all_delivery_method>>();
+                        App.locationsList = obj["stock_location_data"].ToObject<List<LocationsList>>();
+                        App.warehousList = obj["stock_warehouse_data"].ToObject<List<warehouse>>();
+                        App.branchList = obj["res_branch_data"].ToObject<List<branch>>();
+
+                        App.cus_address = obj["customer_address"].ToObject<Dictionary<dynamic, dynamic>>();
+
+
+                        App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        //App.productList = Controller.InstanceCreation().GetProductssList();
+                      
+                        //App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        //App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        //App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        //App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        //App.cusList = Controller.InstanceCreation().GetCustomersList();
+                        //App.cusList = Controller.InstanceCreation().GetCustomersList();
+
+                          //  MessagingCenter.Send<string, string>("MyApp", "FieldsListUpdated", "true");
+
+                        }
+                    return true;
+                    });
+
+                    
+             //   });
+
+             });
+
+        }
 
         protected  override async void OnStart()
         {
@@ -583,6 +312,7 @@ namespace SalesApp
 
          //   await MainRefreshData();
 
+            await FieldsData();
 
             // Handle when your app starts
         }
@@ -593,10 +323,6 @@ namespace SalesApp
             // ***********SalesQuotationDB
 
           //  await MainRefreshData();
-
-
-
-           
 
         }
 

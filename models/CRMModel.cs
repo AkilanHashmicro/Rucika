@@ -1428,22 +1428,24 @@ namespace SalesApp.models
             public int qty { get; set; }
             public string location { get; set; }
             public string product { get; set; }
+            public int reserved_qty { get; set; }
+
 
             public string Date { get; set; }
 
-            public string DATENOW
-            {
-                get
-                {
-                    string date = DateTime.Now.ToString("MMMM dd");
+            //public string DATENOW
+            //{
+            //    get
+            //    {
+            //        string date = DateTime.Now.ToString("MMMM dd");
 
-                    return date;
-                }
-                set
-                {
+            //        return date;
+            //    }
+            //    set
+            //    {
 
-                }
-            }
+            //    }
+            //}
 
         }
 

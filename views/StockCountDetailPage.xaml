@@ -48,10 +48,18 @@
                             <RowDefinition Height="Auto" />
                           </Grid.RowDefinitions>
                           <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".80*" />
-                            <ColumnDefinition Width=".20*" />                       
+                            <ColumnDefinition Width=".60*" />
+                            <ColumnDefinition Width=".40*" />                       
                           </Grid.ColumnDefinitions>
-                          <Label Text="{Binding item_no}"  Grid.Row="0" Grid.Column="0" FontSize="Small"  VerticalTextAlignment="Center" />
+                          <StackLayout Orientation="Horizontal" Padding="0" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand">
+                              <Label Text="Item No:" FontSize="Small"  VerticalTextAlignment="Center"  FontAttributes="Bold"  />
+                              <Label Text="{Binding item_no}"   FontSize="Small"  VerticalTextAlignment="Center" />
+                            </StackLayout>                      
+
+                           <StackLayout Orientation="Horizontal"  Grid.Column="1" Padding="0" HorizontalOptions="EndAndExpand">
+                              <Label Text="Reserved Qty:" FontSize="Small"  VerticalTextAlignment="Center"  FontAttributes="Bold"  />
+                              <Label Text="{Binding reserved_qty}" FontSize="Small"  VerticalTextAlignment="Center"  />
+                            </StackLayout>
                         </Grid>
                         
                         <Grid >

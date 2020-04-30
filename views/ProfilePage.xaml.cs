@@ -68,7 +68,7 @@ namespace SalesApp.views
         private async void updateClickedAsync(object sender, EventArgs e)
         {
             vals["name"] = name_entry.Text;
-            vals["email"] = email_entry.Text;
+            vals["login"] = email_entry.Text;
             vals["image"] = topimg;
 
           var currentpage = new LoadingAlert();

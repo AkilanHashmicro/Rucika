@@ -213,7 +213,7 @@ namespace SalesApp.OdooRpc
 
         public List<StockWareHouseList> odooMethodCall_stockcount<T>(string model, string method, int locid)
         {
-            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { locid}  });
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method,locid  });
             JArray stockData = odooServerCall<JArray>(jsonRpcUrl, parameters);
 
             List<StockWareHouseList> result = stockData.ToObject<List<StockWareHouseList>>();

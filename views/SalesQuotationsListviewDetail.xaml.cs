@@ -163,7 +163,7 @@ namespace SalesApp.views
 
            // tax_listview.ItemsSource = item.order_line;
 
-          //  orderListview.HeightRequest = item.order_line.Count * 50;
+           orderListview.HeightRequest = item.order_line.Count * 50;
 
             var sq_editRecognizer = new TapGestureRecognizer();
             sq_editRecognizer.Tapped += async (s, e) =>
@@ -482,9 +482,9 @@ namespace SalesApp.views
                 searchprod_ol.Text = "";
                 orderline_des_ol.Text = "";
                 up_ol.Text = "";
-                oqty_ol.Text = "";
-                dis1_ol.Text = "";
-                multidis_ol.Text = "";
+                oqty_ol.Text = "0";
+                dis1_ol.Text = "0";
+                multidis_ol.Text = "0";
 
                 add_new_orderline = true;
 
@@ -501,7 +501,7 @@ namespace SalesApp.views
                 taxStackLayout_ol.Padding = new Thickness(15, 0, 0, 0);
                
             };
-            Add_OrderLineBtn.GestureRecognizers.Add(addbtn_orderlineRecognizer);
+            Add_neworderLineBtn.GestureRecognizers.Add(addbtn_orderlineRecognizer);
 
 
 
@@ -1109,7 +1109,7 @@ namespace SalesApp.views
 
             // AddAirCon.IsVisible = true;
             Addtax_line_ol.IsVisible = true;
-            Add_OrderLineBtn.IsVisible = true;
+            Add_neworderLineBtn.IsVisible = true;
         }
 
         private void Tab2Clicked(object sender, EventArgs ea)
@@ -1152,10 +1152,302 @@ namespace SalesApp.views
 
 //************************* Save Clicks *******************************
 
+        //private async void save_clickedAsync(object sender, EventArgs ea)
+        //{
+        //    // final_listview.Clear();
+        // //   addbtn_orderline.IsVisible = true;
+        //    updatebtn.IsVisible = true;
+        //    sq_editbtn.IsVisible = false;
+        //    orderLineGrid_ol.IsVisible = false;
+        //    discount_grid_ol.IsVisible = false;
+        //    taxlistviewGrid_ol.IsVisible = false;
+        //    addbtn_orderline.IsVisible = true;
+
+        //    savebtn_layout.IsVisible = false;
+
+        //    String taxname_full = "";
+
+        //    OrderLine orderLine = new OrderLine();
+                       
+        //        if (add_new_orderline == true)
+        //        {
+
+        //            OrderLine orderLinenew = new OrderLine();
+
+        //            var productlis = from pro in App.productList
+        //                             where pro.Name == searchprod_ol.Text
+        //                             select pro;
+
+        //            int prod_id = 0;
+
+        //            foreach (var pro in productlis)
+        //            {
+        //                prod_id = pro.Id;
+        //            }
+
+        //            //  orderLine.product_id = prod_id;
+
+        //            int newodid = 0;
+
+        //            foreach (var ids in obj.order_line)
+        //            {
+        //                newodid = ids.id + 11;
+        //                //  newodid = newodid;
+        //            }
+
+        //            orderLinenew.id = newodid;
+        //            orderLinenew.product_name = searchprod_ol.Text;
+        //            orderLinenew.product_id = prod_id;
+        //            orderLinenew.product_uom_qty = oqty_ol.Text;
+        //            orderLinenew.price_unit = up_ol.Text;
+        //        orderLinenew.discount = dis1_ol.Text;
+        //        orderLinenew.multi_discount = multidis_ol.Text;
+
+        //        var newtax_id = new object[taxList_edit.Count];
+        //        var newtaxnameids = new List<int>();
+        //        for (int i = 0; i < taxList_edit.Count(); i++)
+        //        {
+
+        //            int taxname_id = App.taxList.FirstOrDefault(x => x.Name == taxList_edit[i].Name.ToString()).Id;
+
+        //            newtax_id[i] = taxname_id;
+        //            newtaxnameids.Add(taxname_id);
+
+        //            taxname_full = taxname_full + "  " + taxList_edit[i].Name.ToString();
+
+        //        }
+
+        //        orderLinenew.tax_id = newtax_id;
+        //        orderLinenew.taxes_id = newtax_id;
+
+        //        orderLinenew.tax_names = taxname_full;
+
+        //        var currentpage = new LoadingAlert();
+        //        await PopupNavigation.PushAsync(currentpage);
+
+        //        if (dis1_ol.Text == "")
+        //        {
+        //            dis1_ol.Text = "0";
+        //        }
+        //        float subtotal = Controller.InstanceCreation().getsubtotal("sale.order", "get_sub_total", float.Parse(up_ol.Text), float.Parse(oqty_ol.Text), newtaxnameids, float.Parse(dis1_ol.Text));
+
+        //        int subtotal1 = (int)subtotal;
+
+        //        orderLinenew.price_subtotal = subtotal1.ToString();
+
+        //        await PopupNavigation.PopAsync();
+
+        //        obj.order_line.Add(orderLinenew);
+
+        // }
+
+
+
+        //        foreach (var newobj in obj.order_line)
+        //        {
+
+
+                   
+
+        //            if (newobj.id == orderline_id && newobj.id != 0)
+        //{
+        //                // orderLine.id = newobj.id;
+        //                orderLine.product_name = searchprod.Text;
+
+
+        //                var productlis = from pro in App.productList
+        //                                 where pro.Name == newobj.product_name
+        //                                 select pro;
+
+        //                int prod_id = 0;
+
+        //                foreach (var pro in productlis)
+        //                {
+        //                    prod_id = pro.Id;
+        //                }
+
+        //                orderLine.product_id = prod_id;
+        //                orderLine.product_uom_qty = oqty.Text;
+        //               orderLine.price_unit = up.Text;
+        //                orderLine.taxes = newobj.taxes;
+        //                orderLine.discount = dis1.Text;
+        //                orderLine.multi_discount = multidis.Text;
+        //            orderLine.id = newobj.id;
+        //            orderline_id = newobj.id;
+
+
+        //            var taxnew_id = new object[taxList_edit.Count];
+        //            var taxnameids = new List<int>();
+        //            for (int i = 0; i < taxList_edit.Count(); i++)
+        //            {
+
+        //                int taxname_id = App.taxList.FirstOrDefault(x => x.Name == taxList_edit[i].Name.ToString()).Id;
+
+        //                taxnew_id[i] = taxname_id;
+        //                taxnameids.Add(taxname_id);
+
+        //                taxname_full = taxname_full + "  " + taxList_edit[i].Name.ToString();
+
+        //            }
+
+        //            orderLine.tax_id = taxnew_id;
+        //            orderLine.taxes_id = taxnew_id;
+        //            orderLine.tax_names = taxname_full;
+
+
+
+        //            var currentpage = new LoadingAlert();
+        //            await PopupNavigation.PushAsync(currentpage);
+
+        //            if (dis1.Text == "")
+        //            {
+        //                dis1.Text = "0";
+        //            }
+        //            float subtotal = Controller.InstanceCreation().getsubtotal("sale.order", "get_sub_total", float.Parse(up.Text), float.Parse(oqty.Text), taxnameids, float.Parse(dis1.Text));
+
+        //            int subtotal1 = (int)subtotal;
+
+        //            orderLine.price_subtotal = subtotal1.ToString();
+
+        //            await PopupNavigation.PopAsync();
+
+
+
+        //}
+
+        //      //  orderLine.tax_id = tax_id;
+
+        //        }
+
+        //        if (add_new_orderline == false)
+        //        {
+
+        //            int index = final_listview.FindIndex(m => m.id == orderline_id);
+        //            if (index >= 0)
+        //                final_listview[index] = orderLine;
+
+        //        }
+        //        orderLinelist.Clear();
+
+        //        foreach (var newobj in final_listview)
+        //        {
+        //            OrderLinesListForUpdate orderLineupdate = new OrderLinesListForUpdate();
+        //            // orderLineupdate.id = newobj.id;
+
+        //        var productlis = from pro in App.productList
+        //                         where pro.Name == newobj.product_name
+        //                         select pro;
+
+        //        int prod_id = 0;
+        //        foreach (var pro in productlis)
+        //        {
+        //            prod_id = pro.Id;
+        //        }
+
+
+        //        //  orderLineupdate.product_id = newobj.product_id;
+        //        orderLineupdate.product_id = newobj.product_id;
+        //            orderLineupdate.product = newobj.product_name;
+        //            orderLineupdate.ordered_qty = newobj.product_uom_qty;
+        //            orderLineupdate.unit_price = newobj.price_unit;
+        //        orderLineupdate.tax_names = newobj.tax_names;
+        //        orderLineupdate.tax_id = newobj.taxes_id;
+        //        orderLineupdate.discount = newobj.discount;
+        //        orderLineupdate.multi_discount = newobj.multi_discount;
+        //        //  orderLineupdate.tax_id = newobj.taxes;
+
+ 
+
+        //        orderLinelist.Add(orderLineupdate);
+        //    }
+
+        //        //   orderListview.ClearValue();
+
+        //        OrderLineList1.IsVisible = true;
+        //        orderListview.ItemsSource = final_listviewnew;
+        //        final_listviewnew.Clear();
+        //        orderListview.ItemsSource = final_listview;
+
+        //   orderListview.HeightRequest = final_listview.Count * 50;
+
+        //      listview_editlayout.IsVisible = false;
+        //      discount_grid.IsVisible = false;
+        //      taxlistviewGrid.IsVisible = false;
+
+        //        Cus.Text = cuspicker1.SelectedItem.ToString();
+        //        // CD.Text = item.DateOrder;
+        //      //  CD.Text = cd_Picker.Date.ToString();
+        //        PT.Text = ptpicker.SelectedItem.ToString();
+        //    try
+        //    {
+        //        CG.Text = comgroup_picker.SelectedItem.ToString();
+        //    }
+        //    catch
+        //    {
+        //        CG.Text = "";
+        //    }
+               
+        //        SP.Text = salesperson_picker.SelectedItem.ToString();
+
+        //    if (salesteam_picker.SelectedItem != null)
+        //    {
+        //        ST.Text = salesteam_picker.SelectedItem.ToString();
+        //    }
+        //        CR.Text = cr_entry.Text;
+        //        FP.Text = fp_entry.Text;
+
+        //        add_new_orderline = false;
+
+
+        //    cus_edit.IsVisible = true;
+        //  //  con_dateedit.IsVisible = true;
+        //    ptpicker_edit.IsVisible = true;
+
+        //    commissionpicker_edit.IsVisible = true;
+        //    sales_teamedit.IsVisible = true;
+        //    sales_personsedit.IsVisible = true;
+
+        //    cr_edit.IsVisible = true;
+        //    fp_edit.IsVisible = true;
+        //    is_edit.IsVisible = true;
+
+
+        //    branch_edit.IsVisible = true;
+        //    analytic_edit.IsVisible = true;
+        //    wh_edit.IsVisible = true;
+        //    sp_edit.IsVisible = true;
+
+        //    cus_noedit.IsVisible = false;
+        //  //  con_datenoedit.IsVisible = false;
+        //    ptpicker_noedit.IsVisible = false;
+        //    commissionpicker_noedit.IsVisible = false;
+        //    sales_teamnoedit.IsVisible = false;
+        //    sales_personsnoedit.IsVisible = false;
+
+        //    cr_noedit.IsVisible = false;
+        //    fp_noedit.IsVisible = false;
+        //    is_noedit.IsVisible = false;
+
+        //    branch_noedit.IsVisible = false;
+        //    analytic_noedit.IsVisible = false;
+        //    wh_noedit.IsVisible = false;
+        //    sp_noedit.IsVisible = false;
+
+        //        OtherInfoStack1.IsVisible = false;
+        //        OtherInfoStack2.IsVisible = false;
+        //       OtherInfoStack3.IsVisible = false;
+
+        //   // }
+        //}
+
+         //Save Ends
+
+
+
         private async void save_clickedAsync(object sender, EventArgs ea)
         {
             // final_listview.Clear();
-         //   addbtn_orderline.IsVisible = true;
+            //   addbtn_orderline.IsVisible = true;
             updatebtn.IsVisible = true;
             sq_editbtn.IsVisible = false;
             orderLineGrid_ol.IsVisible = false;
@@ -1168,88 +1460,41 @@ namespace SalesApp.views
             String taxname_full = "";
 
             OrderLine orderLine = new OrderLine();
-                       
-                if (add_new_orderline == true)
+
+            if (add_new_orderline == true)
+            {
+
+                OrderLine orderLinenew = new OrderLine();
+
+                var productlis = from pro in App.productList
+                                 where pro.Name == searchprod_ol.Text
+                                 select pro;
+
+                int prod_id = 0;
+
+                foreach (var pro in productlis)
                 {
+                    prod_id = pro.Id;
+                }
 
-                    OrderLine orderLinenew = new OrderLine();
+                //  orderLine.product_id = prod_id;
 
-                    var productlis = from pro in App.productList
-                                     where pro.Name == searchprod_ol.Text
-                                     select pro;
+                int newodid = 0;
 
-                    int prod_id = 0;
+                foreach (var ids in obj.order_line)
+                {
+                    newodid = ids.id + 11;
+                    //  newodid = newodid;
+                }
 
-                    foreach (var pro in productlis)
-                    {
-                        prod_id = pro.Id;
-                    }
-
-                    //  orderLine.product_id = prod_id;
-
-                    int newodid = 0;
-
-                    foreach (var ids in obj.order_line)
-                    {
-                        newodid = ids.id + 11;
-                        //  newodid = newodid;
-                    }
-
-                    orderLinenew.id = newodid;
-                    orderLinenew.product_name = searchprod_ol.Text;
-                    orderLinenew.product_id = prod_id;
-                    orderLinenew.product_uom_qty = oqty_ol.Text;
-                    orderLinenew.price_unit = up_ol.Text;
+                orderLinenew.id = newodid;
+                orderLinenew.product_name = searchprod_ol.Text;
+                orderLinenew.product_id = prod_id;
+                orderLinenew.product_uom_qty = oqty_ol.Text;
+                orderLinenew.price_unit = up_ol.Text;
                 orderLinenew.discount = dis1_ol.Text;
                 orderLinenew.multi_discount = multidis_ol.Text;
 
-
-//  orderLinenew.taxes = tax_id;
-                //try
-                //{
-                //    orderLinenew.price_subtotal = (Convert.ToInt32(oqty_ol.Text) * Convert.ToInt32(up_ol.Text)).ToString();
-
-                //    Double tot = Double.Parse(orderLinenew.price_subtotal) * (Double.Parse(dis1_ol.Text) / 100);
-
-                //    orderLinenew.price_subtotal = (Double.Parse(orderLinenew.price_subtotal) - tot).ToString();
-                //}
-
-                //catch
-                //{
-                //    orderLinenew.price_subtotal = "";
-                //}
-
-
-
-                //Object[] tax_id = new object[taxList_edit.Count()];
-
-                //for (int i = 0; i < taxList_edit.Count(); i++)
-                //{
-                //    var tax_list = from tx in App.taxList
-                //                   where tx.Name == taxList_edit[i].Name.ToString()
-                //                   select tx;
-
-                //    int tax_list_id = 0;
-                //    foreach (var tax in tax_list)
-                //    {
-                //        tax_list_id = tax.Id;
-                //    }
-
-                   
-
-                //    tax_id[i] = tax_list_id;
-
-                //    orderLinenew.tax_id = tax_id;
-
-                //    taxname_full = taxname_full + "  " + taxList_edit[i].Name.ToString();
-
-                //}
-
-                //orderLinenew.tax_id = tax_id;
-                //orderLinenew.taxes_id = tax_id;
-
-                //orderLinenew.tax_names = taxname_full;
-                    //obj.order_line.Add(orderLinenew);
 
                 var newtax_id = new object[taxList_edit.Count];
                 var newtaxnameids = new List<int>();
@@ -1273,9 +1518,9 @@ namespace SalesApp.views
                 var currentpage = new LoadingAlert();
                 await PopupNavigation.PushAsync(currentpage);
 
-                if (dis1_ol.Text == "")
+                if (dis1.Text == "")
                 {
-                    dis1_ol.Text = "0";
+                    dis1.Text = "0";
                 }
                 float subtotal = Controller.InstanceCreation().getsubtotal("sale.order", "get_sub_total", float.Parse(up_ol.Text), float.Parse(oqty_ol.Text), newtaxnameids, float.Parse(dis1_ol.Text));
 
@@ -1287,70 +1532,37 @@ namespace SalesApp.views
 
                 obj.order_line.Add(orderLinenew);
 
-         }
+            }
 
 
 
-                foreach (var newobj in obj.order_line)
+            foreach (var newobj in obj.order_line)
+            {
+                if (newobj.id == orderline_id && newobj.id != 0)
                 {
+                    // orderLine.id = newobj.id;
+                    orderLine.product_name = searchprod.Text;
 
 
-                   
+                    //var productlis = from pro in App.productList
+                    //                 where pro.Name == newobj.product_name
+                    //                 select pro;
 
-                    if (newobj.id == orderline_id && newobj.id != 0)
-        {
-                        // orderLine.id = newobj.id;
-                        orderLine.product_name = searchprod.Text;
+                    //int prod_id = 0;
 
-
-                        var productlis = from pro in App.productList
-                                         where pro.Name == newobj.product_name
-                                         select pro;
-
-                        int prod_id = 0;
-
-                        foreach (var pro in productlis)
-                        {
-                            prod_id = pro.Id;
-                        }
-
-                        orderLine.product_id = prod_id;
-                        orderLine.product_uom_qty = oqty.Text;
-                       orderLine.price_unit = up.Text;
-                        orderLine.taxes = newobj.taxes;
-                        orderLine.discount = dis1.Text;
-                        orderLine.multi_discount = multidis.Text;
-                    orderLine.id = newobj.id;
-                    orderline_id = newobj.id;
-
-
-                    //Object[] tax_id = new object[taxList_edit.Count()];
-
-                    //for (int i = 0; i < taxList_edit.Count(); i++)
+                    //foreach (var pro in productlis)
                     //{
-                    //    var tax_list = from tx in App.taxList
-                    //                   where tx.Name == taxList_edit[i].Name.ToString()
-                    //                   select tx;
-
-                    //    int tax_list_id = 0;
-                    //    foreach (var tax in tax_list)
-                    //    {
-                    //        tax_list_id = tax.Id;
-                    //    }
-
-        
-                    //    tax_id[i] = tax_list_id;
-
-                    //   // orderLinenew.tax_id = tax_id;
-
-                    //    taxname_full = taxname_full + "  " + taxList_edit[i].Name.ToString();
-
+                    //    prod_id = pro.Id;
                     //}
 
-                    //orderLine.tax_id = tax_id;
-                    //orderLine.taxes_id = tax_id;
-                    //orderLine.tax_names = taxname_full;
-
+                    orderLine.product_id = newobj.product_id;
+                    orderLine.product_uom_qty = oqty.Text;
+                    orderLine.price_unit = up.Text;
+                    orderLine.taxes = newobj.taxes;
+                    orderLine.discount = dis1.Text;
+                    orderLine.multi_discount = multidis.Text;
+                    orderLine.id = newobj.id;
+                    orderline_id = newobj.id;
 
 
                     var taxnew_id = new object[taxList_edit.Count];
@@ -1371,26 +1583,6 @@ namespace SalesApp.views
                     orderLine.taxes_id = taxnew_id;
                     orderLine.tax_names = taxname_full;
 
-
-                    //  orderLine.tax_namecut = newobj.tax_namecut;
-                    //try
-                    //{
-
-                    //    orderLine.price_subtotal = (Convert.ToInt32(oqty.Text) * Convert.ToInt32(up.Text)).ToString();
-                    //    orderLine.customer_lead = newobj.customer_lead;
-
-                    //    Double tot = Double.Parse(orderLine.price_subtotal) * (Double.Parse(dis1.Text) / 100);
-
-                    //    orderLine.price_subtotal = (Double.Parse(orderLine.price_subtotal) - tot).ToString();
-                    //}
-
-                    //catch{
-
-                    //    DisplayAlert("Alert", "Try again", "Ok");
-                    //}
-
-                  //  orderLine.price_subtotal = tot.ToString();
-
                     var currentpage = new LoadingAlert();
                     await PopupNavigation.PushAsync(currentpage);
 
@@ -1398,6 +1590,11 @@ namespace SalesApp.views
                     {
                         dis1.Text = "0";
                     }
+
+                    //if(multidis.Text == "")
+                    //{
+                    //    multidis.Text =
+                    //}
                     float subtotal = Controller.InstanceCreation().getsubtotal("sale.order", "get_sub_total", float.Parse(up.Text), float.Parse(oqty.Text), taxnameids, float.Parse(dis1.Text));
 
                     int subtotal1 = (int)subtotal;
@@ -1407,87 +1604,92 @@ namespace SalesApp.views
                     await PopupNavigation.PopAsync();
 
 
-
-        }
-
-              //  orderLine.tax_id = tax_id;
-
                 }
 
-                if (add_new_orderline == false)
-                {
+                //  orderLine.tax_id = tax_id;
 
-                    int index = final_listview.FindIndex(m => m.id == orderline_id);
-                    if (index >= 0)
-                        final_listview[index] = orderLine;
+            }
 
-                }
-                orderLinelist.Clear();
+            if (add_new_orderline == false)
+            {
 
-                foreach (var newobj in final_listview)
-                {
-                    OrderLinesListForUpdate orderLineupdate = new OrderLinesListForUpdate();
-                    // orderLineupdate.id = newobj.id;
+                int index = final_listview.FindIndex(m => m.id == orderline_id);
+                if (index >= 0)
+                    final_listview[index] = orderLine;
 
-                var productlis = from pro in App.productList
-                                 where pro.Name == newobj.product_name
-                                 select pro;
+            }
+            orderLinelist.Clear();
 
-                int prod_id = 0;
-                foreach (var pro in productlis)
-                {
-                    prod_id = pro.Id;
-                }
+            foreach (var newobj in final_listview)
+            {
+                OrderLinesListForUpdate orderLineupdate = new OrderLinesListForUpdate();
+                // orderLineupdate.id = newobj.id;
+
+                //var productlis = from pro in App.productList
+                //                 where pro.Name == newobj.product_name
+                //                 select pro;
+
+                //int prod_id = 0;
+                //foreach (var pro in productlis)
+                //{
+                //    prod_id = pro.Id;
+                //}
 
 
                 //  orderLineupdate.product_id = newobj.product_id;
-                    orderLineupdate.product_id = prod_id;
-                    orderLineupdate.product = newobj.product_name;
-                    orderLineupdate.ordered_qty = newobj.product_uom_qty;
-                    orderLineupdate.unit_price = newobj.price_unit;
+                orderLineupdate.product_id = newobj.product_id;
+                orderLineupdate.product = newobj.product_name;
+                orderLineupdate.ordered_qty = newobj.product_uom_qty;
+                orderLineupdate.unit_price = newobj.price_unit;
                 orderLineupdate.tax_names = newobj.tax_names;
                 orderLineupdate.tax_id = newobj.taxes_id;
                 orderLineupdate.discount = newobj.discount;
                 orderLineupdate.multi_discount = newobj.multi_discount;
                 //  orderLineupdate.tax_id = newobj.taxes;
 
- 
-
                 orderLinelist.Add(orderLineupdate);
             }
 
-                //   orderListview.ClearValue();
+            //   orderListview.ClearValue();
 
-                OrderLineList1.IsVisible = true;
-                orderListview.ItemsSource = final_listviewnew;
-                final_listviewnew.Clear();
-                orderListview.ItemsSource = final_listview;
+            OrderLineList1.IsVisible = true;
+            orderListview.ItemsSource = final_listviewnew;
+            final_listviewnew.Clear();
+            orderListview.ItemsSource = final_listview;
 
-              //  orderListview.HeightRequest = final_listview.Count * 50;
+            orderListview.HeightRequest = final_listview.Count * 55;
 
-              listview_editlayout.IsVisible = false;
-              discount_grid.IsVisible = false;
-              taxlistviewGrid.IsVisible = false;
+            listview_editlayout.IsVisible = false;
+            discount_grid.IsVisible = false;
+            taxlistviewGrid.IsVisible = false;
 
-                Cus.Text = cuspicker1.SelectedItem.ToString();
-                // CD.Text = item.DateOrder;
-              //  CD.Text = cd_Picker.Date.ToString();
-                PT.Text = ptpicker.SelectedItem.ToString();
+            Cus.Text = cuspicker1.SelectedItem.ToString();
+            // CD.Text = item.DateOrder;
+            //  CD.Text = cd_Picker.Date.ToString();
+            PT.Text = ptpicker.SelectedItem.ToString();
+            try
+            {
                 CG.Text = comgroup_picker.SelectedItem.ToString();
-                SP.Text = salesperson_picker.SelectedItem.ToString();
+            }
+            catch
+            {
+                CG.Text = "";
+            }
+
+            SP.Text = salesperson_picker.SelectedItem.ToString();
 
             if (salesteam_picker.SelectedItem != null)
             {
                 ST.Text = salesteam_picker.SelectedItem.ToString();
             }
-                CR.Text = cr_entry.Text;
-                FP.Text = fp_entry.Text;
+            CR.Text = cr_entry.Text;
+            FP.Text = fp_entry.Text;
 
-                add_new_orderline = false;
+            add_new_orderline = false;
 
 
             cus_edit.IsVisible = true;
-          //  con_dateedit.IsVisible = true;
+            //  con_dateedit.IsVisible = true;
             ptpicker_edit.IsVisible = true;
             commissionpicker_edit.IsVisible = true;
             sales_teamedit.IsVisible = true;
@@ -1504,7 +1706,7 @@ namespace SalesApp.views
             sp_edit.IsVisible = true;
 
             cus_noedit.IsVisible = false;
-          //  con_datenoedit.IsVisible = false;
+            //  con_datenoedit.IsVisible = false;
             ptpicker_noedit.IsVisible = false;
             commissionpicker_noedit.IsVisible = false;
             sales_teamnoedit.IsVisible = false;
@@ -1519,11 +1721,11 @@ namespace SalesApp.views
             wh_noedit.IsVisible = false;
             sp_noedit.IsVisible = false;
 
-                OtherInfoStack1.IsVisible = false;
-                OtherInfoStack2.IsVisible = false;
-               OtherInfoStack3.IsVisible = false;
+            OtherInfoStack1.IsVisible = false;
+            OtherInfoStack2.IsVisible = false;
+            OtherInfoStack3.IsVisible = false;
 
-           // }
+            // }
         }
   
         private void ViewCell_Tapped(object sender, EventArgs e)
@@ -1598,13 +1800,20 @@ namespace SalesApp.views
         void multidiscount_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool entry = false;
+            bool res = false;
 
             //  bool res = Regex.IsMatch(dis1.Text, @"^-?\d+$");
 
             //    bool res1 = Regex.IsMatch(multidis.Text, @"^\d+$");
 
-            bool res = Regex.IsMatch(multidis.Text, @"\d");
-
+            try
+            {
+                res = Regex.IsMatch(multidis.Text, @"\d");
+            }
+            catch
+            {
+                multidis.Text = "0";
+            }
 
             if (multidis.Text == "+")
             {

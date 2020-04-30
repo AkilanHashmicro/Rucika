@@ -516,10 +516,10 @@ namespace SalesApp.views
 
                 searchprod_ol.Text = "";
                 orderline_des_ol.Text = "";
-                up_ol.Text = "";
-                oqty_ol.Text = "";
-                dis1_ol.Text = "";
-                multidis_ol.Text = "";
+                up_ol.Text = "0";
+                oqty_ol.Text = "0";
+                dis1_ol.Text = "0";
+                multidis_ol.Text = "0";
 
                 taxListView_ol.ItemsSource = null;
                 taxStackLayout_ol.IsVisible = false;
@@ -535,7 +535,7 @@ namespace SalesApp.views
                 taxStackLayout_ol.Padding = new Thickness(15, 0, 0, 0);
 
             };
-            Add_OrderLineBtn.GestureRecognizers.Add(addbtn_orderlineRecognizer);
+            Add_neworderLineBtn.GestureRecognizers.Add(addbtn_orderlineRecognizer);
 
 
             var Addtax_lineImgRecognizer = new TapGestureRecognizer();
@@ -1153,7 +1153,7 @@ namespace SalesApp.views
             tab1.TextColor = Color.White;
             tab2.TextColor = Color.Black;
 
-            Add_OrderLineBtn.IsVisible = true;
+            Add_neworderLineBtn.IsVisible = true;
             Addtax_line_ol.IsVisible = true;
         }
 
@@ -1342,10 +1342,6 @@ namespace SalesApp.views
 
             foreach (var newobj in obj.order_line)
             {
-
-
-
-
                 if (newobj.id == orderline_id && newobj.id != 0)
                 {
                     // orderLine.id = newobj.id;
@@ -1418,6 +1414,11 @@ namespace SalesApp.views
                     {
                         dis1.Text = "0";
                     }
+
+                    //if(multidis.Text == "")
+                    //{
+                    //    multidis.Text =
+                    //}
                     float subtotal = Controller.InstanceCreation().getsubtotal("sale.order", "get_sub_total", float.Parse(up.Text), float.Parse(oqty.Text), taxnameids, float.Parse(dis1.Text));
 
                     int subtotal1 = (int)subtotal;
@@ -1448,19 +1449,19 @@ namespace SalesApp.views
                 OrderLinesListForUpdate orderLineupdate = new OrderLinesListForUpdate();
                 // orderLineupdate.id = newobj.id;
 
-                var productlis = from pro in App.productList
-                                 where pro.Name == newobj.product_name
-                                 select pro;
+                //var productlis = from pro in App.productList
+                //                 where pro.Name == newobj.product_name
+                //                 select pro;
 
-                int prod_id = 0;
-                foreach (var pro in productlis)
-                {
-                    prod_id = pro.Id;
-                }
+                //int prod_id = 0;
+                //foreach (var pro in productlis)
+                //{
+                //    prod_id = pro.Id;
+                //}
 
 
                 //  orderLineupdate.product_id = newobj.product_id;
-                orderLineupdate.product_id = prod_id;
+                orderLineupdate.product_id = newobj.product_id;
                 orderLineupdate.product = newobj.product_name;
                 orderLineupdate.ordered_qty = newobj.product_uom_qty;
                 orderLineupdate.unit_price = newobj.price_unit;
@@ -1482,7 +1483,7 @@ namespace SalesApp.views
             final_listviewnew.Clear();
             orderListview.ItemsSource = final_listview;
 
-          //  orderListview.HeightRequest = final_listview.Count * 55;
+            orderListview.HeightRequest = final_listview.Count * 55;
 
             listview_editlayout.IsVisible = false;
             discount_grid.IsVisible = false;
@@ -1492,7 +1493,15 @@ namespace SalesApp.views
             // CD.Text = item.DateOrder;
             //  CD.Text = cd_Picker.Date.ToString();
             PT.Text = ptpicker.SelectedItem.ToString();
-            CG.Text = comgroup_picker.SelectedItem.ToString();
+            try
+            {
+                CG.Text = comgroup_picker.SelectedItem.ToString();
+            }
+            catch
+            {
+                CG.Text = "";
+            }
+
             SP.Text = salesperson_picker.SelectedItem.ToString();
 
             if (salesteam_picker.SelectedItem != null)
@@ -1620,12 +1629,19 @@ namespace SalesApp.views
         void multidiscount_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool entry = false;
-
+            bool res = false;
             //  bool res = Regex.IsMatch(dis1.Text, @"^-?\d+$");
 
             //    bool res1 = Regex.IsMatch(multidis.Text, @"^\d+$");
 
-            bool res = Regex.IsMatch(multidis.Text, @"\d");
+            try
+            {
+                 res = Regex.IsMatch(multidis.Text, @"\d");
+            }
+            catch
+            {
+                multidis.Text = "0";
+            }
 
 
             if (multidis.Text == "+")
@@ -1696,13 +1712,22 @@ namespace SalesApp.views
         void multidiscount_ol__TextChanged(object sender, TextChangedEventArgs e)
         {
             bool entry = false;
-
+            bool res = false;
             //  bool res = Regex.IsMatch(dis1.Text, @"^-?\d+$");
 
             //    bool res1 = Regex.IsMatch(multidis.Text, @"^\d+$");
 
-            bool res = Regex.IsMatch(multidis_ol.Text, @"\d");
+           
 
+
+            try
+            {
+                res = Regex.IsMatch(multidis.Text, @"\d");
+            }
+            catch
+            {
+                multidis.Text = "0";
+            }
 
             if (multidis_ol.Text == "+")
             {

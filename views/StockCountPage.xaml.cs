@@ -201,7 +201,14 @@ namespace SalesApp.views
                 try
                 {
                     List<StockWareHouseList> data = Controller.InstanceCreation().GetStockWareHouseData(location_id);
-                    Navigation.PushPopupAsync(new StockCountDetailPage(data));
+                    if (data[0].location == null)
+                    {
+                        DisplayAlert("Alert", "Not available", "Ok");
+                    }
+                    else
+                    {
+                        Navigation.PushPopupAsync(new StockCountDetailPage(data));
+                    }
                 }
                 catch (Exception exce)
                 {

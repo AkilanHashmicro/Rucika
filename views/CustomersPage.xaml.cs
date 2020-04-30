@@ -26,8 +26,8 @@ namespace SalesApp.views
         {
             InitializeComponent();
 
-           // customerdata = Controller.InstanceCreation().GetCustomerData();
-            Customerlist.ItemsSource = App.cusList;
+            customerdata = Controller.InstanceCreation().GetCustomerData();
+            Customerlist.ItemsSource = customerdata;
              
             //var plusRecognizer = new TapGestureRecognizer();
             //plusRecognizer.Tapped += (s, e) =>

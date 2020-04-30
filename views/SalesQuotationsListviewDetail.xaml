@@ -682,7 +682,7 @@
                                     
                              <StackLayout Grid.Column="0">
                                 
-                              <Entry  x:Name="multidis" Text="0" Keyboard="Telephone" TextChanged="multidiscount_TextChanged" Margin="0,0,-20,0"  />
+                              <Entry  x:Name="multidis"  Keyboard="Telephone" TextChanged="multidiscount_TextChanged" Margin="0,0,-20,0"  />
 
                               </StackLayout>
 
@@ -744,7 +744,7 @@
          <StackLayout x:Name="addbtn_orderline" IsVisible="false">
                                           
                   <StackLayout Padding="10,0,0,0">
-                    <Image x:Name="Add_OrderLineBtn" Source="plusyellow.png" WidthRequest="25" HeightRequest="25" HorizontalOptions="Start"/>
+                    <Image x:Name="Add_neworderLineBtn" Source="plusyellow.png" WidthRequest="25" HeightRequest="25" HorizontalOptions="Start"/>
                  </StackLayout>
 
          </StackLayout>

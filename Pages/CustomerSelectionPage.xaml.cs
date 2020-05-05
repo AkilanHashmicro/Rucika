@@ -51,7 +51,16 @@ namespace SalesApp.Pages
         {
             Customers masterItemObj = (Customers)ea.Item;
 
-            MessagingCenter.Send<string, int>("MyApp", "CusPickerMsg", masterItemObj.id);
+            try
+            {
+
+                MessagingCenter.Send<string, int>("MyApp", "CusPickerMsg", masterItemObj.id);
+            }
+
+            catch(Exception exce)
+            {
+                int j = 0;
+            }
 
             Navigation.PopPopupAsync();
             // Navigation.PushPopupAsync(new CrmLeadDetailWizard(masterItemObj, "Lead"));

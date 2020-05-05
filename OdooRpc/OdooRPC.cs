@@ -232,6 +232,22 @@ namespace SalesApp.OdooRpc
             return result;
         }
 
+        public dynamic odooMethodCall_self<T>(string model, string method, int userid)
+        {
+            JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] {userid }  });
+            T responseData = odooServerCall<T>(jsonRpcUrl, parameters);
+
+            try
+            {
+                if (responseData.ToString().Equals("Odoo Error"))
+                {
+                    return responseData;
+                }
+            }
+            catch { }
+            return responseData;
+        }
+
         public dynamic odooMethodCall_meeting<T>(string model, string method, int userid)
         {
             JsonRpcRequestParameter parameters = new JsonRpcRequestParameter("object", "execute", new object[] { Settings.UserDbName, Settings.UserId, Settings.UserPassword, model, method, new object[] { }, userid  });

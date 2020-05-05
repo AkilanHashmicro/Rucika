@@ -88,7 +88,7 @@
                                     
                    <StackLayout Grid.Column="0">
                                 
-                              <Entry  Text=""  Margin="0,0,-30,0"  x:Name="searchcus" InputTransparent="true" />
+                              <Entry BackgroundColor="Silver" Text=""  Margin="0,0,-30,0"  x:Name="searchcus" InputTransparent="true" />
 
          <StackLayout.GestureRecognizers>
           <TapGestureRecognizer
@@ -160,7 +160,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Entry Grid.Column="0" x:Name="exdateentry" Text="" Margin="0,0,-30,0" Focused="exdateentry_focused"  />  
+                                <Entry BackgroundColor="Silver" Grid.Column="0" x:Name="exdateentry" Text="" Margin="0,0,-30,0" Focused="exdateentry_focused"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,20,0,0" />                        
                                 </StackLayout>
@@ -173,7 +173,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <DatePicker Grid.Column="0"  Margin="0,0,-30,0"  x:Name="exDatePicker"  />  
+                                <DatePicker BackgroundColor="Silver" Grid.Column="0"  Margin="0,0,-30,0"  x:Name="exDatePicker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,20,0,0" />                        
                                 </StackLayout>
@@ -201,7 +201,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Entry Grid.Column="0" x:Name="deldateentry" Text="" Margin="0,0,-30,0" Focused="deldeaddateentry_focused"  />  
+                                <Entry BackgroundColor="Silver" Grid.Column="0" x:Name="deldateentry" Text="" Margin="0,0,-30,0" Focused="deldeaddateentry_focused"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,20,0,0" />                        
                                 </StackLayout>
@@ -214,7 +214,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <DatePicker Grid.Column="0"  Margin="0,0,-30,0"  x:Name="deldead_picker"  />  
+                                <DatePicker BackgroundColor="Silver" Grid.Column="0"  Margin="0,0,-30,0"  x:Name="deldead_picker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,20,0,0" />                        
                                 </StackLayout>
@@ -318,7 +318,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,0,-30,0" Title="" x:Name="pricelist_picker"  />  
+                                <Picker  BackgroundColor="Silver" Grid.Column="0"  Margin="0,0,-30,0" Title="" x:Name="pricelist_picker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,20,0,0" />                        
                                 </StackLayout>
@@ -347,7 +347,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,0,-30,0"  x:Name="ptpicker"  />  
+                                <Picker BackgroundColor="Silver" Grid.Column="0"  Margin="0,0,-30,0"  x:Name="ptpicker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,20,0,0"/>                        
                                 </StackLayout>
@@ -494,7 +494,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,0,-30,0"  x:Name="delmethod_picker"  />  
+                                <Picker BackgroundColor="Silver" Grid.Column="0"  Margin="0,0,-30,0"  x:Name="delmethod_picker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,20,0,0"/>                        
                                 </StackLayout>

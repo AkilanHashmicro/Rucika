@@ -71,7 +71,7 @@ namespace SalesApp.views
             vals["login"] = email_entry.Text;
             vals["image"] = topimg;
 
-          var currentpage = new LoadingAlert();
+            var currentpage = new LoadingAlert();
             await PopupNavigation.PushAsync(currentpage);
            
 

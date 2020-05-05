@@ -38,7 +38,7 @@
                 <StackLayout>
 
                   <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer  Tapped="meetingStackClicked" NumberOfTapsRequired="1">
+                    <TapGestureRecognizer  Tapped="meetingStackClickedAsync" NumberOfTapsRequired="1">
                     </TapGestureRecognizer>
                   </StackLayout.GestureRecognizers>
 
@@ -61,7 +61,7 @@
                 <StackLayout>
 
                   <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer  Tapped="oppoClicked" NumberOfTapsRequired="1">
+                    <TapGestureRecognizer  Tapped="oppoClickedAsync" NumberOfTapsRequired="1">
                     </TapGestureRecognizer>
                   </StackLayout.GestureRecognizers>
 
@@ -85,7 +85,7 @@
                 <StackLayout>
 
                   <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer  Tapped="saleClicked" NumberOfTapsRequired="1">
+                    <TapGestureRecognizer  Tapped="saleClickedAsync" NumberOfTapsRequired="1">
                     </TapGestureRecognizer>
                   </StackLayout.GestureRecognizers>
 

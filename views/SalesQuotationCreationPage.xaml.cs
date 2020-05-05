@@ -211,6 +211,25 @@ namespace SalesApp.views
                 tax_termPicker.SelectedIndex = 0;
 
 
+                if (salesperson_picker.SelectedItem == null)
+                {
+                    salesperson_picker.ItemsSource = App.salespersons.Select(x => x.Value).ToList();
+                    salesperson_picker.SelectedIndex = 0;
+                }
+
+                shipping_picker.Items.Clear();
+
+                shipping_picker.Items.Add("Deliver each product when available");
+                shipping_picker.Items.Add("Deliver all products at once");
+                shipping_picker.SelectedIndex = 0;
+
+
+                if (warehouse_picker.SelectedItem == null)
+                {
+                    warehouse_picker.ItemsSource = App.warehousList.Select(x => x.name).ToList();
+                    warehouse_picker.SelectedIndex = 0;
+                }
+
 
                 var dropdownImgRecognizer = new TapGestureRecognizer();
                 dropdownImgRecognizer.Tapped += (s, e) =>
@@ -307,6 +326,7 @@ namespace SalesApp.views
 
                 taxStackLayout.IsVisible = false;
 
+                oqty.Text = "1";
                 dis1.Text = "";
                 multidis.Text = "";
 
@@ -401,23 +421,24 @@ namespace SalesApp.views
             tab1.TextColor = Color.Black;
             tab2.TextColor = Color.White;
 
-            if (salesperson_picker.SelectedItem == null)
-            {
-                salesperson_picker.ItemsSource = App.salespersons.Select(x => x.Value).ToList();
-            }
+            //if (salesperson_picker.SelectedItem == null)
+            //{
+            //    salesperson_picker.ItemsSource = App.salespersons.Select(x => x.Value).ToList();
+            //}
 
 
-                shipping_picker.Items.Clear();
+            //    shipping_picker.Items.Clear();
 
-                 shipping_picker.Items.Add("Deliver each product when available");
-                shipping_picker.Items.Add("Deliver all products at once");
-                shipping_picker.SelectedIndex = -1;
+            //     shipping_picker.Items.Add("Deliver each product when available");
+            //    shipping_picker.Items.Add("Deliver all products at once");
+            //    shipping_picker.SelectedIndex = -1;
 
 
-            if(warehouse_picker.SelectedItem == null)
-            {
-                warehouse_picker.ItemsSource = App.warehousList.Select(x => x.name).ToList();
-            }
+            //if(warehouse_picker.SelectedItem == null)
+            //{
+            //    warehouse_picker.ItemsSource = App.warehousList.Select(x => x.name).ToList();
+            //}
+
             if (analytic_picker.SelectedItem == null)
             {
                 analytic_picker.ItemsSource = App.analayticList.Select(x => x.name).ToList();

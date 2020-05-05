@@ -51,6 +51,16 @@ namespace SalesApp.views
                 }
 
             });
+
+            MessagingCenter.Subscribe<string, string>("MyApp", "sq_backbtn", async (sender, arg) =>
+            {
+                act_ind.IsRunning = true;
+
+                await Task.Run(() => App.salesQuotList = Controller.InstanceCreation().GetSalesQuotations());
+                salesQuotationListView.ItemsSource = App.salesQuotList;
+             
+                act_ind.IsRunning = false;
+            });
         }
 
 
@@ -99,6 +109,7 @@ namespace SalesApp.views
         private async void OnMenuItemTappedAsync(object sender, ItemTappedEventArgs ea)
         {
             act_ind.IsRunning = true;
+
 
             await Task.Run(() => Navigation.PushPopupAsync(new SalesQuotationsListviewDetail(ea.Item as SalesQuotation)));
 

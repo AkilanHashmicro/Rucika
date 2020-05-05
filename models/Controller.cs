@@ -847,7 +847,7 @@ namespace SalesApp.models
         public List<CRMOpportunities> GetOppssData(int partnerid)
         {
             List<CRMOpportunities> oppoList = new List<CRMOpportunities>();
-            JArray result = odooConnector.odooMethodCall_meeting<JArray>("res.partner", "get_customer_lead", partnerid);
+            JArray result = odooConnector.odooMethodCall_self<JArray>("res.partner", "get_customer_lead", partnerid);
             oppoList = result.ToObject<List<CRMOpportunities>>();
             return oppoList;
         }
@@ -856,7 +856,7 @@ namespace SalesApp.models
         public List<SalesOrder> GetSalesData(int partnerid)
         {
             List<SalesOrder> oppoList = new List<SalesOrder>();
-            JArray result = odooConnector.odooMethodCall_meeting<JArray>("res.partner", "get_customer_quotation", partnerid);
+            JArray result = odooConnector.odooMethodCall_self<JArray>("res.partner", "get_customer_quotation", partnerid);
             oppoList = result.ToObject<List<SalesOrder>>();
             return oppoList;
         }
@@ -1024,7 +1024,7 @@ namespace SalesApp.models
         {
             try
             {
-                odooConnector.odooUpdateUserData("crm.lead", "action_set_won", modelId);
+                odooConnector.odooUpdateUserData("crm.lead", "action_set_won_app", modelId);
             }
             catch
             {

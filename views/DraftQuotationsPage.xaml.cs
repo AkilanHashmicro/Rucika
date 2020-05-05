@@ -21,6 +21,16 @@ namespace SalesApp.views
         {
             base.OnAppearing();
 
+            MessagingCenter.Subscribe<string, string>("MyApp", "dq_backbtn", async (sender, arg) =>
+            {
+                act_ind.IsRunning = true;
+
+                await Task.Run(() => App.draftQuotList = Controller.InstanceCreation().GetdraftQuotations());
+                draftQuotationListView.ItemsSource = App.draftQuotList;
+
+                act_ind.IsRunning = false;
+            });
+
             MessagingCenter.Subscribe<string, string>("MyApp", "dq_swipped", async (sender, arg) =>
             {
                 if (App.draftquot_swipped)
@@ -29,7 +39,7 @@ namespace SalesApp.views
 
 
                     await Task.Run(() => App.draftQuotList = Controller.InstanceCreation().GetdraftQuotations());
-                    salesQuotationListView.ItemsSource = App.draftQuotList;
+                    draftQuotationListView.ItemsSource = App.draftQuotList;
                     App.filterdict.Clear();
                     App.draftquot_swipped = false;
 
@@ -37,10 +47,10 @@ namespace SalesApp.views
                 }
                 else
                 {
-                    salesQuotationListView.ItemsSource = App.draftQuotList;
+                    draftQuotationListView.ItemsSource = App.draftQuotList;
                 }
 
-                //    salesQuotationListView.ItemsSource = App.salesQuotList;
+
             });
         }
 
@@ -55,13 +65,13 @@ namespace SalesApp.views
             {
                 
                 App.draftQuotList = Controller.InstanceCreation().GetdraftQuotations();
-                salesQuotationListView.ItemsSource = App.draftQuotList;
+                draftQuotationListView.ItemsSource = App.draftQuotList;
                 App.filterdict.Clear();
                 App.draftquot_rpc = false;
             }
             else
             {
-                salesQuotationListView.ItemsSource = App.draftQuotList;
+                draftQuotationListView.ItemsSource = App.draftQuotList;
             }
 
 
@@ -75,7 +85,7 @@ namespace SalesApp.views
             plus.GestureRecognizers.Add(plusRecognizer);
 
 
-            salesQuotationListView.Refreshing += this.RefreshRequested;
+            draftQuotationListView.Refreshing += this.RefreshRequested;
         }
 
         private async void OnMenuItemTappedAsync(object sender, ItemTappedEventArgs ea)
@@ -98,11 +108,11 @@ namespace SalesApp.views
 
         private async void RefreshRequested(object sender, object e)
         {
-            salesQuotationListView.IsRefreshing = true;
+            draftQuotationListView.IsRefreshing = true;
             App.draftQuotList = Controller.InstanceCreation().GetdraftQuotations();
             App.filterdict.Clear();
-            salesQuotationListView.ItemsSource = App.draftQuotList;
-            salesQuotationListView.IsRefreshing = false;
+            draftQuotationListView.ItemsSource = App.draftQuotList;
+            draftQuotationListView.IsRefreshing = false;
         
         }
 
@@ -119,44 +129,17 @@ namespace SalesApp.views
         {
             if (string.IsNullOrEmpty(e.NewTextValue))
             {
-                //var result1 = from y in App.SalesQuotationListDb
-                //              where y.yellowimg_string == "yellowcircle.png"
-                //              select y;
 
-                //if (result1.Count() == 0)
-                //{
-                //    salesQuotationListView.ItemsSource = App.salesQuotList;
-                //}
 
-                //else
-                //{
-                //    salesQuotationListView.ItemsSource = App.SalesQuotationListDb;
-                //}
-
-                salesQuotationListView.ItemsSource = App.draftQuotList;
+                draftQuotationListView.ItemsSource = App.draftQuotList;
             }
 
             else
             {
 
-                salesQuotationListView.ItemsSource = App.draftQuotList.Where(x => x.customer.ToLower().Contains(e.NewTextValue.ToLower()) || x.name.ToLower().Contains(e.NewTextValue.ToLower()));
+                draftQuotationListView.ItemsSource = App.draftQuotList.Where(x => x.customer.ToLower().Contains(e.NewTextValue.ToLower()) || x.name.ToLower().Contains(e.NewTextValue.ToLower()));
 
-                //var result1 = from y in App.SalesQuotationListDb
-                //              where y.yellowimg_string == "yellowcircle.png"
-                //              select y;
-
-                //if (result1.Count() == 0)
-                //{
-                //    salesQuotationListView.ItemsSource = App.salesQuotList.Where(x => x.customer.ToLower().Contains(e.NewTextValue.ToLower()) || x.name.ToLower().Contains(e.NewTextValue.ToLower()));
-                //}
-
-                //else
-                //{
-                //    salesQuotationListView.ItemsSource = App.SalesOrderListDb.Where(x => x.customer.ToLower().Contains(e.NewTextValue.ToLower()) || x.name.ToLower().Contains(e.NewTextValue.ToLower()));
-                //}
-
-                //  salesQuotationListView.ItemsSource = App.salesQuotList.Where(x => x.name.ToLower().StartsWith(e.NewTextValue.ToLower()));
-
+               
             }
         }
 

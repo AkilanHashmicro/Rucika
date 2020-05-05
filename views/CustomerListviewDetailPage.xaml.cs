@@ -243,59 +243,6 @@ namespace SalesApp.views
             { System.Diagnostics.Debug.WriteLine("Warning Message : " + ea.Message); }
 
 
-
-            //var editbutton = new TapGestureRecognizer();
-            //editbutton.Tapped += (s, e) => {
-
-            //  //  sq_editbtn.IsVisible = false;
-
-            //    updatebtn.IsVisible = true;
-
-            //    CusListView.IsEnabled = true;
-
-            //    cus_image.IsEnabled = true;
-
-            //    name.IsVisible = false;
-            //    name_entry.Text = name.Text;
-            //    name_label.IsVisible = true;
-            //    name_entry.IsVisible = true;
-
-            //    email.IsVisible = false;
-            //    email_entry.Text = email.Text;
-            //    email_label.IsVisible = true;
-            //    email_entry.IsVisible = true;
-
-            //    mobile_No.IsVisible = false;
-            //    mobile_No_entry.Text = mobile_No.Text;
-            //    mobile_No_label.IsVisible = true;
-            //    mobile_No_entry.IsVisible = true;
-
-
-            //    street.IsVisible = false;
-            //    street_entry.Text = street.Text;
-            //    street_label.IsVisible = true;
-            //    street_entry.IsVisible = true;
-
-            //    city.IsVisible = false;
-            //    city_entry.Text = city.Text;
-            //    city_label.IsVisible = true;
-            //    city_entry.IsVisible = true;
-
-            //    zip.IsVisible = false;
-            //    zip_entry.Text = zip.Text;
-            //    zip_label.IsVisible = true;
-            //    zip_entry.IsVisible = true;
-
-            //    web_text.IsVisible = false;
-            //    web_text_entry.Text = web_text.Text;
-            //    web_text_entry.IsVisible = true;
-
-            //    AddContact_line.IsVisible = true;
-
-            //};
-            //sq_editbtn.GestureRecognizers.Add(editbutton);
-
-
             var imageRecognizer = new TapGestureRecognizer();
             imageRecognizer.Tapped += async (s, e) => {
 
@@ -328,6 +275,7 @@ namespace SalesApp.views
 
                // Navigation.PushPopupAsync(new ContractDetailWizard(obj.id));
 
+
                 Navigation.PushPopupAsync(new ContractDetailWizard(customer_id));
             };
             AddContact_line.GestureRecognizers.Add(contRecognizer);
@@ -342,22 +290,31 @@ namespace SalesApp.views
             obj.View.BackgroundColor = Color.White;
         }
 
-        private void meetingStackClicked(object sender, EventArgs e)
+        private async void meetingStackClickedAsync(object sender, EventArgs e)
         {
           //  Navigation.PushPopupAsync(new MeetingsListviewPage(cusobj.id));
-            Navigation.PushPopupAsync(new MeetingsListviewPage(customer_id));
+            //var currentpage = new LoadingAlert();
+            //PopupNavigation.PushAsync(currentpage);
+              Navigation.PushPopupAsync(new MeetingsListviewPage(customer_id));
+           
         }
 
-        private void oppoClicked(object sender, EventArgs e)
+        private async void oppoClickedAsync(object sender, EventArgs e)
         {
           //  Navigation.PushPopupAsync(new OppurtunityListviewPage(cusobj.id));
-            Navigation.PushPopupAsync(new OppurtunityListviewPage(customer_id));
+            //var currentpage = new LoadingAlert();
+            //await PopupNavigation.PushAsync(currentpage);
+             Navigation.PushPopupAsync(new OppurtunityListviewPage(customer_id));
+          
         }
 
-        private void saleClicked(object sender, EventArgs e)
+        private async void saleClickedAsync(object sender, EventArgs e)
         {
            // Navigation.PushPopupAsync(new SaleListviewPage(cusobj.id));
-            Navigation.PushPopupAsync(new SaleListviewPage(customer_id));
+            //var currentpage = new LoadingAlert();
+            //await PopupNavigation.PushAsync(currentpage);
+             Navigation.PushPopupAsync(new SaleListviewPage(customer_id));
+
         }
 
         private void CusListView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -369,7 +326,9 @@ namespace SalesApp.views
 
         protected override bool OnBackButtonPressed()
         {
-            Navigation.PopAllPopupAsync();
+            
+            Navigation.PopAsync();
+           
             return true;
         }
 

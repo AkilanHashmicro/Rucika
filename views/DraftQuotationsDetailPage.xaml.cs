@@ -63,13 +63,14 @@ namespace SalesApp.views
         protected override bool OnBackButtonPressed()
         {
 
-            //  Loading();
-
-          //  App.Current.MainPage = new MasterPage(new DraftQuotationsPage());
+            if (editbtn_clicked)
+            {
+                MessagingCenter.Send<string, string>("MyApp", "dq_backbtn", "true");
+            }
 
             PopupNavigation.PopAllAsync();
 
-          //  Loadingalertcall();
+          
 
             return true;
 
@@ -100,6 +101,7 @@ namespace SalesApp.views
 
                 {
                     await DisplayAlert("Alert", "Moved Succssfully", "Ok");
+                    App.draftquot_rpc = true; 
                     App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab3"));
                 }
 
@@ -960,7 +962,7 @@ namespace SalesApp.views
             if (editbtn_clicked == true)
             {
                 updatebtn.IsVisible = false;
-
+                savebtn_layout.IsVisible = true;
                 OrderLine masterItemObj = (OrderLine)ea.Item;
 
                 listview_editlayout.IsVisible = true;

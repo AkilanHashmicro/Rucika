@@ -183,14 +183,14 @@ namespace SalesApp.views
             expir_date.Text = item.validity_date;
             delidead_date.Text = item.delivery_deadline;
             contperson.Text = item.contact_person;
-            pricelist.Text = item.pricelist;
-            invaddr.Text = item.invoice_address;
-            deladdr.Text = item.delivery_deadline;
+            pricelist.Text = item.pricelist_name;
+            invaddr.Text = item.partner_invoice_id;
+            deladdr.Text = item.partner_shipping_id;
             taxterm.Text = item.tax_term;
             podate_date.Text = item.po_date;
             franco_lbl.Text = item.franco;
             filename_lbl.Text = item.file_name;
-            delmethod_lbl.Text = item.carrier;
+            delmethod_lbl.Text = item.carrier_id;
             comments.Text = item.special_notes;
 
             file_uploadstring = item.po_file;
@@ -207,23 +207,10 @@ namespace SalesApp.views
             var sq_editRecognizer = new TapGestureRecognizer();
             sq_editRecognizer.Tapped += async (s, e) =>
             {
-                // handle the tap              
-                // noedit_layout.IsVisible = false;
-
-                // List<CRMLead> crmLeadData = Controller.InstanceCreation().crmLeadData();
+                
 
                 total_cal.IsVisible = false;
 
-
-                //try
-                //{
-                //    String res = Controller.InstanceCreation().SaleOrderConfirm("sale.order", "confirm_sale_quotation", saleoder_id);
-                //}
-
-                //catch
-                //{
-                //    int j = 0;
-                //}
 
                 if (App.NetAvailable == false)
                 {
@@ -232,6 +219,18 @@ namespace SalesApp.views
 
                 else
                 {
+                    //foreach (var img in obj.order_line)
+                    //{
+                    //   // bool closeimg_visible = obj.order_line[obj.order_line.Count - 1].closeimg;
+
+                    //    img.closeimg = true;
+                    //}
+
+                    //List < SalesQuotationEdit > editlistview = new List<SalesQuotationEdit>();
+
+                    //orderListview.ItemSource = App
+
+
                     sq_editbtn.IsVisible = false;
 
                     updatebtn.IsVisible = false;
@@ -241,7 +240,7 @@ namespace SalesApp.views
                     editbtn_clicked = true;
 
                     cus_edit.IsVisible = true;
-                    // con_dateedit.IsVisible = true;
+                   
                     ptpicker_edit.IsVisible = true;
                     commissionpicker_edit.IsVisible = true;
                     sales_teamedit.IsVisible = true;
@@ -258,7 +257,7 @@ namespace SalesApp.views
                     fp_edit.IsVisible = true;
                     is_edit.IsVisible = true;
 
-                    //   quotref_edit.IsVisible = true;
+
                     orderdate_dateedit.IsVisible = true;
                     expir_dateedit.IsVisible = true;
                     delidead_dateedit.IsVisible = true;
@@ -280,7 +279,7 @@ namespace SalesApp.views
 
 
                     cus_noedit.IsVisible = false;
-                    //  con_datenoedit.IsVisible = false;
+                  
                     ptpicker_noedit.IsVisible = false;
                     commissionpicker_noedit.IsVisible = false;
                     sales_teamnoedit.IsVisible = false;
@@ -290,7 +289,7 @@ namespace SalesApp.views
                     fp_noedit.IsVisible = false;
                     is_noedit.IsVisible = false;
 
-                    // quotref_noedit.IsVisible = false;
+                
                     orderdate_datenoedit.IsVisible = false;
                     expir_datenoedit.IsVisible = false;
                     delidead_datenoedit.IsVisible = false;
@@ -305,13 +304,13 @@ namespace SalesApp.views
                     pofile_noedit.IsVisible = false;
                     delmethod_noedit.IsVisible = false;
 
-                 //   br_analytic.IsVisible = false;
+                 
 
                     try
 
                     {
 
-                        //  od_Picker.Date = item.order_date;
+
                         if (item.dateOrder != "")
                         {
                             DateTime oDate = DateTime.Parse(item.dateOrder);
@@ -404,12 +403,14 @@ namespace SalesApp.views
 
                         cus_selectdict = con_dict.ToObject<Dictionary<int, string>>();
 
-                        invaddr_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
-                        invaddr_Picker.SelectedItem = item.invoice_address;
+                           invaddr_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+                      //  invaddr_Picker.ItemsSource = App.cusList.FirstOrDefault(x => x.id == cusid).name.;
+                        invaddr_Picker.SelectedItem = item.partner_invoice_id;
                         // invaddr_Picker.SelectedIndex = 0;
 
-                        deladdr_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
-                        deladdr_Picker.SelectedItem = item.delivery_address;
+                          deladdr_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
+                      //  deladdr_Picker.ItemsSource = App.cusList.Select(x => x.name == cuspicker1.SelectedItem.ToString());
+                        deladdr_Picker.SelectedItem = item.partner_shipping_id;
                         // deladdr_Picker.SelectedIndex = 0;
 
                         contperson_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
@@ -417,7 +418,7 @@ namespace SalesApp.views
 
 
                         pricelist_Picker.ItemsSource = App.product_PriceList.Select(x => x.name).ToList();
-                        pricelist_Picker.SelectedItem = item.pricelist;
+                        pricelist_Picker.SelectedItem = item.pricelist_name;
 
                         ponumref_entry.Text = item.po_number_reference;
                         franco_entry.Text = item.franco;
@@ -429,7 +430,7 @@ namespace SalesApp.views
                         taxterm_Picker.SelectedIndex = 0;
 
                         delmethod_Picker.ItemsSource = App.all_delivery_method.Select(x => x.name).ToList();
-                        delmethod_Picker.SelectedItem = item.carrier;
+                        delmethod_Picker.SelectedItem = item.carrier_id;
 
                         filename_lbl.Text = item.file_name;
                         pofile_noedit.IsVisible = true;
@@ -847,6 +848,12 @@ namespace SalesApp.views
             //  m_title.TextColor = Color.Red;
         }
 
+        public void orderlinecloseClicked(object sender, EventArgs e1)
+        {
+            
+            var args = (TappedEventArgs)e1;
+            OrderLine t2 = args.Parameter as OrderLine;
+        }
 
         public void ListviewcloseClicked(object sender, EventArgs e1)
         {

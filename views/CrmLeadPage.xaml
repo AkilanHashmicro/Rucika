@@ -55,16 +55,16 @@
                                                             
                                                         </Image.GestureRecognizers>
                                                     </Image>
-                                                    <Image Source="lvmeeting.png" WidthRequest="30" HeightRequest="30">
+                                                  <!--  <Image Source="lvmeeting.png" WidthRequest="30" HeightRequest="30">
                                                          <Image.GestureRecognizers>
-                                                            <!--<TapGestureRecognizer Command="{Binding Path=TapCommand" CommandParameter="{Binding .}" />-->
+                                                           
                                                             <TapGestureRecognizer Tapped="meetingClicked" CommandParameter="{Binding .}" />
                                                             
                                                         </Image.GestureRecognizers>
-                                                        </Image>
-                                                    <Frame CornerRadius="15" BackgroundColor="{Binding state_colour}" Grid.Row="0" Grid.Column="2" HeightRequest="3" Padding="0"  HorizontalOptions="EndAndExpand">
+                                                        </Image>-->
+                                                    <!--<Frame CornerRadius="15" BackgroundColor="{Binding state_colour}" Grid.Row="0" Grid.Column="2" HeightRequest="3" Padding="0"  HorizontalOptions="EndAndExpand">
                                                         <Label Text="{Binding FullState}" FontSize="Micro" TextColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                                                    </Frame>
+                                                    </Frame>-->
                                                 </StackLayout>
                                             </Grid>
 

@@ -69,9 +69,9 @@ namespace SalesApp.views
             expir_date.Text = item.validity_date;
             delidead_date.Text = item.delivery_deadline;
             con_person.Text = item.contact_person;
-            pricelist.Text = item.pricelist;
-            invaddr.Text = item.invoice_address;
-            deladdr.Text = item.delivery_deadline;
+            pricelist.Text = item.pricelist_name;
+            invaddr.Text = item.partner_invoice_id;
+            deladdr.Text = item.partner_shipping_id;
             taxterm.Text = item.tax_term;
             ponum_ref.Text = item.po_number_reference;
             podate_date.Text = item.po_date;

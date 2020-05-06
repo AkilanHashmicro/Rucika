@@ -352,6 +352,7 @@ namespace SalesApp.wizard
 
                       //  DisplayAlert("Alert", "Created Successfull", "Ok");
                     App.oppo_rpc = true;
+                    App.lead_rpc = true;
                     App.Current.MainPage = new MasterPage(new CrmTabbedPage("tab2"));
                     await  Navigation.PopAllPopupAsync();
 
@@ -359,9 +360,7 @@ namespace SalesApp.wizard
 
                     }
                 }
-           
 
-          //  Navigation.PushPopupAsync(new ConvertToOpportunitiesPage());
         }
 
         private async Task ButtonMarkWon_ClickedAsync(object sender, EventArgs e)

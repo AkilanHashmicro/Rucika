@@ -58,6 +58,7 @@ namespace SalesApp.views
 
                 await Task.Run(() => App.salesQuotList = Controller.InstanceCreation().GetSalesQuotations());
                 salesQuotationListView.ItemsSource = App.salesQuotList;
+                App.filterdict.Clear();
              
                 act_ind.IsRunning = false;
             });

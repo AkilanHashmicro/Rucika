@@ -247,6 +247,7 @@ namespace SalesApp.models
         public class SalesQuotation
         {
             public int id { get; set; }
+
             public string customer { get; set; }
             public string next_activity { get; set; }
             public string name { get; set; }
@@ -285,17 +286,20 @@ namespace SalesApp.models
             public string file_name { get; set; }
             public string po_date { get; set; }
             public string franco { get; set; }
-            public string invoice_address { get; set; }
+           
             public string special_notes { get; set; }
             public string confirmation_date { get; set; }
             public string target_group { get; set; }
             public string validity_date { get; set; }
             public string tax_term { get; set; }
-            public string pricelist { get; set; }
-            public string delivery_address { get; set; }
+            public string pricelist_name { get; set; }
+
+            public string partner_invoice_id { get; set; }
+            public string partner_shipping_id { get; set; }
+
             public string delivery_deadline { get; set; }
 
-            public string carrier { get; set; }
+            public string carrier_id { get; set; }
             public string contact_person { get; set; }
             public string quotation_reference { get; set; }
 
@@ -318,44 +322,14 @@ namespace SalesApp.models
 
 
             public string _colorCode;
-            //public string ColorCode
-            //{
-            //    get
-            //    {
-            //        string tempColours = Settings.StageColourCode;
-            //        Dictionary<string, string> stageColours = new Dictionary<string, string>();
-
-            //        stageColours.Add("draft", "#3498db");
-            //        stageColours.Add("sent", "#e67e22");
-            //        stageColours.Add("sale", "#c0392b");
-            //        stageColours.Add("done", "#2ecc71");
-            //        stageColours.Add("cancel", "#d35400");
-
-            //        tempColours = tempColours.Substring(1, tempColours.Length - 1);
-
-            //        foreach (String data in tempColours.Split(','))
-            //        {
-            //            stageColours.Add(data.Split('^')[0], data.Split('^')[1]);
-            //        }
-            //        _colorCode = stageColours[state];
-
-            //        return _colorCode;
-            //    }
-            //    set
-            //    {
-
-            //    }
-            //}
-
+       
 
             public string sale_update_date
             {
 
                 get
                 {
-                    // DateTime dt = Convert.ToDateTime(dateOrder.ToString());
-                    // DateTime dt = DateTime.ParseExact(dateOrder, "yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture);
-                    //  dateOrder = dt.ToString("d MMM");
+                   
                     return dateOrder;
                 }
 
@@ -398,6 +372,8 @@ namespace SalesApp.models
             public string project_id { get; set; }
 
         }
+
+
 
 
         public class SalesOrder
@@ -447,13 +423,16 @@ namespace SalesApp.models
             public string target_group { get; set; }
             public string validity_date { get; set; }
             public string tax_term { get; set; }
-            public string pricelist { get; set; }
+            public string pricelist_name { get; set; }
             public string delivery_address { get; set; }
             public string delivery_deadline { get; set; }
 
             public string carrier { get; set; }
             public string contact_person { get; set; }
             public string quotation_reference { get; set; }
+
+            public string partner_invoice_id { get; set; }
+            public string partner_shipping_id { get; set; }
 
             public string _state1;
             public string FullState
@@ -574,6 +553,22 @@ namespace SalesApp.models
 
             public Object[] taxes_id { get; set; }
 
+            public bool closeimg
+            {
+
+                get
+                {
+
+                    return false;
+                }
+
+                set
+                {
+                    closeimg = false;
+                }
+
+            }
+
            // public string _tax;
             //public string tax_namecut
             //{
@@ -607,6 +602,8 @@ namespace SalesApp.models
 
         }
 
+
+       
         public class Customers
         {
             // [JsonProperty("customer_lead")]
@@ -816,21 +813,9 @@ namespace SalesApp.models
 
             public List<int> tax_id { get; set; }
 
-            //public int warehouse_id { get; set; }
-            //public string picking_policy { get; set; }
-            //public int user_id { get; set; }
-            //public int team_id { get; set; }
-            //public int branch_id { get; set; }
-            //public int project_id { get; set; }
-            //public string client_order_ref { get; set; }
+      
 
-
-            //public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount,
-            //                     int Warehouse_id, string Picking_policy, int User_id, int Team_id, int Branch_id, int Project_id, string Client_Order_Ref)
-            //{
-
-            //public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount, int sub_total
-                                  //)
+                        
             public OrderLinesList(int Product_id,string Product, double Ordered_Qty, double UnitPrice, List<int> TaxesIdList, string order_description, string tax_string, string fin_discount, string multidiscount, int sub_total
                                   )
             {
@@ -845,23 +830,11 @@ namespace SalesApp.models
                 discount = fin_discount;
                 multi_discount = multidiscount;
                 subtotal = sub_total;
-                //warehouse_id = Warehouse_id;
-                //picking_policy = Picking_policy;
-                //user_id = User_id;
-                //team_id = Team_id;
-                //project_id = Project_id;
-                //client_order_ref = Client_Order_Ref;
+             
             }
 
 
-            //public OrderLinesList(string Product, double Ordered_Qty, double UnitPrice,  string order_description)
-            //{
-            //    product = Product;
-            //    ordered_qty = Ordered_Qty;
-            //    unit_price = UnitPrice;
-            //   // tax_id = TaxesIdList;
-            //    description = order_description;
-            //}
+       
 
         }
 
@@ -1026,132 +999,6 @@ namespace SalesApp.models
 
                         string convertstartdate = Convert.ToDateTime(md).ToLocalTime().ToString("yyyy-MM-dd");
 
-                      //  string convertstartdate = dateTime.ToString("yyyy-MM-dd");
-
-                        //  string mdfin = "01/16/2019 00:00:00";
-
-                        //try
-                        //{
-                        //    dateTime = DateTime.ParseExact(mdfin, "MM/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        //}
-
-                        //catch
-                        //{
-
-                        //    try
-                        //    {
-                        //        dateTime = DateTime.ParseExact(mdfin, "M/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        //    }
-
-                        //    catch
-                        //    {
-                        //        try
-                        //        {
-                        //            dateTime = DateTime.ParseExact(mdfin, "MM/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-                        //        }
-
-                        //        catch
-                        //        {
-                        //            try
-                        //            {
-                        //                dateTime = DateTime.ParseExact(mdfin, "MM/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        //            }
-
-                        //            catch
-                        //            {
-                        //                try
-                        //                {
-                        //                    dateTime = DateTime.ParseExact(mdfin, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                        //                }
-
-                        //                catch
-                        //                {
-                        //                    try
-                        //                    {
-                        //                        dateTime = DateTime.ParseExact(mdfin, "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        //                    }
-
-                        //                    catch
-                        //                    {
-
-                        //                        try
-                        //                        {
-                        //                            dateTime = DateTime.ParseExact(mdfin, "dd/MM/yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-                        //                        }
-                        //                        catch
-                        //                        {
-
-                        //                            try
-                        //                            {
-                        //                                dateTime = DateTime.ParseExact(mdfin, "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                        //                            }
-
-                        //                            catch
-                        //                            {
-                        //                                try
-                        //                                {
-                        //                                    dateTime = DateTime.ParseExact(mdfin, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-                        //                                }
-
-                        //                                catch
-                        //                                {
-
-                        //                                    try
-                        //                                    {
-                        //                                        dateTime = DateTime.ParseExact(mdfin, "dd-MM-yyyy HH:mm:ss tt", CultureInfo.InvariantCulture);
-                        //                                    }
-
-                        //                                    catch
-                        //                                    {
-                        //                                        try
-                        //                                        {
-                        //                                            dateTime = DateTime.ParseExact(mdfin, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                        //                                        }
-
-                        //                                        catch
-                        //                                        {
-                        //                                            try
-                        //                                            {
-                        //                                                dateTime = DateTime.ParseExact(mdfin, "MM/dd/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-                        //                                            }
-                        //                                            catch
-                        //                                            {
-                        //                                                try
-                        //                                                {
-                        //                                                    dateTime = DateTime.ParseExact(mdfin, "M/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                        //                                                }
-                        //                                                catch
-                        //                                                {
-                        //                                                    try
-                        //                                                    {
-                        //                                                        dateTime = DateTime.ParseExact(mdfin, "M/dd/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-                        //                                                    }
-                        //                                                    catch
-                        //                                                    {
-                        //                                                        dateTime = DateTime.ParseExact(mdfin, "M/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-
-                        //                                                    }
-                        //                                                }
-                        //                                            }
-                        //                                        }
-                        //                                    }
-                        //                                }
-                        //                            }
-
-
-
-                        //                        }
-                        //                    }
-                        //                }
-
-
-                        //            }
-
-                        //        }
-                        //    }
-                        //}
-
-                     //   string convertstartdate = dateTime.ToString("yyyy-MM-dd");
 
                         show_meeting_days1.Add(convertstartdate);
                     }
@@ -1171,8 +1018,7 @@ namespace SalesApp.models
 
                 get
                 {
-                    //string data = DateTime.Parse(starting_at).ToLocalTime().ToString("yyyy-MM-dd HH:mm ");
-                    //return data;
+           
                     if (allday == true)
                     {
                         string ad = "AllDay";
@@ -1196,8 +1042,7 @@ namespace SalesApp.models
             {
                 get
                 {
-                    //string data = DateTime.Parse(starting_at).ToLocalTime().ToString("yyyy-MM-dd HH:mm ");
-                    //return data;
+                    
                     string dur = duration + "-Hrs";
                     return dur;
                 }
@@ -1222,8 +1067,7 @@ namespace SalesApp.models
             {
                 get
                 {
-                    //string data = DateTime.Parse(starting_at).ToLocalTime().ToString("yyyy-MM-dd HH:mm ");
-                    //return data;
+                    
                     DateTime dateTime = DateTime.ParseExact(start, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
                     string dat = dateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm ");
                     return dat;
@@ -1245,9 +1089,7 @@ namespace SalesApp.models
 
         public class MeetingsModel
         {
-            //public int id { get; set; }
-            //public string name { get; set; }
-            //public string image_small { get; set; }
+            
         }
 
 
@@ -1433,19 +1275,7 @@ namespace SalesApp.models
 
             public string Date { get; set; }
 
-            //public string DATENOW
-            //{
-            //    get
-            //    {
-            //        string date = DateTime.Now.ToString("MMMM dd");
-
-            //        return date;
-            //    }
-            //    set
-            //    {
-
-            //    }
-            //}
+          
 
         }
 
@@ -1534,23 +1364,17 @@ namespace SalesApp.models
 
         public class SalesTarget
         {
-            // [JsonProperty("customer_lead")]
-            //public List<SalesTargetcategory> category { get; set; }
-
-            //// [JsonProperty("price_unit")]
-            //public List<SalesTargetBrand> brand { get; set; }
-
+            
 
             public List<target_line> target_line { get; set; }
 
 
             public int id { get; set; }
 
-            // [JsonProperty("product_uom_qty")]
+
             public string name { get; set; }
 
-            // [JsonProperty("price_subtotal")]
-            //  public string target_type { get; set; }
+          
 
             public string commission_type { get; set; }
 

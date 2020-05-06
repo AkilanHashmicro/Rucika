@@ -144,14 +144,14 @@ namespace SalesApp.views
             expir_date.Text = item.validity_date;
             delidead_date.Text = item.delivery_deadline;
             contperson.Text = item.contact_person;
-            pricelist.Text = item.pricelist;
-            invaddr.Text = item.invoice_address;
-            deladdr.Text = item.delivery_deadline;
+            pricelist.Text = item.pricelist_name;
+            invaddr.Text = item.partner_invoice_id;
+            deladdr.Text = item.partner_shipping_id;
             taxterm.Text = item.tax_term;
             podate_date.Text = item.po_date;
             franco_lbl.Text = item.franco;
             filename_lbl.Text = item.file_name;
-            delmethod_lbl.Text = item.carrier;
+            delmethod_lbl.Text = item.carrier_id;
             comments.Text = item.special_notes;
 
             file_uploadstring = item.po_file;
@@ -366,11 +366,11 @@ namespace SalesApp.views
                         cus_selectdict = con_dict.ToObject<Dictionary<int, string>>();
 
                         invaddr_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
-                        invaddr_Picker.SelectedItem = item.invoice_address;
+                        invaddr_Picker.SelectedItem = item.partner_invoice_id;
                        // invaddr_Picker.SelectedIndex = 0;
 
                         deladdr_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
-                        deladdr_Picker.SelectedItem = item.delivery_address;
+                        deladdr_Picker.SelectedItem = item.partner_shipping_id;
                        // deladdr_Picker.SelectedIndex = 0;
 
                         contperson_Picker.ItemsSource = cus_selectdict.Select(x => x.Value).ToList();
@@ -378,7 +378,7 @@ namespace SalesApp.views
 
                        
                         pricelist_Picker.ItemsSource = App.product_PriceList.Select(x => x.name).ToList();
-                        pricelist_Picker.SelectedItem = item.pricelist;
+                        pricelist_Picker.SelectedItem = item.pricelist_name;
 
                         ponumref_entry.Text = item.po_number_reference;
                         franco_entry.Text = item.franco;
@@ -390,7 +390,7 @@ namespace SalesApp.views
                         taxterm_Picker.SelectedIndex = 0;
 
                         delmethod_Picker.ItemsSource = App.all_delivery_method.Select(x => x.name).ToList();
-                        delmethod_Picker.SelectedItem = item.carrier;
+                        delmethod_Picker.SelectedItem = item.carrier_id;
 
                         filename_lbl.Text = item.file_name;
                         pofile_noedit.IsVisible = true;

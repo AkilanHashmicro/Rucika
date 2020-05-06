@@ -4,7 +4,7 @@
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:local ="clr-namespace:SalesApp;assembly=SalesApp"
                   xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-             x:Class="SalesApp.views.DraftQuotationsDetailPage" HasKeyboardOffset="false" >
+             x:Class="SalesApp.views.DraftQuotationsDetailPage" HasKeyboardOffset="false">
    
     <ContentPage.Content >
         <ScrollView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -73,7 +73,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="cuspicker1"  />  
+                                <Picker BackgroundColor="Silver" Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="cuspicker1"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
                                 </StackLayout>
@@ -133,7 +133,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" /> 
                                 </Grid.ColumnDefinitions> 
-                                <DatePicker Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="expir_Picker"  />  
+                                <DatePicker BackgroundColor="Silver"  Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="expir_Picker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
                                 </StackLayout>
@@ -210,7 +210,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="pricelist_Picker"  />  
+                                <Picker  BackgroundColor="Silver" Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="pricelist_Picker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
                                 </StackLayout>
@@ -262,7 +262,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="ptpicker"  />  
+                                <Picker BackgroundColor="Silver" Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="ptpicker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0"/>                        
                                 </StackLayout>
@@ -539,6 +539,7 @@
                                         <ColumnDefinition Width=".15*"/>
                                         <ColumnDefinition Width=".15*"/>
                                         <ColumnDefinition Width=".25*"/>
+                                       <!-- <ColumnDefinition Width=".05*"/>-->
                                     </Grid.ColumnDefinitions>
                             
                     <BoxView WidthRequest="1" Grid.Row="0" Grid.Column="0"  HorizontalOptions="Start" BackgroundColor="White"/>
@@ -574,31 +575,41 @@
                                     <Grid>
                                             
                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width=".35*"/>
+                                       <ColumnDefinition Width=".35*"/>
                                         <ColumnDefinition Width=".10*"/>
                                         <ColumnDefinition Width=".15*"/>
                                         <ColumnDefinition Width=".15*"/>
-                                        <ColumnDefinition Width=".25*"/>
+                                        <ColumnDefinition Width=".20*"/>
+                                        <ColumnDefinition Width=".05*"/>
                                     </Grid.ColumnDefinitions>
                                      
                                         <StackLayout Grid.Column="0" VerticalOptions="FillAndExpand">                                           
-                                        <Label x:Name="SNo"  Text="{Binding product_name}" Margin="10,5,5,5" TextColor="#102b1e"  HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
+                                        <Label  Text="{Binding product_name}" Margin="5" TextColor="#102b1e"  HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                         </StackLayout>
                                         <StackLayout Grid.Column="4">
-                                            <Label  x:Name="Brand"  Text="{Binding price_subtotal}" TextColor="#102b1e" Margin="5" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
+                                            <Label   Text="{Binding price_subtotal}" Margin="5" TextColor="#102b1e" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
                                             
                                            <StackLayout Grid.Column="1">
                                             <Label   Text="{Binding product_uom_qty}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
-
-                                            <StackLayout Grid.Column="2">
+                                              
+                                           <StackLayout Grid.Column="2">
                                             <Label   Text="{Binding tax_names}" Margin="0,5,0,5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
 
                                              <StackLayout Grid.Column="3">
-                                            <Label   Text="{Binding discount}" Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
+                                            <Label   Text="{Binding discount}"  Margin="5" TextColor="#102b1e" HorizontalOptions="Center" VerticalOptions="StartAndExpand" VerticalTextAlignment="Center"/>
                                             </StackLayout>
+
+                                            
+                                          <StackLayout  Grid.Column="5" >
+                                              <Image IsVisible="{Binding closeimg}" Source="cancel.png" Margin="0,5,0,5" WidthRequest="20" HeightRequest="20" >
+                                                <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="orderlinecloseClicked" CommandParameter="{Binding .}" />
+                                                 </Image.GestureRecognizers>
+                                                 </Image>
+                                              </StackLayout>
                                             
                                                 </Grid>
                                             </ViewCell>
@@ -607,6 +618,9 @@
                             </ListView>
                         </StackLayout>
 
+                   <!-- <StackLayout  IsVisible="false">
+                        
+                    </StackLayout>-->
                
 
                 <BoxView Color="Transparent" HeightRequest="10"/>
@@ -785,7 +799,7 @@
 
                                        <Label Grid.Column="0" Margin="5,5,0,0" Text="{Binding Name}" FontSize="Small" FontAttributes="Bold"  TextColor="White"/>                                                                                                     
 
-                                             <Image Grid.Column="1" x:Name="cancelImg" Source="closewhite.png" Margin="5,0,5,5" WidthRequest="7" HeightRequest="7" >
+                                               <Image Grid.Column="1" x:Name="cancelImg" Source="closewhite.png" Margin="5,0,5,5" WidthRequest="7" HeightRequest="7" >
                                                  <Image.GestureRecognizers>
                                                             <TapGestureRecognizer Tapped="ListviewcloseClicked" CommandParameter="{Binding .}" />
                                                         </Image.GestureRecognizers>
@@ -1165,11 +1179,6 @@
 
            </StackLayout>
      
-
-                
-
-
-                 <BoxView Color="Transparent" HeightRequest="10"/>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" x:Name="savebtn_layout" IsVisible="false">
                     <Button Text="Save" TextColor="White" BackgroundColor="Black" Clicked="save_clickedAsync"/>

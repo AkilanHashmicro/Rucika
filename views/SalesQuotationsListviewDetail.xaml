@@ -86,7 +86,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="cuspicker1"  />  
+                                <Picker BackgroundColor="Silver" Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="cuspicker1"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
                                 </StackLayout>
@@ -147,7 +147,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" /> 
                                 </Grid.ColumnDefinitions> 
-                                <DatePicker Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="expir_Picker"  />  
+                                <DatePicker BackgroundColor="Silver" Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="expir_Picker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
                                 </StackLayout>
@@ -225,7 +225,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="pricelist_Picker"  />  
+                                <Picker BackgroundColor="Silver" Grid.Column="0"  Margin="0,-5,-30,0"  x:Name="pricelist_Picker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0" />                        
                                 </StackLayout>
@@ -277,7 +277,7 @@
                                     <ColumnDefinition Width="8*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions> 
-                                <Picker Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="ptpicker"  />  
+                                <Picker BackgroundColor="Silver" Grid.Column="0"  Margin="0,-5,-30,0" Title="Sample" x:Name="ptpicker"  />  
                             <StackLayout Grid.Column="1" >
                                 <Image  Source="drdown.png" WidthRequest="10" HeightRequest="10" Margin="0,15,0,0"/>                        
                                 </StackLayout>
